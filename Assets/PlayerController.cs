@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// EXTREMELY simple character controller. Imported from my CMPM 121 project.
-// Spacebar rotates the direction the player is facing. Arrow/WASD move in the cardinal directions relative to the direcion player is Facing.
+// EXTREMELY simple character controller. Imported from my CMPM 121 project -- Colin.
+// 10/30/21 - 9:50 AM - Changed code to use mouse movement to determine rotation -- Matthew.
+// Use the mouse to rotate Camera. Arrow/WASD move in the cardinal directions relative to the direcion player is Facing.
 
 public class PlayerController : MonoBehaviour
 {
@@ -36,6 +37,7 @@ public class PlayerController : MonoBehaviour
  
         yRotation += mouseX;
         xRotation -= mouseY;
+		//clamps vertical rotation for simplicity sake
         xRotation = Mathf.Clamp(xRotation, -90, 90);
  
         firstCam.transform.eulerAngles = new Vector3(xRotation, yRotation, 0.0f);
