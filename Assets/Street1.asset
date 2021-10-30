@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb8af7ddfd24043ae958076da498f6f1, type: 3}
+  m_Name: Street1
+  m_EditorClassIdentifier: 
+  Length: 20
+  Width: 1
+  Color: {fileID: 2100000, guid: 99c5cb8fd56344aa389630f297cb76d5, type: 2}
+  intersections:
+  - position: 85
+    otherPosition: 30
+    other: {fileID: 11400000, guid: 368d17a115aab4608bd2d4e991d3d48f, type: 2}
+  - position: -85
+    otherPosition: -30
+    other: {fileID: 11400000, guid: 1e3986c56d44e4c829070a0a8cb5e9fc, type: 2}
+  objects:
+  - myPrefab: {fileID: 3647528197559950507, guid: d1b615b1bd02e41f282fc4b7047cab08, type: 3}
+    streetPos: {x: -30, y: 1, z: 0}
+  - myPrefab: {fileID: 3647528197559950507, guid: d1b615b1bd02e41f282fc4b7047cab08, type: 3}
+    streetPos: {x: 0, y: 1, z: 0}
+  - myPrefab: {fileID: 3647528197559950507, guid: d1b615b1bd02e41f282fc4b7047cab08, type: 3}
+    streetPos: {x: 20, y: 1, z: 0}

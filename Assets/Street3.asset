@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb8af7ddfd24043ae958076da498f6f1, type: 3}
+  m_Name: Street3
+  m_EditorClassIdentifier: 
+  Length: 8
+  Width: 1
+  Color: {fileID: 2100000, guid: 10876340e3a9a4381a3c80440332b68c, type: 2}
+  intersections:
+  - position: -30
+    otherPosition: -85
+    other: {fileID: 11400000, guid: 2663bcec8f49e447484fb3bf88de2bb1, type: 2}
+  - position: 0
+    otherPosition: -20
+    other: {fileID: 11400000, guid: 16a44c48aabdb4712b4b266b713a7709, type: 2}
+  objects: []
