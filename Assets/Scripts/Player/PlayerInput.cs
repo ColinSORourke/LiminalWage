@@ -9,8 +9,13 @@ namespace Player
         private Vector2 inputVector;
         private float mouseInputX;
         private float mouseInputY;
+
         private bool buttonDownJump;
         private bool buttonDownEscape;
+
+        private bool buttonDownSprint;
+        private bool buttonSprint;
+        private bool buttonUpSprint;
 
         private void Update()
         {
@@ -26,6 +31,10 @@ namespace Player
             buttonDownJump = Input.GetButtonDown("Jump");
 
             buttonDownEscape = Input.GetKeyDown(KeyCode.Escape);
+
+            buttonDownSprint = Input.GetButtonDown("Sprint");
+            buttonSprint = Input.GetButton("Sprint");
+            buttonUpSprint = Input.GetButtonUp("Sprint");
         }
 
         public Vector2 GetInputVector()
@@ -52,6 +61,20 @@ namespace Player
         {
             return buttonDownEscape;
         }
-    }
 
+        public bool GetButtonDownSprint()
+        {
+            return buttonDownSprint;
+        }
+
+        public bool GetButtonSprint()
+        {
+            return buttonSprint;
+        }
+
+        public bool GetButtonUpSprint()
+        {
+            return buttonUpSprint;
+        }
+    }
 }

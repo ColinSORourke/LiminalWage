@@ -14,11 +14,18 @@ namespace Player
         private CameraManager cameraManager;
 
         [SerializeField] private Vector3 gravity;
-        [SerializeField] private float moveSpeed;
+        [SerializeField] private float walkAccel;
+        [SerializeField] private float sprintAccel;
+        [SerializeField] private float maxWalkSpeed;
+        [SerializeField] private float maxSprintSpeed;
+        [Range(0, 1)]
+        [SerializeField] private float decel;
+        [SerializeField] private float stopSpeed;
         [SerializeField] private float jumpHeight;        
 
         private Vector2 inputVector;
         private Vector3 verticalVelocity;
+        private Vector3 horizontalVelocity;
         private float jumpVelocity;
 
         private bool isGroundPlayerCooldown = false;
@@ -80,7 +87,33 @@ namespace Player
             Vector3 newMovement = playerTransform.right * inputVector.x
                 + playerTransform.forward * inputVector.y;
 
-            characterController.Move(newMovement * moveSpeed * Time.deltaTime);
+            if (playerInput.GetButtonSprint())
+            {
+                NewHorizontalMove(newMovement, sprintAccel, maxSprintSpeed);
+            }
+            else
+            {
+                NewHorizontalMove(newMovement, walkAccel, maxWalkSpeed);
+            }
+
+            characterController.Move(horizontalVelocity * Time.deltaTime);
+
+            horizontalVelocity *= decel;
+        }
+
+        private void NewHorizontalMove(Vector3 vector, float accel, float maxSpeed)
+        {
+            horizontalVelocity += vector * accel;
+
+            if(horizontalVelocity.magnitude > maxSpeed)
+            {
+                horizontalVelocity.Normalize();
+                horizontalVelocity *= maxSpeed;
+            }
+            else if (horizontalVelocity.magnitude <= stopSpeed)
+            {
+                horizontalVelocity = Vector3.zero;
+            }
         }
 
         private void Jump()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 namespace Player
 {
@@ -14,13 +15,24 @@ namespace Player
         private PlayerLook playerLook;
 
         public float mouseSensitivity;
+
+        [SerializeField] private float defaultFOV;
+        [SerializeField] private float sprintFOV;
+        [SerializeField] private Ease tweenFOVEase;
+        [SerializeField] private float tweenUpFOVDuration;
+        [SerializeField] private float tweenDownFOVDuration;
+
         public bool cameraEnabled = false;
+
+        private Tween tweenFOV;
 
         private void Awake()
         {
             Cursor.lockState = CursorLockMode.Locked;
 
             playerCamera = gameObject.GetComponent<Camera>();
+
+            playerCamera.fieldOfView = defaultFOV;
 
             playerCamera.enabled = false;
         }
@@ -39,6 +51,15 @@ namespace Player
             {
                 ToggleCursorLock();
             }
+
+            if (playerInput.GetButtonDownSprint())
+            {
+                StartCoroutine(TweenFOV(sprintFOV, tweenUpFOVDuration));
+            }
+            else if (playerInput.GetButtonUpSprint())
+            {
+                StartCoroutine(TweenFOV(defaultFOV, tweenDownFOVDuration));
+            }
         }
 
         private void ToggleCursorLock()
@@ -51,7 +72,18 @@ namespace Player
             {
                 Cursor.lockState = CursorLockMode.Confined;
             }
-            
+        }
+
+        public IEnumerator TweenFOV(float endValue, float duration)
+        {
+            if(tweenFOV != null && tweenFOV.IsActive())
+            {
+                tweenFOV.Kill();
+            }
+            tweenFOV = playerCamera.DOFieldOfView(endValue, duration)
+                .SetEase(tweenFOVEase);
+
+            yield return tweenFOV.WaitForCompletion();
         }
     }
 }
