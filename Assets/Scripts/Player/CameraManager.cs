@@ -47,7 +47,7 @@ namespace Player
 
         private void Update()
         {
-            if(playerInput.GetButtonDownEscape())
+            if (playerInput.GetButtonDownEscape())
             {
                 ToggleCursorLock();
             }

@@ -10,8 +10,11 @@ namespace Player
         private float mouseInputX;
         private float mouseInputY;
 
-        private bool buttonDownJump;
         private bool buttonDownEscape;
+
+        private bool buttonDownJump;
+        private bool buttonJump;
+        private bool buttonUpJump;
 
         private bool buttonDownSprint;
         private bool buttonSprint;
@@ -28,9 +31,11 @@ namespace Player
             mouseInputX = Input.GetAxis("Mouse X") * Time.deltaTime;
             mouseInputY = Input.GetAxis("Mouse Y") * Time.deltaTime;
 
-            buttonDownJump = Input.GetButtonDown("Jump");
-
             buttonDownEscape = Input.GetKeyDown(KeyCode.Escape);
+
+            buttonDownJump = Input.GetButtonDown("Jump");
+            buttonJump = Input.GetButton("Jump");
+            buttonUpJump = Input.GetButtonUp("Jump");
 
             buttonDownSprint = Input.GetButtonDown("Sprint");
             buttonSprint = Input.GetButton("Sprint");
@@ -52,14 +57,24 @@ namespace Player
             return mouseInputY;
         }
 
+        public bool GetButtonDownEscape()
+        {
+            return buttonDownEscape;
+        }
+
         public bool GetButtonDownJump()
         {
             return buttonDownJump;
         }
 
-        public bool GetButtonDownEscape()
+        public bool GetButtonJump()
         {
-            return buttonDownEscape;
+            return buttonJump;
+        }
+
+        public bool GetButtonUpJump()
+        {
+            return buttonUpJump;
         }
 
         public bool GetButtonDownSprint()

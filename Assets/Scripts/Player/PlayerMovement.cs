@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Player
 {
@@ -13,7 +14,11 @@ namespace Player
         private GroundCheck groundCheck;
         private CameraManager cameraManager;
 
-        [SerializeField] private Vector3 gravity;
+        [SerializeField] private Vector3 baseGravity;
+        [SerializeField] private float glideGravityMult;
+        [SerializeField] private float fallGravityMult;
+        [SerializeField] private float lowJumpGravityMult;
+
         [SerializeField] private float walkAccel;
         [SerializeField] private float sprintAccel;
         [SerializeField] private float maxWalkSpeed;
@@ -21,14 +26,16 @@ namespace Player
         [Range(0, 1)]
         [SerializeField] private float decel;
         [SerializeField] private float stopSpeed;
-        [SerializeField] private float jumpHeight;        
+        [SerializeField] private float jumpHeight;
 
+        private Vector3 currentGravity;
         private Vector2 inputVector;
         private Vector3 verticalVelocity;
         private Vector3 horizontalVelocity;
         private float jumpVelocity;
 
-        private bool isGroundPlayerCooldown = false;
+        private bool isGliding;
+        private bool isGroundPlayerCooldown;
 
         public void Construct(Transform playerTransform
             , GroundCheck groundCheck
@@ -63,8 +70,10 @@ namespace Player
             this.characterController = characterController;
             this.cameraManager = cameraManager;
 
+            currentGravity = baseGravity;
+
             // Convert jump height into jump velocity
-            jumpVelocity = Mathf.Sqrt(jumpHeight * 2f * gravity.magnitude);
+            jumpVelocity = Mathf.Sqrt(jumpHeight * 2f * baseGravity.magnitude);
         }
 
         private void Update()
@@ -75,7 +84,9 @@ namespace Player
 
             GroundPlayer();
 
-            Jump();
+            GravityControl();
+
+            JumpOrGlide();
 
             Move();
 
@@ -116,13 +127,51 @@ namespace Player
             }
         }
 
+        private void JumpOrGlide()
+        {
+            if(playerInput.GetButtonDownJump())
+            {
+                if (groundCheck.GetIsGrounded())
+                {
+                    Jump();
+                }
+                else
+                {
+                    isGliding = !isGliding;
+                }
+            }
+        }
+
         private void Jump()
         {
-            if(playerInput.GetButtonDownJump() && groundCheck.GetIsGrounded())
+            verticalVelocity = playerTransform.up * jumpVelocity;
+            StopCoroutine(GroundPlayerCooldown());
+            StartCoroutine(GroundPlayerCooldown());
+        }
+
+        private void GravityControl()
+        {
+            float upDotProduct = Vector3.Dot(playerTransform.up,
+                verticalVelocity.normalized);
+
+            // Player is going down
+            if (upDotProduct < 0)
             {
-                verticalVelocity = playerTransform.up * jumpVelocity;
-                StopCoroutine(GroundPlayerCooldown());
-                StartCoroutine(GroundPlayerCooldown());
+                currentGravity = baseGravity * fallGravityMult;
+            }
+            // Player is going up && not holding jump
+            else if (upDotProduct > 0 && !playerInput.GetButtonJump())
+            {
+                currentGravity = baseGravity * lowJumpGravityMult;
+            }
+            else
+            {
+                currentGravity = baseGravity;
+            }
+
+            if(isGliding)
+            {
+                currentGravity = baseGravity * glideGravityMult;
             }
         }
 
@@ -130,13 +179,14 @@ namespace Player
         {
             if (groundCheck.GetIsGrounded() && !isGroundPlayerCooldown)
             {
+                isGliding = false;
                 verticalVelocity = -playerTransform.up * 0;
             }
         }
 
         private void ApplyVerticalVelocity()
         {
-            verticalVelocity += gravity * Time.deltaTime;
+            verticalVelocity += currentGravity * Time.deltaTime;
 
             characterController.Move(verticalVelocity * Time.deltaTime);
         }
