@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1061227116}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.8, z: 0}
+  m_LocalPosition: {x: 0, y: -0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5785947151888474139}
@@ -43,11 +43,11 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 126
   m_CollisionDetection: 3
 --- !u!135 &1061227119
 SphereCollider:
@@ -60,7 +60,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.55
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1061227118
 MonoBehaviour:
@@ -342,14 +342,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd63bf2d78f8f41ed82ad4ad4cbf83e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: {x: 0, y: -10, z: 0}
+  baseGravity: {x: 0, y: -10, z: 0}
+  glideGravityMult: 0.1
+  fallGravityMult: 2
+  lowJumpGravityMult: 3
   walkAccel: 1
   sprintAccel: 3
   maxWalkSpeed: 30
   maxSprintSpeed: 60
   decel: 0.9
   stopSpeed: 0.01
-  jumpHeight: 3
+  jumpHeight: 5
 --- !u!114 &2725860034643019892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -374,9 +377,9 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_SlopeLimit: 45
   m_StepOffset: 0.3
-  m_SkinWidth: 0.0001
+  m_SkinWidth: 0.1
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
