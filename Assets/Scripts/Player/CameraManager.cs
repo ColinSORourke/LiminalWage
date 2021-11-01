@@ -26,7 +26,7 @@ namespace Player
 
         private Tween tweenFOV;
 
-        private void Awake()
+        public void Construct(PlayerInput playerInput)
         {
             Cursor.lockState = CursorLockMode.Locked;
 
@@ -35,10 +35,7 @@ namespace Player
             playerCamera.fieldOfView = defaultFOV;
 
             playerCamera.enabled = false;
-        }
 
-        public void Construct(PlayerInput playerInput)
-        {
             this.playerInput = playerInput;
 
             playerLook = gameObject.GetComponent<PlayerLook>();
