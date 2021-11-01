@@ -10,6 +10,8 @@ namespace Player
 
     public class PlayerManager : MonoBehaviour
     {
+        private GameManager gameManager;
+
         private Transform playerTransform;
 
         private GroundCheck groundCheck;
@@ -22,8 +24,12 @@ namespace Player
 
         private CameraManager cameraManager;
 
-        public void Construct()
+        private Deliver deliver;
+
+        public void Construct(GameManager gameManager)
         {
+            this.gameManager = gameManager;
+
             playerTransform = gameObject.GetComponent<Transform>();
 
             groundCheck = gameObject.GetComponentInChildren<GroundCheck>();
@@ -39,6 +45,14 @@ namespace Player
             playerMovement = gameObject.GetComponent<PlayerMovement>();
             playerMovement.Construct(playerTransform, groundCheck
                 , playerInput, characterController, cameraManager);
+
+            deliver = gameObject.GetComponentInChildren<Deliver>();
+            deliver.Construct(gameManager);
+        }
+
+        public Deliver GetDeliver()
+        {
+            return deliver;
         }
     }
 }

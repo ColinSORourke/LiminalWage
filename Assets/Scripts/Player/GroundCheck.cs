@@ -21,13 +21,10 @@ namespace Player
             groundCheckCollider = gameObject.GetComponent<Collider>();
 
             localPosiiton = gameObject.transform.localPosition;
-            print("localPosiiton: " + localPosiiton); 
         }
 
         private void Update()
         {
-            //groundCheckTransform.position = localPosiiton;
-
             if (touchGroundList.Count == 0)
             {
                 isGrounded = false;
