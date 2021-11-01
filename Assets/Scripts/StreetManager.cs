@@ -199,6 +199,7 @@ public class renderedStreet {
 
         // Create and color the ground.
         ground = GameObject.CreatePrimitive(PrimitiveType.Plane);
+        ground.layer = 8;
         ground.transform.parent = parent.transform;
         var groundRenderer = ground.GetComponent<MeshRenderer>();
         groundRenderer.material = street.Color;
