@@ -18,10 +18,14 @@ public class PlayerController : MonoBehaviour
     public float camAngle = 0.0f;
     public GameObject firstCam;
 
+	public float maxY;
+	public float minY;
+	private CharacterController controller;
+	
     // Start is called before the first frame update
     void Start()
     {
-        
+        controller = this.GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
@@ -41,5 +45,17 @@ public class PlayerController : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, -90, 90);
  
         firstCam.transform.eulerAngles = new Vector3(xRotation, yRotation, 0.0f);
+		
+		//Vertical wrap
+		if(controller.transform.position.y > maxY){
+			controller.enabled = false;
+			controller.transform.position = new Vector3(controller.transform.position.x, minY, controller.transform.position.z);
+			controller.enabled = true;
+		}
+		else if(controller.transform.position.y < minY){
+			controller.enabled = false;
+			controller.transform.position = new Vector3(controller.transform.position.x, maxY, controller.transform.position.z);
+			controller.enabled = true;
+		}
     }
 }
