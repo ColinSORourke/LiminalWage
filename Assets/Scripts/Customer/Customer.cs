@@ -11,11 +11,11 @@ namespace Customer
     public class Customer : MonoBehaviour
     {
         private Deliver deliver;
-
-        [SerializeField] private CustomerData data;
         private NameText nameText;
         private PayText payText;
         private MeshRenderer customerMesh;
+
+        [SerializeField] private CustomerData data;
 
         private bool isActive;
 
