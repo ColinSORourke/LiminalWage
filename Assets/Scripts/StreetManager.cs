@@ -148,6 +148,8 @@ public class RenderedStreet
         int objLength = streetInfo.objects.Length;
         myObjects = new GameObject[copies * objLength];
 
+        var newAngle = Quaternion.Euler(new Vector3(0, 90, 0));
+
         objectParent = new GameObject();
         objectParent.transform.parent = parent.transform;
         objectParent.name = "Objects";
@@ -168,6 +170,7 @@ public class RenderedStreet
                         objTransform.localPosition = obj.streetPos - new Vector3(streetInfo.Length * offset * 10, 0.0f, 0.0f);
                     } else {
                         objTransform.localPosition = new Vector3 (obj.streetPos.z, obj.streetPos.y, obj.streetPos.x) - new Vector3(0.0f, 0.0f, streetInfo.Length * offset * 10);
+                        objTransform.rotation = newAngle;
                     }
                 }
                 else {

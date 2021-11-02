@@ -522,4 +522,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f53d7faf51204a8e9db8b5a56c2d6a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myStreet: {fileID: 11400000, guid: 6593a0bfe85d54a34a547d4e13395e27, type: 2}
+  myStreet: {fileID: 11400000, guid: b71d0635c7c4040a39d219f384fa0793, type: 2}
+  renderDistance: 200
