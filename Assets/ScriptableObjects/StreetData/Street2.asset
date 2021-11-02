@@ -16,10 +16,10 @@ MonoBehaviour:
   Width: 1
   Color: {fileID: 2100000, guid: febe6bab7f1d54ba0ba9cfe37fb1999a, type: 2}
   intersections:
-  - position: 30
-    otherPosition: 85
-    other: {fileID: 11400000, guid: 2663bcec8f49e447484fb3bf88de2bb1, type: 2}
   - position: 0
     otherPosition: 20
     other: {fileID: 11400000, guid: 16a44c48aabdb4712b4b266b713a7709, type: 2}
+  - position: 30
+    otherPosition: 85
+    other: {fileID: 11400000, guid: 2663bcec8f49e447484fb3bf88de2bb1, type: 2}
   objects: []

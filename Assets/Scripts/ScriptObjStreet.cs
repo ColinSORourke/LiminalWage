@@ -28,6 +28,23 @@ public class Intersection
     public ScriptObjStreet other;
 }
 
+class IntersectionComparer : IComparer
+{
+    public int Compare(object x, object y)
+    {
+        if (x is Intersection && y is Intersection){
+            if (((Intersection) x).position - ((Intersection) y).position > 0){
+                return 1;
+            } else if (((Intersection) x).position - ((Intersection) y).position == 0){
+                return 0;
+            } else {
+                return -1;
+            }
+        }
+        return 0;
+    }
+}
+
 // streetObj sub class. Prefab + position allows us to instantiate objects exactly where we want them.
 [System.Serializable] 
 public class streetObj

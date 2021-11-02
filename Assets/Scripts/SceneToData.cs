@@ -52,6 +52,8 @@ public static class SceneToData
             thisStreet.intersections[i] = inter;
         }
 
+        System.Array.Sort(thisStreet.intersections, new IntersectionComparer());
+
         // Delete the previously saved version of this asset and overwrite it.
         // I don't yet have a way to dynamically name these assets? So to save multiple scenes, just rename something other than Street5
         AssetDatabase.DeleteAsset("Assets/Street5.asset");

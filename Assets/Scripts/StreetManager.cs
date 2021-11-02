@@ -46,9 +46,9 @@ public class StreetManager : MonoBehaviour
     }
 }
 
+//[System.Serializable] 
 public class RenderedStreet
 {
-
     public ScriptObjStreet streetInfo;
     public Vector3 truePos;
     public GameObject parent;
@@ -115,7 +115,7 @@ public class RenderedStreet
             groundTransform.localScale = new Vector3(streetInfo.Width, 1, edge/5);
         }
         
-        int copies = 1 + (int) Mathf.Floor(this.edge/ (streetInfo.Length * 5)) * 2;
+        int copies = 1 + (int) Mathf.Floor(this.edge/ (streetInfo.Length * 5));
         
         int intersLength = streetInfo.intersections.Length;
 
@@ -217,8 +217,6 @@ public class RenderedStreet
         float finalCenter = finalEdge - Mathf.Abs(previousEdge - finalEdge)/2;
         float finalScale = Mathf.Abs(previousEdge - finalEdge)/10;
         this.addWall(finalCenter, finalScale);
-
-        
     }
 
     public void addWall(float center, float scale){
