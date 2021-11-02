@@ -35,3 +35,6 @@ MonoBehaviour:
   - myPrefab: {fileID: 4221194876194436521, guid: be2362439694c4d6c9123aa0d95f5bb4,
       type: 3}
     streetPos: {x: 26.4, y: 1.5, z: -10.2}
+  - myPrefab: {fileID: 4221194876194436521, guid: be2362439694c4d6c9123aa0d95f5bb4,
+      type: 3}
+    streetPos: {x: 95.5, y: 1.5, z: 10}

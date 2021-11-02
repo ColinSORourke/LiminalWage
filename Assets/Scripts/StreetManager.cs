@@ -18,7 +18,7 @@ public class StreetManager : MonoBehaviour
     void Start()
     {
         // We start by instantiating a renderedStreet from a Script Object attached to the player.
-        onStreet = new RenderedStreet(myStreet, new Vector3(0, 0, 0), false);
+        onStreet = new RenderedStreet(myStreet, new Vector3(0, 0, 0), true);
     }
 
     // Update is called once per frame
@@ -59,6 +59,7 @@ public class RenderedStreet
     public RenderedStreet[] myIntersections;
 
     public GameObject objectParent;
+    public GameObject wallsParent;
     public GameObject[] myObjects;
 
     GameObject ground;
@@ -164,7 +165,7 @@ public class RenderedStreet
         for(int j = 0; j < objLength; j++){
             
             var obj = streetInfo.objects[j];
-            var objRelPos = Mathf.Abs(obj.streetPos.x - middle);
+            var objRelPos = obj.streetPos.x - middle;
             for (int currCopy = 0; currCopy < copies; currCopy += 1){
                 var offset = currCopy - Mathf.Floor(copies/2);
                 if (Mathf.Abs(objRelPos + streetInfo.Length * offset * 10) < this.edge){
@@ -173,18 +174,23 @@ public class RenderedStreet
 
                     var objTransform = myObjects[j + (objLength * currCopy)].GetComponent<Transform>();
                     if (xOriented){
-                        objTransform.localPosition = obj.streetPos - new Vector3(streetInfo.Length * offset * 10, 0.0f, 0.0f);
+                        objTransform.localPosition = obj.streetPos + new Vector3(streetInfo.Length * offset * 10, 0.0f, 0.0f);
                     } else {
-                        objTransform.localPosition = new Vector3 (obj.streetPos.z, obj.streetPos.y, obj.streetPos.x) - new Vector3(0.0f, 0.0f, streetInfo.Length * offset * 10);
-                        objTransform.rotation = newAngle;
+                        objTransform.localPosition = new Vector3 (obj.streetPos.z, obj.streetPos.y, obj.streetPos.x) + new Vector3(0.0f, 0.0f, streetInfo.Length * offset * 10);
+                        objTransform.localRotation = newAngle;
                     }
                 }
                 else {
-                    // Don't! Render a small intersection that we are already standing on.
+                    // Don't! Render Extra objects
                     myObjects[j + (objLength * currCopy)] = null;
                 }
             }
         }
+
+        wallsParent = new GameObject();
+        wallsParent.transform.parent = parent.transform;
+        wallsParent.name = "Objects";
+        wallsParent.GetComponent<Transform>().localPosition = new Vector3 (0.0f, 0.0f, 0.0f);
 
         int totalIntersections = myIntersections.Length;
         float previousEdge = middle - edge;
@@ -237,7 +243,7 @@ public class RenderedStreet
         var objLeft = GameObject.CreatePrimitive(PrimitiveType.Plane);
         var objRendererL = objLeft.GetComponent<MeshRenderer>();
         objRendererL.material = streetInfo.Color;
-        objLeft.transform.parent = objectParent.transform;
+        objLeft.transform.parent = wallsParent.transform;
         objLeft.GetComponent<Transform>().localPosition = planePosLeft;
         objLeft.GetComponent<Transform>().rotation = planeAngleLeft;
         objLeft.GetComponent<Transform>().localScale = planeScale;
@@ -245,7 +251,7 @@ public class RenderedStreet
         var objRight = GameObject.CreatePrimitive(PrimitiveType.Plane);
         var objRendererR = objRight.GetComponent<MeshRenderer>();
         objRendererR.material = streetInfo.Color;
-        objRight.transform.parent = objectParent.transform;
+        objRight.transform.parent = wallsParent.transform;
         objRight.GetComponent<Transform>().localPosition = planePosRight;
         objRight.GetComponent<Transform>().rotation = planeAngleRight;
         objRight.GetComponent<Transform>().localScale = planeScale;
@@ -297,7 +303,7 @@ public class RenderedStreet
                 }
                 var temp = intersecting.getOtherIntersectionId(streetInfo);
                 var index = this.getOtherIntersectionId(this.streetInfo.intersections[temp].other);
-                if (relativePos <= (width * 5) + 5){
+                if (relativePos <= ((width + 1) * 10)){
                     if (intersecting.edge <= 25.0f){
                         intersecting.edge = intersecting.streetInfo.Length * 5;
                     }
@@ -305,6 +311,8 @@ public class RenderedStreet
                 } else {
                     if (intersecting.edge > 25.0f){
                         intersecting.edge = 25.0f;
+                        var selfId = intersecting.getOtherIntersectionId(this.streetInfo);
+                        intersecting.middle = intersecting.streetInfo.intersections[selfId].position;
                         intersecting.destroyObjects();
                         
                         intersecting.render(index);
@@ -338,6 +346,7 @@ public class RenderedStreet
 
     public void destroyObjects(){
         GameObject.Destroy(objectParent);
+        GameObject.Destroy(wallsParent);
         for (int i = 0; i < myIntersections.Length; i++){
             var inter = myIntersections[i];
             if (inter != null && i != ignoreIndex){

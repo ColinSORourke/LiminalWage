@@ -18,7 +18,7 @@ MonoBehaviour:
   intersections:
   - position: 20
     otherPosition: 80
-    other: {fileID: 11400000, guid: b71d0635c7c4040a39d219f384fa0793, type: 2}
+    other: {fileID: 11400000, guid: a72b5791872c8470aa5f4154917b990a, type: 2}
   objects:
   - myPrefab: {fileID: 3647528197559950507, guid: d1b615b1bd02e41f282fc4b7047cab08,
       type: 3}
