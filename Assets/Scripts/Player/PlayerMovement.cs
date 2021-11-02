@@ -8,32 +8,48 @@ namespace Player
 {
     public class PlayerMovement : MonoBehaviour
     {
+        // External references
         private PlayerInput playerInput;
         private CharacterController characterController;
         private Transform playerTransform;
         private GroundCheck groundCheck;
         private CameraManager cameraManager;
 
+        [Header("Gravity & jump variables")]
+        [Tooltip("Gravity when actively jumping upward; all gravityMult modifies this")]
         [SerializeField] private Vector3 baseGravity;
+        [Tooltip("Gliding gravity; when player jumps in the air, toggles glide")]
         [SerializeField] private float glideGravityMult;
+        [Tooltip("Falling gravity after a full hold jump")]
         [SerializeField] private float fallGravityMult;
+        [Tooltip("Falling gravity after releasing jump before reaching full jump")]
         [SerializeField] private float lowJumpGravityMult;
-
-        [SerializeField] private float walkAccel;
-        [SerializeField] private float sprintAccel;
-        [SerializeField] private float maxWalkSpeed;
-        [SerializeField] private float maxSprintSpeed;
-        [Range(0, 1)]
-        [SerializeField] private float decel;
-        [SerializeField] private float stopSpeed;
+        [Tooltip("Height reached in Unity units after a full jump")]
         [SerializeField] private float jumpHeight;
 
+        [Header("Horizontal movement variables")]
+        [Tooltip("Acceleration per second when not sprinting")]
+        [SerializeField] private float walkAccel;
+        [Tooltip("Acceleration per second when sprinting")]
+        [SerializeField] private float sprintAccel;
+        [Tooltip("Max speed when walking")]
+        [SerializeField] private float maxWalkSpeed;
+        [Tooltip("Max speed when sprinting")]
+        [SerializeField] private float maxSprintSpeed;
+        [Range(0, 1)]
+        [Tooltip("Fraction of previous frame's velocity maintained for next frame")]
+        [SerializeField] private float horizontalDecel;
+        [Tooltip("Speed threshold where player's velocity is set to 0")]
+        [SerializeField] private float stopSpeed;
+        
+        // Internal references
         private Vector3 currentGravity;
         private Vector2 inputVector;
         private Vector3 verticalVelocity;
         private Vector3 horizontalVelocity;
         private float jumpVelocity;
 
+        // Internal state trackers
         private bool isGliding;
         private bool isGroundPlayerCooldown;
 
@@ -109,7 +125,7 @@ namespace Player
 
             characterController.Move(horizontalVelocity * Time.deltaTime);
 
-            horizontalVelocity *= decel;
+            horizontalVelocity *= horizontalDecel;
         }
 
         private void NewHorizontalMove(Vector3 vector, float accel, float maxSpeed)

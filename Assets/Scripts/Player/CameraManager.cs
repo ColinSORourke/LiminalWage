@@ -14,8 +14,9 @@ namespace Player
         private PlayerInput playerInput;
         private PlayerLook playerLook;
 
+        [Header("Mouse control")]
         public float mouseSensitivity;
-
+        [Header("FOV variables")]
         [SerializeField] private float defaultFOV;
         [SerializeField] private float sprintFOV;
         [SerializeField] private Ease tweenFOVEase;

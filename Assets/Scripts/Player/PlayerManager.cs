@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,6 +29,11 @@ namespace Player
 
         public void Construct(GameManager gameManager)
         {
+            if (gameManager == null)
+            {
+                throw new ArgumentNullException(nameof(gameManager));
+            }
+
             this.gameManager = gameManager;
 
             playerTransform = gameObject.GetComponent<Transform>();
