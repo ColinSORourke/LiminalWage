@@ -62,13 +62,15 @@ public class RenderedStreet
     public GameObject[] myObjects;
 
     GameObject ground;
+    int ignoreIndex;
+    RenderedStreet ignoreStreet;
 
     // The constructer takes:
     // ScriptObjStreet, the scriptable object storing juicy information
     // Vector3 Pos, the true-game position of the street-center.
     // bool intersection - is this a full street we want to render, or the small intersection portion.
     // int interIndex - the index of intersection between this and another street. Helps avoid double-rendering some stuff, as well as correctly positioning the street.
-    public RenderedStreet(ScriptObjStreet street, Vector3 pos, bool orient, float center = 0.0f, float range = -1.0f, int interIndex = -1){
+    public RenderedStreet(ScriptObjStreet street, Vector3 pos, bool orient, float center = 0.0f, float range = -1.0f, RenderedStreet ignoredInter = null,int interIndex = -1){
         streetInfo = street;
         truePos = pos;
         xOriented = orient;
@@ -83,6 +85,9 @@ public class RenderedStreet
         } else {
             edge = range;
         }
+
+        ignoreStreet = ignoredInter;
+        ignoreIndex = -1;
 
         this.middle = center % (street.Length * 10);
 
@@ -130,16 +135,17 @@ public class RenderedStreet
                     int index = this.getOtherIntersectionId(otherStreet);
                     
                     if (j != i || offset != 0){
-                        var renderedInter = new RenderedStreet(otherStreet, pos, !xOriented, inter.otherPosition, 25.0f, index);
+                        var renderedInter = new RenderedStreet(otherStreet, pos, !xOriented, inter.otherPosition, 25.0f, this, index);
                         myIntersections[j + (intersLength * currCopy)] = renderedInter;
                     }
                     else {
                         // Don't! Render a small intersection that we are already standing on.
-                        myIntersections[j + (intersLength * currCopy)] = null;
+                        ignoreIndex = j + (intersLength * currCopy);
+                        myIntersections[j + (intersLength * currCopy)] = ignoreStreet;
                     }
                 }
                 else {
-                    // Don't! Render a small intersection that we are already standing on.
+                    // Don't! Render an intersection that is outside of our current range.
                     myIntersections[j + (intersLength * currCopy)] = null;
                 }
             }
@@ -179,6 +185,70 @@ public class RenderedStreet
                 }
             }
         }
+
+        int totalIntersections = myIntersections.Length;
+        float previousEdge = middle - edge;
+        for (int j = 0; j < totalIntersections; j++){
+
+            var intersection = myIntersections[j];
+            if (intersection != null){
+                float interEdge;
+                float newEdge;
+                if (xOriented){
+                    interEdge = (intersection.truePos.x - this.truePos.x) - intersection.streetInfo.Width * 5;
+                    newEdge = (intersection.truePos.x - this.truePos.x) + intersection.streetInfo.Width * 5;
+                } else {
+                    interEdge = (intersection.truePos.z - this.truePos.z) - intersection.streetInfo.Width * 5;
+                    newEdge = (intersection.truePos.z - this.truePos.z) + intersection.streetInfo.Width * 5;
+                }
+                float center = interEdge - Mathf.Abs(previousEdge - interEdge)/2;
+                float scale = Mathf.Abs(previousEdge - interEdge)/10;
+                this.addWall(center, scale);
+                previousEdge = newEdge;
+            }
+        }
+        float finalEdge = middle + edge;
+        float finalCenter = finalEdge - Mathf.Abs(previousEdge - finalEdge)/2;
+        float finalScale = Mathf.Abs(previousEdge - finalEdge)/10;
+        this.addWall(finalCenter, finalScale);
+
+        
+    }
+
+    public void addWall(float center, float scale){
+        Quaternion planeAngleLeft;
+        Quaternion planeAngleRight;
+        Vector3 planePosLeft;
+        Vector3 planePosRight;
+        if (xOriented){
+            planeAngleLeft = Quaternion.Euler(new Vector3(90, 180, 0));
+            planeAngleRight = Quaternion.Euler(new Vector3(90, 0, 0));
+            planePosLeft = new Vector3(center, 0, streetInfo.Width*5);
+            planePosRight = new Vector3(center, 0, streetInfo.Width*-5);
+        } else {
+            planeAngleLeft = Quaternion.Euler(new Vector3(90, 270, 0));
+            planeAngleRight = Quaternion.Euler(new Vector3(90, 90, 0));
+            planePosLeft = new Vector3(streetInfo.Width*5, 0, center);
+            planePosRight = new Vector3(streetInfo.Width*-5, 0, center);
+        }
+
+        Vector3 planeScale = new Vector3 (scale, 1, 10);
+
+        var objLeft = GameObject.CreatePrimitive(PrimitiveType.Plane);
+        var objRendererL = objLeft.GetComponent<MeshRenderer>();
+        objRendererL.material = streetInfo.Color;
+        objLeft.transform.parent = objectParent.transform;
+        objLeft.GetComponent<Transform>().localPosition = planePosLeft;
+        objLeft.GetComponent<Transform>().rotation = planeAngleLeft;
+        objLeft.GetComponent<Transform>().localScale = planeScale;
+
+        var objRight = GameObject.CreatePrimitive(PrimitiveType.Plane);
+        var objRendererR = objRight.GetComponent<MeshRenderer>();
+        objRendererR.material = streetInfo.Color;
+        objRight.transform.parent = objectParent.transform;
+        objRight.GetComponent<Transform>().localPosition = planePosRight;
+        objRight.GetComponent<Transform>().rotation = planeAngleRight;
+        objRight.GetComponent<Transform>().localScale = planeScale;
     }
 
     public void wraparound(float distance, Vector3 playerWorldPos, int index = -1){
@@ -260,7 +330,7 @@ public class RenderedStreet
         GameObject.Destroy(parent);
         for (int i = 0; i < myIntersections.Length; i++){
             var inter = myIntersections[i];
-            if (inter != null){
+            if (inter != null && i != ignoreIndex){
                 inter.destroyStreet();
             }
         }
@@ -270,7 +340,7 @@ public class RenderedStreet
         GameObject.Destroy(objectParent);
         for (int i = 0; i < myIntersections.Length; i++){
             var inter = myIntersections[i];
-            if (inter != null){
+            if (inter != null && i != ignoreIndex){
                 inter.destroyStreet();
             }
         }
