@@ -46,7 +46,7 @@ public class StreetManager : MonoBehaviour
     }
 }
 
-//[System.Serializable] 
+[System.Serializable] 
 public class RenderedStreet
 {
     public ScriptObjStreet streetInfo;
@@ -56,6 +56,7 @@ public class RenderedStreet
     public float edge;
     public float middle;
 
+    [System.NonSerialized]
     public RenderedStreet[] myIntersections;
 
     public GameObject objectParent;
@@ -96,6 +97,7 @@ public class RenderedStreet
 
         // Create and color the ground.
         ground = GameObject.CreatePrimitive(PrimitiveType.Plane);
+        ground.name = "Middle: " + middle;
         ground.layer = 8;
         ground.transform.parent = parent.transform;
         var groundRenderer = ground.GetComponent<MeshRenderer>();
@@ -134,9 +136,13 @@ public class RenderedStreet
                     }
                     var otherStreet = inter.other;
                     int index = this.getOtherIntersectionId(otherStreet);
-                    
+                    var interWidth = 25.0f;
+                    if (this.ignoreIndex != -1){
+                        interWidth = 8.0f;
+                    }
+
                     if (j != i || offset != 0){
-                        var renderedInter = new RenderedStreet(otherStreet, pos, !xOriented, inter.otherPosition, 25.0f, this, index);
+                        var renderedInter = new RenderedStreet(otherStreet, pos, !xOriented, inter.otherPosition, interWidth, this, index);
                         myIntersections[j + (intersLength * currCopy)] = renderedInter;
                     }
                     else {
@@ -195,7 +201,6 @@ public class RenderedStreet
         int totalIntersections = myIntersections.Length;
         float previousEdge = middle - edge;
         for (int j = 0; j < totalIntersections; j++){
-
             var intersection = myIntersections[j];
             if (intersection != null){
                 float interEdge;
@@ -268,15 +273,33 @@ public class RenderedStreet
         bool offBottomEdge =  playerStreetPos - distance <= middle - edge;
 
         if (offTopEdge && offBottomEdge){
-            edge += 20;
+            edge += 40;
             this.destroyObjects();
             this.render(index);
         } else if (offTopEdge){
-            middle = playerStreetPos;
+            if (Mathf.Abs(playerStreetPos) > (streetInfo.Length * 5)){
+                if (xOriented){
+                    this.truePos = this.truePos + new Vector3(streetInfo.Length * 10, 0, 0);
+                } else {
+                    this.truePos = this.truePos + new Vector3(0, 0, (streetInfo.Length * 10));
+                }
+                this.parent.GetComponent<Transform>().position = this.truePos;
+                middle *= -1;
+            }
+            middle = playerStreetPos % (streetInfo.Length * 10);
             this.destroyObjects();
             this.render(index);
         } else if (offBottomEdge){
-            middle = playerStreetPos;
+            if (Mathf.Abs(playerStreetPos) > (streetInfo.Length * 5)){
+                if (xOriented){
+                    this.truePos = this.truePos - new Vector3(streetInfo.Length * 10, 0, 0);
+                } else {
+                    this.truePos = this.truePos - new Vector3(0, 0, (streetInfo.Length * 10));
+                }
+                this.parent.GetComponent<Transform>().position = this.truePos;
+                middle *= -1;
+            }
+            middle = playerStreetPos % (streetInfo.Length * 10);
             this.destroyObjects();
             this.render(index);
         }
@@ -301,18 +324,23 @@ public class RenderedStreet
                 }
                 var temp = intersecting.getOtherIntersectionId(streetInfo);
                 var index = this.getOtherIntersectionId(this.streetInfo.intersections[temp].other);
-                if (relativePos <= ((width + 1) * 10)){
-                    if (intersecting.edge <= 25.0f){
+                var interWidth = 25.0f;
+                if (this.ignoreIndex != -1){
+                    interWidth = 8.0f;
+                }
+                if (relativePos <= ((width * 5) + 5)){
+                    if (intersecting.edge <= interWidth){
                         intersecting.edge = intersecting.streetInfo.Length * 5;
                     }
-                    intersecting.wraparound(distance, playerWorldPos, index);
+                    intersecting.edge = this.edge;
+                    intersecting.destroyObjects();
+                    intersecting.render(index);
                 } else {
-                    if (intersecting.edge > 25.0f){
-                        intersecting.edge = 25.0f;
+                    if (intersecting.edge > interWidth){
+                        intersecting.edge = interWidth;
                         var selfId = intersecting.getOtherIntersectionId(this.streetInfo);
-                        intersecting.middle = intersecting.streetInfo.intersections[selfId].position;
+                        var inter = intersecting.streetInfo.intersections[selfId];
                         intersecting.destroyObjects();
-                        
                         intersecting.render(index);
                     }
                 }
