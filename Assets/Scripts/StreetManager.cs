@@ -197,6 +197,8 @@ public class renderedStreet {
         var parentTrans = parent.GetComponent<Transform>();
         parentTrans.position = pos;
 
+        parent.layer = 8;
+
         // Create and color the ground.
         ground = GameObject.CreatePrimitive(PrimitiveType.Plane);
         ground.layer = 8;
@@ -341,12 +343,13 @@ public class renderedStreet {
         int index = -1;
         for (int i = 0; i < streetInfo.intersections.Length; i++){
             Intersection inter = streetInfo.intersections[i];
+    
             if (xOriented){
-                if (Mathf.Abs(inter.position - playerRelPos.x) <= 5.0f){
+                if (Mathf.Abs(inter.position - playerRelPos.x) <= inter.other.Width * 5){
                     index = i;
                 }
             } else {
-                if (Mathf.Abs(inter.position - playerRelPos.z) <= 5.0f){
+                if (Mathf.Abs(inter.position - playerRelPos.z) <= inter.other.Width * 5){
                     index = i;
                 }
             }

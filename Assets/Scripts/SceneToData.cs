@@ -40,11 +40,22 @@ public static class SceneToData
             thisStreet.objects[i] = obj;
         }
 
+        GameObject interPar = GameObject.Find("Intersections");
+        thisStreet.intersections = new Intersection[interPar.transform.childCount];
+
+        for (int i = 0; i < interPar.transform.childCount; i++){
+            Intersection inter = new Intersection();
+            var interTrans = (interPar.transform.GetChild(i)).GetComponent<Transform>();
+            inter.position = interTrans.position.x;
+            inter.otherPosition = interTrans.position.z * -1;
+
+            thisStreet.intersections[i] = inter;
+        }
+
         // Delete the previously saved version of this asset and overwrite it.
         // I don't yet have a way to dynamically name these assets? So to save multiple scenes, just rename something other than Street5
         AssetDatabase.DeleteAsset("Assets/Street5.asset");
         AssetDatabase.CreateAsset(thisStreet, "Assets/Street5.asset");
         AssetDatabase.SaveAssets();
-
     }
 }
