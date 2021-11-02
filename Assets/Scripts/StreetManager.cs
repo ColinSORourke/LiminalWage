@@ -328,9 +328,9 @@ public class renderedStreet {
         }   
         groundTransform.localPosition = pos;
         if (xOriented){
-            groundTransform.localScale = new Vector3(2.0f, 1.0f, streetInfo.Width);
+            groundTransform.localScale = new Vector3(5.0f, 1.0f, streetInfo.Width);
         } else {
-            groundTransform.localScale = new Vector3(streetInfo.Width, 1.0f, 2.0f);
+            groundTransform.localScale = new Vector3(streetInfo.Width, 1.0f, 5.0f);
         }
 
         myIntersections = new renderedStreet[0];
@@ -345,11 +345,11 @@ public class renderedStreet {
             Intersection inter = streetInfo.intersections[i];
     
             if (xOriented){
-                if (Mathf.Abs(inter.position - playerRelPos.x) <= inter.other.Width * 5){
+                if (Mathf.Abs(inter.position - playerRelPos.x) <= inter.other.Width * 10){
                     index = i;
                 }
             } else {
-                if (Mathf.Abs(inter.position - playerRelPos.z) <= inter.other.Width * 5){
+                if (Mathf.Abs(inter.position - playerRelPos.z) <= inter.other.Width * 10){
                     index = i;
                 }
             }
