@@ -6,6 +6,8 @@ using UnityEngine.Events;
 
 namespace Player
 {
+    using Utility;
+
     public class PlayerMovement : MonoBehaviour
     {
         // External references
@@ -27,7 +29,7 @@ namespace Player
         [Tooltip("Height reached in Unity units after a full jump")]
         [SerializeField] private float jumpHeight;
 
-        [Header("Horizontal movement variables")]
+        [Header("Ground horizontal movement variables")]
         [Tooltip("Acceleration per second when not sprinting")]
         [SerializeField] private float walkAccel;
         [Tooltip("Acceleration per second when sprinting")]
@@ -36,12 +38,28 @@ namespace Player
         [SerializeField] private float maxWalkSpeed;
         [Tooltip("Max speed when sprinting")]
         [SerializeField] private float maxSprintSpeed;
+        [Tooltip("On ground, rate of deceleration if no horizontal movement input")]
         [Range(0, 1)]
-        [Tooltip("Fraction of previous frame's velocity maintained for next frame")]
-        [SerializeField] private float horizontalDecel;
+        [SerializeField] private float groundHorizontalSlowdown;
         [Tooltip("Speed threshold where player's velocity is set to 0")]
         [SerializeField] private float stopSpeed;
-        
+
+        [Header("Air horizontal movement variables")]
+        [Tooltip("In air, rate of deceleration if no horizontal movement input")]
+        [Range(0, 1)]
+        [SerializeField] private float airHorizontalSlowdown;
+        [Tooltip("Multiplies movement input magnitude while not grounded")]
+        [SerializeField] private float airControlMult;
+        [Tooltip("Acceleration multiplier for air movement directly forward")]
+        [SerializeField] private float forwardAirControl;
+        [Tooltip("Acceleration multiplier for air movement sideways")]
+        [SerializeField] private float forwardSideAirControl;
+        [Tooltip("Acceleration multiplier for air movement slightly forward of sideways")]
+        [SerializeField] private float backSideAirControl;
+        [Tooltip("Acceleration multiplier for air movement directly backward")]
+        [SerializeField] private float backAirControl;
+
+
         // Internal references
         private Vector3 currentGravity;
         private Vector2 inputVector;
@@ -114,18 +132,38 @@ namespace Player
             Vector3 newMovement = playerTransform.right * inputVector.x
                 + playerTransform.forward * inputVector.y;
 
-            if (playerInput.GetButtonSprint())
+            // No horizontal input
+            if (newMovement.magnitude == 0)
             {
-                NewHorizontalMove(newMovement, sprintAccel, maxSprintSpeed);
+                if (groundCheck.GetIsGrounded())
+                {
+                    horizontalVelocity *= groundHorizontalSlowdown;
+                }
+                else
+                {
+                    horizontalVelocity *= airHorizontalSlowdown;
+                }
             }
+            // Horizontal input and grounded
+            else if (groundCheck.GetIsGrounded())
+            {
+                if (playerInput.GetButtonSprint())
+                {
+                    NewHorizontalMove(newMovement, sprintAccel, maxSprintSpeed);
+                }
+                else
+                {
+                    NewHorizontalMove(newMovement, walkAccel, maxWalkSpeed);
+                }
+            }
+            // Horizontal input and not grounded
             else
             {
-                NewHorizontalMove(newMovement, walkAccel, maxWalkSpeed);
+                NewAirMovement(newMovement * airControlMult
+                    , walkAccel, maxWalkSpeed);
             }
 
             characterController.Move(horizontalVelocity * Time.deltaTime);
-
-            horizontalVelocity *= horizontalDecel;
         }
 
         private void NewHorizontalMove(Vector3 vector, float accel, float maxSpeed)
@@ -140,6 +178,30 @@ namespace Player
             else if (horizontalVelocity.magnitude <= stopSpeed)
             {
                 horizontalVelocity = Vector3.zero;
+            }
+        }
+
+        private void NewAirMovement(Vector3 vector, float accel, float maxSpeed)
+        {
+            float forwardDotProduct = Vector3.Dot(playerTransform.forward,
+                vector.normalized);
+
+            if (forwardDotProduct >= 0)
+            {
+                float forwardMult = UtilityFunctions.Rescale(
+                    0, 1, forwardSideAirControl, forwardAirControl, forwardDotProduct);
+                NewHorizontalMove(vector, accel * forwardMult, maxSpeed);
+
+                print("forwardMult: " + forwardMult);
+            }
+            else
+            {
+                float inverseBackwardDot = 1 + forwardDotProduct;
+                float oppositeMult = UtilityFunctions.Rescale(
+                    0, 1, backAirControl, backSideAirControl, inverseBackwardDot);
+                NewHorizontalMove(vector, accel * oppositeMult, maxSpeed);
+
+                print("oppositeMult: " + oppositeMult);
             }
         }
 
@@ -175,19 +237,22 @@ namespace Player
             {
                 currentGravity = baseGravity * fallGravityMult;
             }
-            // Player is going up && not holding jump
-            else if (upDotProduct > 0 && !playerInput.GetButtonJump())
+            // Player is going up
+            else if (upDotProduct > 0)
             {
-                currentGravity = baseGravity * lowJumpGravityMult;
+                if (isGliding)
+                {
+                    currentGravity = baseGravity * glideGravityMult;
+                }
+                if(!playerInput.GetButtonJump())
+                {
+                    currentGravity = baseGravity * lowJumpGravityMult;
+                }
             }
+            // Player has no vertical velocity
             else
             {
                 currentGravity = baseGravity;
-            }
-
-            if(isGliding)
-            {
-                currentGravity = baseGravity * glideGravityMult;
             }
         }
 

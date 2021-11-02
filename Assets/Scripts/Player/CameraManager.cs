@@ -50,13 +50,20 @@ namespace Player
                 ToggleCursorLock();
             }
 
-            if (playerInput.GetButtonDownSprint())
-            {
-                StartCoroutine(TweenFOV(sprintFOV, tweenUpFOVDuration));
-            }
-            else if (playerInput.GetButtonUpSprint())
+            if(playerInput.GetInputVector().magnitude == 0)
             {
                 StartCoroutine(TweenFOV(defaultFOV, tweenDownFOVDuration));
+            }
+            else
+            {
+                if (playerInput.GetButtonDownSprint())
+                {
+                    StartCoroutine(TweenFOV(sprintFOV, tweenUpFOVDuration));
+                }
+                else if (playerInput.GetButtonUpSprint())
+                {
+                    StartCoroutine(TweenFOV(defaultFOV, tweenDownFOVDuration));
+                }
             }
         }
 

@@ -267,9 +267,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSensitivity: 70
   defaultFOV: 90
-  sprintFOV: 100
+  sprintFOV: 110
   tweenFOVEase: 3
-  tweenUpFOVDuration: 1
+  tweenUpFOVDuration: 0.5
   tweenDownFOVDuration: 0.5
   cameraEnabled: 0
 --- !u!1 &3857979982329768477
@@ -287,6 +287,7 @@ GameObject:
   - component: {fileID: 2725860034643019892}
   - component: {fileID: 1631748374280250673}
   - component: {fileID: 2751556834804593786}
+  - component: {fileID: 2086146126}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -348,13 +349,19 @@ MonoBehaviour:
   glideGravityMult: 0.1
   fallGravityMult: 2
   lowJumpGravityMult: 3
+  jumpHeight: 5
   walkAccel: 1
   sprintAccel: 3
-  maxWalkSpeed: 30
-  maxSprintSpeed: 60
-  decel: 0.9
+  maxWalkSpeed: 20
+  maxSprintSpeed: 40
+  groundHorizontalSlowdown: 0.9
   stopSpeed: 0.01
-  jumpHeight: 5
+  airHorizontalSlowdown: 1
+  airControlMult: 1
+  forwardAirControl: 0.75
+  forwardSideAirControl: 0.5
+  backSideAirControl: 0.5
+  backAirControl: 0.25
 --- !u!114 &2725860034643019892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -397,8 +404,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba1064cf3fdf314694ecabab91dde73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxY: 5
-  minY: -5
+  maxY: 20
+  minY: -20
+--- !u!114 &2086146126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3857979982329768477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f53d7faf51204a8e9db8b5a56c2d6a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myStreet: {fileID: 11400000, guid: 2663bcec8f49e447484fb3bf88de2bb1, type: 2}
+  onStreet:
+    streetInfo: {fileID: 0}
+    truePos: {x: 0, y: 0, z: 0}
+    parent: {fileID: 0}
+    xOriented: 0
+    edge: 0
+    middle: 0
+    objectParent: {fileID: 0}
+    wallsParent: {fileID: 0}
+    myObjects: []
+  renderDistance: 200
 --- !u!1 &4097545304477760416
 GameObject:
   m_ObjectHideFlags: 0

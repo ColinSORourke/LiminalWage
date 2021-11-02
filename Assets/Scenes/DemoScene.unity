@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -280,21 +280,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6138369528823061030, guid: 5aac63b8a6013487b9ce5ea558e8055b,
-        type: 3}
-      propertyPath: walkAccel
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6138369528823061030, guid: 5aac63b8a6013487b9ce5ea558e8055b,
-        type: 3}
-      propertyPath: maxWalkSpeed
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 6138369528823061030, guid: 5aac63b8a6013487b9ce5ea558e8055b,
-        type: 3}
-      propertyPath: horizontalDecel
-      value: 0.3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5aac63b8a6013487b9ce5ea558e8055b, type: 3}
 --- !u!1001 &774533736
@@ -504,23 +489,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CustomerDataList: []
---- !u!1 &2086146125 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3857979982329768477, guid: 5aac63b8a6013487b9ce5ea558e8055b,
-    type: 3}
-  m_PrefabInstance: {fileID: 468987105}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2086146126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2086146125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f53d7faf51204a8e9db8b5a56c2d6a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myStreet: {fileID: 11400000, guid: 2663bcec8f49e447484fb3bf88de2bb1, type: 2}
-  renderDistance: 200

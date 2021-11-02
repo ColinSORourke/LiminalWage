@@ -25,6 +25,15 @@ namespace Player
 
         private void Update()
         {
+            for(int i = 0; i < touchGroundList.Count; i++)
+            {
+                Collider thisCollider = touchGroundList[0];
+                if (thisCollider == null)
+                {
+                    touchGroundList.Remove(thisCollider);
+                }
+            }
+
             if (touchGroundList.Count == 0)
             {
                 isGrounded = false;
