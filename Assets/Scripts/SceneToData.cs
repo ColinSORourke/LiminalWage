@@ -37,6 +37,7 @@ public static class SceneToData
             // It is assumed the positions are relative to a street center at 0,0,0.
             obj.myPrefab = PrefabUtility.GetCorrespondingObjectFromSource(objPar.transform.GetChild(i).gameObject);
             obj.streetPos = objPar.transform.GetChild(i).GetComponent<Transform>().localPosition;
+            obj.rotation = objPar.transform.GetChild(i).GetComponent<Transform>().rotation;
             thisStreet.objects[i] = obj;
         }
 
