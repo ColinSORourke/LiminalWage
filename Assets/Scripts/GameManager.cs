@@ -12,11 +12,15 @@ public class GameManager : MonoBehaviour
     private ScoreUI scoreUI;
     private PlayerManager playerManager;
     private CustomerManager customerManager;
+    private StreetManager streetManager;
 
     private void Awake()
     {
         playerManager = FindObjectOfType<PlayerManager>();
         playerManager.Construct(this);
+
+        streetManager = FindObjectOfType<StreetManager>();
+        streetManager.Construct(playerManager.GetPlayerTransform());
 
         customerManager = FindObjectOfType<CustomerManager>();
         customerManager.Construct(playerManager.GetDeliver());

@@ -30,7 +30,7 @@ public class ScoreUI : MonoBehaviour
     {
         if(showingAddingScore)
         {
-            scoreText.text = "Score: " + displayScore + "+ " + addingScore;
+            scoreText.text = "Score: " + displayScore + " +" + addingScore;
         }
         else
         {

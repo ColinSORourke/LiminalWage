@@ -18,10 +18,20 @@ namespace Customer
         {
             this.deliver = deliver;
 
+            FindCustomersToAdd();
+        }
+
+        private void Update()
+        {
+            FindCustomersToAdd();
+        }
+
+        private void FindCustomersToAdd()
+        {
             Customer[] foundCustomerArray = FindObjectsOfType<Customer>();
             foreach (Customer found in foundCustomerArray)
             {
-                if(!CustomerList.Contains(found))
+                if (!CustomerList.Contains(found))
                 {
                     AddCustomer(found);
                 }

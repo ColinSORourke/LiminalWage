@@ -132,6 +132,12 @@ namespace Player
             Vector3 newMovement = playerTransform.right * inputVector.x
                 + playerTransform.forward * inputVector.y;
 
+            float thisAccel = playerInput.GetButtonSprint()
+                ? sprintAccel : walkAccel;
+
+            float thisMaxSpeed = playerInput.GetButtonSprint()
+                ? maxSprintSpeed : maxWalkSpeed;
+
             // No horizontal input
             if (newMovement.magnitude == 0)
             {
@@ -147,20 +153,13 @@ namespace Player
             // Horizontal input and grounded
             else if (groundCheck.GetIsGrounded())
             {
-                if (playerInput.GetButtonSprint())
-                {
-                    NewHorizontalMove(newMovement, sprintAccel, maxSprintSpeed);
-                }
-                else
-                {
-                    NewHorizontalMove(newMovement, walkAccel, maxWalkSpeed);
-                }
+                NewHorizontalMove(newMovement, thisAccel, thisMaxSpeed);
             }
             // Horizontal input and not grounded
             else
             {
                 NewAirMovement(newMovement * airControlMult
-                    , walkAccel, maxWalkSpeed);
+                    , thisAccel, thisMaxSpeed);
             }
 
             characterController.Move(horizontalVelocity * Time.deltaTime);
@@ -191,8 +190,6 @@ namespace Player
                 float forwardMult = UtilityFunctions.Rescale(
                     0, 1, forwardSideAirControl, forwardAirControl, forwardDotProduct);
                 NewHorizontalMove(vector, accel * forwardMult, maxSpeed);
-
-                print("forwardMult: " + forwardMult);
             }
             else
             {
@@ -200,8 +197,6 @@ namespace Player
                 float oppositeMult = UtilityFunctions.Rescale(
                     0, 1, backAirControl, backSideAirControl, inverseBackwardDot);
                 NewHorizontalMove(vector, accel * oppositeMult, maxSpeed);
-
-                print("oppositeMult: " + oppositeMult);
             }
         }
 
@@ -235,15 +230,18 @@ namespace Player
             // Player is going down
             if (upDotProduct < 0)
             {
-                currentGravity = baseGravity * fallGravityMult;
-            }
-            // Player is going up
-            else if (upDotProduct > 0)
-            {
                 if (isGliding)
                 {
                     currentGravity = baseGravity * glideGravityMult;
                 }
+                else
+                {
+                    currentGravity = baseGravity * fallGravityMult;
+                }
+            }
+            // Player is going up
+            else if (upDotProduct > 0)
+            {
                 if(!playerInput.GetButtonJump())
                 {
                     currentGravity = baseGravity * lowJumpGravityMult;

@@ -60,5 +60,10 @@ namespace Player
         {
             return deliver;
         }
+
+        public Transform GetPlayerTransform()
+        {
+            return playerTransform;
+        }
     }
 }

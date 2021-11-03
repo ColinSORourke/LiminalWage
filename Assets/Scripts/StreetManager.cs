@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,18 @@ public class StreetManager : MonoBehaviour
     public RenderedStreet onStreet;
     public float renderDistance = 200;
 
+    private Transform playerTrans;
+
+    public void Construct(Transform playerTransform)
+    {
+        if (playerTransform == null)
+        {
+            throw new ArgumentNullException(nameof(playerTransform));
+        }
+
+        playerTrans = playerTransform;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +41,6 @@ public class StreetManager : MonoBehaviour
         onStreet.parent.name = "onStreet";
 
         // Calculate the players LOCAL POSITION. Their position relative to the center of the street they are on.
-        var playerTrans = this.GetComponent<Transform>();
         var relPos = playerTrans.position - onStreet.truePos;
 
         onStreet.wraparound(renderDistance, playerTrans.position);
