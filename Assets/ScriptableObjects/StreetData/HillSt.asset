@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb8af7ddfd24043ae958076da498f6f1, type: 3}
+  m_Name: HillSt
+  m_EditorClassIdentifier: 
+  Length: 20
+  Width: 2
+  Color: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  intersections: []
+  objects:
+  - myPrefab: {fileID: 919132149155446097, guid: 95c3835c39920ad47a986e3d8d0d34cd,
+      type: 3}
+    streetPos: {x: 19.32, y: 1.59, z: -7.61}
+    rotation: {x: -0.33267242, y: 0.58971477, z: 0.42331156, w: 0.6019741}
+  - myPrefab: {fileID: 5348443376292123014, guid: 4ba4a4f507776c747a7af0be55d7e776,
+      type: 3}
+    streetPos: {x: 11.75, y: 8.74, z: -7.7}
+    rotation: {x: -0.20420791, y: 0.19092827, z: 0.676978, w: 0.68084246}
+  - myPrefab: {fileID: 919132149155446097, guid: 95c3835c39920ad47a986e3d8d0d34cd,
+      type: 3}
+    streetPos: {x: 9.03, y: 6.43, z: -6.9}
+    rotation: {x: -0.4394128, y: 0.5229299, z: 0.36233345, w: 0.6341729}
