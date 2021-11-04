@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.SceneManagement;
 
 // This file provides an editor functionality for our game. Right clicking inside of assets and selecting Create -> My Game -> Save Scene calls this code.
 // The purpose of this is to allow us to block out each street in it's own scene, and save it to as a ScriptableObject asset to then be rendered in the core game scene.
@@ -13,6 +14,8 @@ public static class SceneToData
     public static void SaveSceneData()
     {
         // Create the empty Scriptable Object
+        Scene scene = SceneManager.GetActiveScene();
+
         ScriptObjStreet thisStreet = ScriptableObject.CreateInstance<ScriptObjStreet>();
 
         // First look for an Object in the Scene named "Ground"
@@ -56,9 +59,10 @@ public static class SceneToData
         System.Array.Sort(thisStreet.intersections, new IntersectionComparer());
 
         // Delete the previously saved version of this asset and overwrite it.
-        // I don't yet have a way to dynamically name these assets? So to save multiple scenes, just rename something other than Street5
-        AssetDatabase.DeleteAsset("Assets/Street5.asset");
-        AssetDatabase.CreateAsset(thisStreet, "Assets/Street5.asset");
+        string path = "Assets/ScriptableObjects/StreetData/" + scene.name + ".asset";
+
+        AssetDatabase.DeleteAsset(path);
+        AssetDatabase.CreateAsset(thisStreet, path);
         AssetDatabase.SaveAssets();
     }
 }

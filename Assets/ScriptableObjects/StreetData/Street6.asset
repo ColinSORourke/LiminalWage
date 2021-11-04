@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Length: 20
   Width: 2
-  Color: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  Color: {fileID: 2100000, guid: 5b5e37ebb47e1416baf05bb05c829980, type: 2}
   intersections:
   - position: 80
     otherPosition: 20
@@ -39,12 +39,24 @@ MonoBehaviour:
   - myPrefab: {fileID: 4221194876194436521, guid: be2362439694c4d6c9123aa0d95f5bb4,
       type: 3}
     streetPos: {x: 26.4, y: 1.5, z: -10.2}
-    rotation: {x: -0, y: -0, z: -0, w: 1}
+    rotation: {x: -0, y: 1, z: -0, w: 0}
   - myPrefab: {fileID: 4221194876194436521, guid: be2362439694c4d6c9123aa0d95f5bb4,
       type: 3}
     streetPos: {x: 95.5, y: 1.5, z: 10}
     rotation: {x: -0, y: -0, z: -0, w: 1}
-  - myPrefab: {fileID: 919132149155446097, guid: 95c3835c39920ad47a986e3d8d0d34cd,
+  - myPrefab: {fileID: 4442848838886660893, guid: 7fc8fb5d6e5924a73b2c83e92188769f,
       type: 3}
-    streetPos: {x: 17.866442, y: 0.22959591, z: 1.4420924}
-    rotation: {x: 0.38268343, y: -0, z: -0, w: 0.92387956}
+    streetPos: {x: 0, y: 0, z: 0}
+    rotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
+  - myPrefab: {fileID: 4442848838886660893, guid: 7fc8fb5d6e5924a73b2c83e92188769f,
+      type: 3}
+    streetPos: {x: -71.7, y: 0, z: 10.8}
+    rotation: {x: -0.49991274, y: 0.50008726, z: 0.49991274, w: 0.50008726}
+  - myPrefab: {fileID: 4442848838886660893, guid: 7fc8fb5d6e5924a73b2c83e92188769f,
+      type: 3}
+    streetPos: {x: 92.3, y: 0, z: 10.8}
+    rotation: {x: -0.49991274, y: 0.50008726, z: 0.49991274, w: 0.50008726}
+  - myPrefab: {fileID: 4442848838886660893, guid: 7fc8fb5d6e5924a73b2c83e92188769f,
+      type: 3}
+    streetPos: {x: 25.9, y: 0, z: -9.8}
+    rotation: {x: -0.49991274, y: 0.50008726, z: 0.49991274, w: 0.50008726}
