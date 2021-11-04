@@ -18,23 +18,29 @@ MonoBehaviour:
   intersections:
   - position: 20
     otherPosition: 80
-    other: {fileID: 11400000, guid: a72b5791872c8470aa5f4154917b990a, type: 2}
+    other: {fileID: 11400000, guid: 83a214c567a184ab5b921753cf172b93, type: 2}
   objects:
   - myPrefab: {fileID: 3647528197559950507, guid: d1b615b1bd02e41f282fc4b7047cab08,
       type: 3}
     streetPos: {x: -39.346504, y: 1, z: -0.1}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
   - myPrefab: {fileID: 3647528197559950507, guid: d1b615b1bd02e41f282fc4b7047cab08,
       type: 3}
     streetPos: {x: -12.000719, y: 1, z: -1.2}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
   - myPrefab: {fileID: 3647528197559950507, guid: d1b615b1bd02e41f282fc4b7047cab08,
       type: 3}
     streetPos: {x: 37.62239, y: 1, z: -2.6379704}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
   - myPrefab: {fileID: 3647528197559950507, guid: d1b615b1bd02e41f282fc4b7047cab08,
       type: 3}
     streetPos: {x: -51.010414, y: 1, z: 0.05}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
   - myPrefab: {fileID: 3647528197559950507, guid: d1b615b1bd02e41f282fc4b7047cab08,
       type: 3}
     streetPos: {x: 0.8321514, y: 1, z: -2.8914018}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
   - myPrefab: {fileID: 3647528197559950507, guid: d1b615b1bd02e41f282fc4b7047cab08,
       type: 3}
     streetPos: {x: 53.17842, y: 1, z: 1.9081454}
+    rotation: {x: 0, y: 0, z: 0, w: 0}

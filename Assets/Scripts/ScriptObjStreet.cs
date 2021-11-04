@@ -51,4 +51,5 @@ public class streetObj
 {
     public GameObject myPrefab;
     public Vector3 streetPos;
+    public Quaternion rotation;
 }

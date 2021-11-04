@@ -23,18 +23,28 @@ MonoBehaviour:
   - myPrefab: {fileID: 3647528197559950507, guid: d1b615b1bd02e41f282fc4b7047cab08,
       type: 3}
     streetPos: {x: 79.3, y: 1, z: 1}
+    rotation: {x: -0, y: -0, z: -0, w: 1}
   - myPrefab: {fileID: 3647528197559950507, guid: d1b615b1bd02e41f282fc4b7047cab08,
       type: 3}
     streetPos: {x: 1, y: 1, z: 1}
+    rotation: {x: -0, y: -0, z: -0, w: 1}
   - myPrefab: {fileID: 3647528197559950507, guid: d1b615b1bd02e41f282fc4b7047cab08,
       type: 3}
     streetPos: {x: -83.1, y: 1, z: 1}
+    rotation: {x: -0, y: -0, z: -0, w: 1}
   - myPrefab: {fileID: 4221194876194436521, guid: be2362439694c4d6c9123aa0d95f5bb4,
       type: 3}
     streetPos: {x: -71.7, y: 1.5, z: 10}
+    rotation: {x: -0, y: -0, z: -0, w: 1}
   - myPrefab: {fileID: 4221194876194436521, guid: be2362439694c4d6c9123aa0d95f5bb4,
       type: 3}
     streetPos: {x: 26.4, y: 1.5, z: -10.2}
+    rotation: {x: -0, y: -0, z: -0, w: 1}
   - myPrefab: {fileID: 4221194876194436521, guid: be2362439694c4d6c9123aa0d95f5bb4,
       type: 3}
     streetPos: {x: 95.5, y: 1.5, z: 10}
+    rotation: {x: -0, y: -0, z: -0, w: 1}
+  - myPrefab: {fileID: 919132149155446097, guid: 95c3835c39920ad47a986e3d8d0d34cd,
+      type: 3}
+    streetPos: {x: 17.866442, y: 0.22959591, z: 1.4420924}
+    rotation: {x: 0.38268343, y: -0, z: -0, w: 0.92387956}
