@@ -123,7 +123,7 @@ public class RenderedStreet
     }
 
     public void render(int i){
-        var groundTransform = ground.GetComponent<Transform>();
+        /* var groundTransform = ground.GetComponent<Transform>();
 
         if (xOriented){
             groundTransform.localPosition = new Vector3(middle,0.0f,0.0f);
@@ -131,7 +131,7 @@ public class RenderedStreet
         } else {
             groundTransform.localPosition = new Vector3(0.0f,0.0f,middle);
             groundTransform.localScale = new Vector3(streetInfo.Width, 1, edge/5);
-        }
+        } */
         
         int copies = 1 + (int) Mathf.Floor(this.edge/ (streetInfo.Length * 5));
         
