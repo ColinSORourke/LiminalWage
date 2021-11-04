@@ -15,23 +15,9 @@ MonoBehaviour:
   Length: 18
   Width: 12
   Color: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  intersections:
-  - position: 0
-    otherPosition: -0
-    other: {fileID: 0}
+  intersections: []
   objects:
-  - myPrefab: {fileID: 0}
-    streetPos: {x: 0, y: 0, z: 0}
-    rotation: {x: -0, y: -0, z: -0, w: 1}
-  - myPrefab: {fileID: 0}
-    streetPos: {x: 0, y: 0, z: 0}
-    rotation: {x: -0, y: -0, z: -0, w: 1}
-  - myPrefab: {fileID: 0}
-    streetPos: {x: 0, y: 0, z: 0}
-    rotation: {x: -0, y: -0, z: -0, w: 1}
-  - myPrefab: {fileID: 0}
-    streetPos: {x: 0, y: 0, z: 0}
-    rotation: {x: -0, y: -0, z: -0, w: 1}
-  - myPrefab: {fileID: 0}
+  - myPrefab: {fileID: 5784782820604601895, guid: a674dc6075d31419e9b3708dfa13ffe1,
+      type: 3}
     streetPos: {x: 0, y: 0, z: 0}
     rotation: {x: -0, y: -0, z: -0, w: 1}
