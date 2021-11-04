@@ -112,12 +112,12 @@ public class RenderedStreet
         parent.layer = 8;
 
         // Create and color the ground.
-        ground = GameObject.CreatePrimitive(PrimitiveType.Plane);
+        /* ground = GameObject.CreatePrimitive(PrimitiveType.Plane);
         ground.name = "Middle: " + middle;
         ground.layer = 8;
         ground.transform.parent = parent.transform;
         var groundRenderer = ground.GetComponent<MeshRenderer>();
-        groundRenderer.material = street.Color;
+        groundRenderer.material = street.Color; */
 
         this.render(interIndex);
     }
