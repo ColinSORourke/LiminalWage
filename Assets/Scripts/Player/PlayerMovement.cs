@@ -30,6 +30,8 @@ namespace Player
         [SerializeField] private float jumpHeight;
         [Tooltip("Maximum vertical speed")]
         [SerializeField] private float terminalVelocity;
+        [Tooltip("Time After leaving a platform that jumping is still allowed")]
+        [SerializeField] private float coyoteTime;
 
         [Header("Ground horizontal movement variables")]
         [Tooltip("Acceleration per second when not sprinting")]
@@ -62,12 +64,15 @@ namespace Player
         [SerializeField] private float backAirControl;
 
 
+
         // Internal references
         private Vector3 currentGravity;
         private Vector2 inputVector;
         private Vector3 verticalVelocity;
         private Vector3 horizontalVelocity;
         private float jumpVelocity;
+        private float mayJump = 0;
+        private bool hasJumped = true;
 
         // Internal state trackers
         private bool isGliding;
@@ -127,6 +132,9 @@ namespace Player
             Move();
 
             ApplyVerticalVelocity();
+
+            updateCoyoteTime();
+
         }
 
         private void Move()
@@ -206,7 +214,7 @@ namespace Player
         {
             if(playerInput.GetButtonDownJump())
             {
-                if (groundCheck.GetIsGrounded())
+                if (groundCheck.GetIsGrounded()|| updateCoyoteTime())
                 {
                     Jump();
                 }
@@ -219,6 +227,7 @@ namespace Player
 
         private void Jump()
         {
+            hasJumped = true;
             verticalVelocity = playerTransform.up * jumpVelocity;
             StopCoroutine(GroundPlayerCooldown());
             StartCoroutine(GroundPlayerCooldown());
@@ -289,6 +298,21 @@ namespace Player
             isGroundPlayerCooldown = true;
             yield return new WaitForSeconds(0.05f);
             isGroundPlayerCooldown = false;
+        }
+
+        //Used for both updating the timer and checking if jumping is allowed
+        private bool updateCoyoteTime()
+        {
+            if (groundCheck.GetIsGrounded() && !isGroundPlayerCooldown)
+            {
+                mayJump = 0;
+                hasJumped = false;
+            }
+            else
+            {
+                mayJump += Time.deltaTime;
+            }
+            return (mayJump < coyoteTime) && !hasJumped;
         }
     }
 }
