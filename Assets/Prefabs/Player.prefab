@@ -350,6 +350,7 @@ MonoBehaviour:
   lowJumpGravityMult: 3
   jumpHeight: 5
   coyoteTime: 1
+  terminalVelocity: 50
   walkAccel: 1
   sprintAccel: 3
   maxWalkSpeed: 5
@@ -404,8 +405,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba1064cf3fdf314694ecabab91dde73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxY: 20
-  minY: -20
+  maxY: 50
+  minY: -50
 --- !u!1 &4097545304477760416
 GameObject:
   m_ObjectHideFlags: 0
