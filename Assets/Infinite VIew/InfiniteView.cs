@@ -34,7 +34,7 @@ public class InfiniteView : MonoBehaviour
         {
             infViewCamera.targetTexture.Release();
         }
-        renderTextr = new RenderTexture(Mathf.FloorToInt(Screen.width * fieldOfViewMultiplier), Mathf.FloorToInt(Screen.height * fieldOfViewMultiplier), 24, RenderTextureFormat.ARGBHalf);
+        renderTextr = new RenderTexture(Mathf.FloorToInt(Screen.width * Mathf.Pow(fieldOfViewMultiplier, 2)), Mathf.FloorToInt(Screen.height * Mathf.Pow(fieldOfViewMultiplier, 2)), 24, RenderTextureFormat.ARGBHalf);
         renderTextr.antiAliasing = 4; /// for unknown reasons enabling anti-aliasing is the only way unity will "see" the rendertexture infinitely in frame
         infViewCamera.targetTexture = renderTextr;
 
@@ -74,7 +74,7 @@ public class InfiniteView : MonoBehaviour
 
         // you may want to edit this formula to suit your setup, or set to zero. it's only an aproximation in y=mx+b + (portalToRenderPlanePerpendicularDist = undoing any physical distance between the portal locaton and render plane);
         float correctionAmmount = -0.3f * camToPortalPerpendicularDist + 2.5f;
-        renderPlanePositionCorrectionVector = this.transform.forward * correctionAmmount;
+        renderPlanePositionCorrectionVector = this.transform.forward * 0;
 
 
         // If the oposite-side view (view through the "portal") and render plane ("portal" gate location) were at different angles, we would need this:
@@ -107,11 +107,12 @@ public class InfiniteView : MonoBehaviour
     void Update()
     {
         setInfViewCameraPos();
+        RenderThisInfiniteView();
     }
 
     void LateUpdate()
     {
-        RenderThisInfiniteView();
+
     }
 
 }

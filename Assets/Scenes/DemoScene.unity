@@ -227,8 +227,8 @@ PrefabInstance:
       objectReference: {fileID: 531913444}
     - target: {fileID: 7243191300288475104, guid: 6690464ac2e79410f9c36dba82fd55e3,
         type: 3}
-      propertyPath: fieldOfViewMultiplier
-      value: 1
+      propertyPath: oppositeSideDistance
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7243191300288475106, guid: 6690464ac2e79410f9c36dba82fd55e3,
         type: 3}
@@ -290,15 +290,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: InfViewSetupTop
       objectReference: {fileID: 0}
+    - target: {fileID: 7243191300288475111, guid: 6690464ac2e79410f9c36dba82fd55e3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7243191300865341709, guid: 6690464ac2e79410f9c36dba82fd55e3,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 400
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7243191300865341709, guid: 6690464ac2e79410f9c36dba82fd55e3,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 400
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7243191300865341713, guid: 6690464ac2e79410f9c36dba82fd55e3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7243191301241851739, guid: 6690464ac2e79410f9c36dba82fd55e3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6690464ac2e79410f9c36dba82fd55e3, type: 3}
@@ -313,6 +328,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5148467591717589887, guid: 5aac63b8a6013487b9ce5ea558e8055b,
+        type: 3}
+      propertyPath: field of view
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 5785947151888474139, guid: 5aac63b8a6013487b9ce5ea558e8055b,
         type: 3}
@@ -368,6 +388,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583653702997233104, guid: 5aac63b8a6013487b9ce5ea558e8055b,
+        type: 3}
+      propertyPath: sprintFOV
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583653702997233104, guid: 5aac63b8a6013487b9ce5ea558e8055b,
+        type: 3}
+      propertyPath: defaultFOV
+      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5aac63b8a6013487b9ce5ea558e8055b, type: 3}
@@ -664,6 +694,11 @@ PrefabInstance:
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 531913444}
+    - target: {fileID: 7243191300288475104, guid: 6690464ac2e79410f9c36dba82fd55e3,
+        type: 3}
+      propertyPath: oppositeSideDistance
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 7243191300288475106, guid: 6690464ac2e79410f9c36dba82fd55e3,
         type: 3}
       propertyPath: m_RootOrder
@@ -724,20 +759,40 @@ PrefabInstance:
       propertyPath: m_Name
       value: InfViewSetupBotom
       objectReference: {fileID: 0}
+    - target: {fileID: 7243191300288475111, guid: 6690464ac2e79410f9c36dba82fd55e3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7243191300531476712, guid: 6690464ac2e79410f9c36dba82fd55e3,
         type: 3}
       propertyPath: field of view
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 7243191300531476712, guid: 6690464ac2e79410f9c36dba82fd55e3,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 311
+      objectReference: {fileID: 0}
     - target: {fileID: 7243191300865341709, guid: 6690464ac2e79410f9c36dba82fd55e3,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 400
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7243191300865341709, guid: 6690464ac2e79410f9c36dba82fd55e3,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 400
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7243191300865341713, guid: 6690464ac2e79410f9c36dba82fd55e3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7243191301241851739, guid: 6690464ac2e79410f9c36dba82fd55e3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6690464ac2e79410f9c36dba82fd55e3, type: 3}

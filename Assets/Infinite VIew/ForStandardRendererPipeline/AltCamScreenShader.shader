@@ -33,9 +33,8 @@
             struct v2f
             {
                 float3 worldPosition : TEXCOORD0;
-                // UNITY_FOG_COORDS(1)
+                UNITY_FOG_COORDS(1)
                 float4 vertex : SV_POSITION;
-                // float4 vertex : SV_Depth;/
             };
 
             sampler2D _MainTex;
@@ -53,7 +52,7 @@
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.worldPosition = mul(unity_ObjectToWorld, v.vertex).xyz;
-                // UNITY_TRANSFER_FOG(o,o.vertex);
+                UNITY_TRANSFER_FOG(o,o.vertex);
                 return o;
             }
 
@@ -70,16 +69,18 @@
                 // Sample the render texture with this UV to prove it works.
                 fixed4 col = tex2D(_MainTex, uv);
                 // col = float4(uv.xy,0,1);
-                if(uv.x > 1.0f || uv.y > 1.0f) {
-                    // col = float4(0.9,0,0.9,0.0);
-                    clip(-1);
-                }else if(uv.x < 0.0f || uv.y < 0.0f) {
-                    // col = float4(0,0.9,0.9,0.0);
-                    clip(-1);
-                }
+
+
+                clip(uv.x);
+                clip(uv.y);
+                clip(uv.x * -1 + 1);
+                clip(uv.y * -1 + 1);
+                // clip stops rendering if the passed value is negative so the above clip statements are equivelent to this if statement:
+                // if(uv.x > 1.0f || uv.y > 1.0f uv.x < 0.0f || uv.y < 0.0f) clip(-1);
+
                 // outDepth = 0.5;
                 // apply fog
-                // UNITY_APPLY_FOG(i.fogCoord, col);
+                UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;
             }
             ENDCG
