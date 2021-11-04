@@ -198,9 +198,10 @@ public class RenderedStreet
                     if (xOriented){
                         objTransform.localPosition = obj.streetPos + new Vector3(streetInfo.Length * offset * 10, 0.0f, 0.0f);
                         objTransform.localRotation = obj.rotation;
+
                     } else {
                         objTransform.localPosition = new Vector3 (obj.streetPos.z, obj.streetPos.y, obj.streetPos.x) + new Vector3(0.0f, 0.0f, streetInfo.Length * offset * 10);
-                        objTransform.localRotation = obj.rotation * newAngle;
+                        objTransform.localRotation = Quaternion.Euler(obj.rotation.eulerAngles + new Vector3(0,90,0));
                     }
                 }
                 else {
