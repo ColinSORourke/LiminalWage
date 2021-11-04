@@ -960,6 +960,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1061227118, guid: 5aac63b8a6013487b9ce5ea558e8055b, type: 3}
+      propertyPath: cayoteTime
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3857979982329768477, guid: 5aac63b8a6013487b9ce5ea558e8055b,
         type: 3}
       propertyPath: m_Name
