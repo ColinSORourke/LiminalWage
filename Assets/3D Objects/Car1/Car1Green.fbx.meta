@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: 35663b7efe228764b90e32d2105240c7
+guid: bb663a891b9b22544ac42211e3f1aa13
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1
+    second: {fileID: 2100000, guid: 1c26b49511087d64bb3aa21a1e7d55aa, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -59,7 +64,7 @@ ModelImporter:
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
-    useFileScale: 1
+    useFileScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
