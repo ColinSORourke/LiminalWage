@@ -103,7 +103,11 @@ public class RenderedStreet
         ignoreStreet = ignoredInter;
         ignoreIndex = -1;
 
+
+        Debug.Log(center);
+        Debug.Log(street.Length);
         this.middle = center % (street.Length * 10);
+        Debug.Log(this.middle);
 
         parent.layer = 8;
 
@@ -119,7 +123,7 @@ public class RenderedStreet
     }
 
     public void render(int i){
-        var groundTransform = ground.GetComponent<Transform>();
+        /* var groundTransform = ground.GetComponent<Transform>();
 
         if (xOriented){
             groundTransform.localPosition = new Vector3(middle,0.0f,0.0f);
@@ -127,7 +131,7 @@ public class RenderedStreet
         } else {
             groundTransform.localPosition = new Vector3(0.0f,0.0f,middle);
             groundTransform.localScale = new Vector3(streetInfo.Width, 1, edge/5);
-        }
+        } */
         
         int copies = 1 + (int) Mathf.Floor(this.edge/ (streetInfo.Length * 5));
         
@@ -193,9 +197,11 @@ public class RenderedStreet
                     var objTransform = myObjects[j + (objLength * currCopy)].GetComponent<Transform>();
                     if (xOriented){
                         objTransform.localPosition = obj.streetPos + new Vector3(streetInfo.Length * offset * 10, 0.0f, 0.0f);
+                        objTransform.localRotation = obj.rotation;
+
                     } else {
                         objTransform.localPosition = new Vector3 (obj.streetPos.z, obj.streetPos.y, obj.streetPos.x) + new Vector3(0.0f, 0.0f, streetInfo.Length * offset * 10);
-                        objTransform.localRotation = newAngle;
+                        objTransform.localRotation = Quaternion.Euler(obj.rotation.eulerAngles + new Vector3(0,90,0));
                     }
                 }
                 else {
