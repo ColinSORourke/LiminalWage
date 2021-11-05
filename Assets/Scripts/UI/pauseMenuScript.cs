@@ -14,6 +14,7 @@ public class pauseMenuScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1;
         isActive = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
