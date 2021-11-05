@@ -25,7 +25,7 @@ namespace Player
 
         private CameraManager cameraManager;
 
-        private PlayerInteract playerInteract;
+        private Deliver deliver;
 
         public void Construct(GameManager gameManager)
         {
@@ -39,26 +39,26 @@ namespace Player
             playerTransform = gameObject.GetComponent<Transform>();
 
             groundCheck = gameObject.GetComponentInChildren<GroundCheck>();
-            groundCheck.Construct(playerTransform);
 
             playerInput = gameObject.GetComponent<PlayerInput>();
 
             characterController = gameObject.GetComponent<CharacterController>();
             
             cameraManager = gameObject.GetComponentInChildren<CameraManager>();
+
             cameraManager.Construct(playerInput);
 
             playerMovement = gameObject.GetComponent<PlayerMovement>();
             playerMovement.Construct(playerTransform, groundCheck
                 , playerInput, characterController, cameraManager);
 
-            playerInteract = gameObject.GetComponentInChildren<PlayerInteract>();
-            playerInteract.Construct(gameManager);
+            deliver = gameObject.GetComponentInChildren<Deliver>();
+            deliver.Construct(gameManager);
         }
 
-        public PlayerInteract GetPlayerInteract()
+        public Deliver GetDeliver()
         {
-            return playerInteract;
+            return deliver;
         }
 
         public Transform GetPlayerTransform()
