@@ -4,6 +4,7 @@ using UnityEngine;
 using Player;
 using Customer;
 using Utility;
+using Collectables;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviour
     private PlayerManager playerManager;
     private CustomerManager customerManager;
     private StreetManager streetManager;
+    private CoinManager coinManager;
 
     private void Awake()
     {
@@ -23,10 +25,13 @@ public class GameManager : MonoBehaviour
         streetManager.Construct(playerManager.GetPlayerTransform());
 
         customerManager = FindObjectOfType<CustomerManager>();
-        customerManager.Construct(playerManager.GetDeliver());
+        customerManager.Construct(playerManager.GetPlayerInteract());
 
         scoreUI = FindObjectOfType<ScoreUI>();
         scoreUI.Construct(this);
+
+        coinManager = FindObjectOfType<CoinManager>();
+        coinManager.Construct(playerManager.GetPlayerInteract());
     }
 
     public void AddScore(int amount)

@@ -14,6 +14,7 @@ public class pauseMenuScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1;
         isActive = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -35,14 +36,14 @@ public class pauseMenuScript : MonoBehaviour
         if (!isActive)
         {
             Time.timeScale = 1;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            //Cursor.lockState = CursorLockMode.Locked;
+            //Cursor.visible = false;
         }
         else
         {
             Time.timeScale = 0;
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            //Cursor.lockState = CursorLockMode.None;
+            //Cursor.visible = true;
 
         }
 

@@ -77,6 +77,7 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 256
+  slopeCheckRayLength: 1
 --- !u!1 &1990980517
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,9 +266,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96cb8dad58b384c7eaa83802c01d4c4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 70
+  mouseSensitivity: 100
   defaultFOV: 90
-  sprintFOV: 110
+  sprintFOV: 120
   tweenFOVEase: 3
   tweenUpFOVDuration: 0.5
   tweenDownFOVDuration: 0.5
@@ -349,8 +350,9 @@ MonoBehaviour:
   fallGravityMult: 2
   lowJumpGravityMult: 3
   jumpHeight: 5
-  coyoteTime: 1
+  glideInitialSlowdown: 0.3
   terminalVelocity: 50
+  coyoteTime: 1
   walkAccel: 1
   sprintAccel: 3
   maxWalkSpeed: 5
