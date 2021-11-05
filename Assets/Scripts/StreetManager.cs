@@ -152,9 +152,9 @@ public class RenderedStreet
                     }
                     var otherStreet = inter.other;
                     int index = this.getOtherIntersectionId(otherStreet);
-                    var interWidth = 25.0f;
+                    var interWidth = 25.0f * inter.other.Width;
                     if (this.ignoreIndex != -1){
-                        interWidth = 8.0f;
+                        interWidth = 8.0f * inter.other.Width;
                     }
 
                     if (j != i || offset != 0){
@@ -213,7 +213,7 @@ public class RenderedStreet
 
         wallsParent = new GameObject();
         wallsParent.transform.parent = parent.transform;
-        wallsParent.name = "Objects";
+        wallsParent.name = "Walls";
         wallsParent.GetComponent<Transform>().localPosition = new Vector3 (0.0f, 0.0f, 0.0f);
 
         int totalIntersections = myIntersections.Length;
@@ -259,7 +259,7 @@ public class RenderedStreet
             planePosRight = new Vector3(streetInfo.Width*-5, 0, center);
         }
 
-        Vector3 planeScale = new Vector3 (scale, 1, 10);
+        Vector3 planeScale = new Vector3 (scale, 1, 30);
 
         var objLeft = GameObject.CreatePrimitive(PrimitiveType.Plane);
         var objRendererL = objLeft.GetComponent<MeshRenderer>();

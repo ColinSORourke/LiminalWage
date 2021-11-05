@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -475,7 +475,7 @@ PrefabInstance:
         type: 3}
       propertyPath: myStreet
       value: 
-      objectReference: {fileID: 11400000, guid: 052ea19d0a04f45f28b7193114027014,
+      objectReference: {fileID: 11400000, guid: 83a214c567a184ab5b921753cf172b93,
         type: 2}
     - target: {fileID: 5596209581171777954, guid: 4be59ed1629d74d16ba62d65978af511,
         type: 3}
