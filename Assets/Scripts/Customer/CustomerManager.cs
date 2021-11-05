@@ -8,15 +8,15 @@ namespace Customer
 
     public class CustomerManager : MonoBehaviour
     {
-        private Deliver deliver;
+        private PlayerInteract playerInteract;
 
-        private List<Customer> CustomerList = new List<Customer>();
+        private List<Customer> customerList = new List<Customer>();
 
-        [SerializeField] List<CustomerData> CustomerDataList = new List<CustomerData>();
+        [SerializeField] List<CustomerData> customerDataList = new List<CustomerData>();
 
-        public void Construct(Deliver deliver)
+        public void Construct(PlayerInteract playerInteract)
         {
-            this.deliver = deliver;
+            this.playerInteract = playerInteract;
 
             FindCustomersToAdd();
         }
@@ -31,7 +31,7 @@ namespace Customer
             Customer[] foundCustomerArray = FindObjectsOfType<Customer>();
             foreach (Customer found in foundCustomerArray)
             {
-                if (!CustomerList.Contains(found))
+                if (!customerList.Contains(found))
                 {
                     AddCustomer(found);
                 }
@@ -40,9 +40,9 @@ namespace Customer
 
         private void AddCustomer(Customer customer)
         {
-            CustomerList.Add(customer);
+            customerList.Add(customer);
 
-            customer.Construct(deliver);
+            customer.Construct(playerInteract);
         }
     }
 }
