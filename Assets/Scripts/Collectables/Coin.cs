@@ -39,6 +39,11 @@ namespace Collectables
             Destroy(gameObject);
         }
 
+        private void OnDestroy()
+        {
+            rotationTween.Kill();
+        }
+
         private void StartFloatingAnimation()
         {
             Vector3 highPosition = new Vector3(0, 360, 0);
