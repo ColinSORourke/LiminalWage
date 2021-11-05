@@ -18,10 +18,10 @@ MonoBehaviour:
   intersections:
   - position: -52.3
     otherPosition: 11
-    other: {fileID: 0}
+    other: {fileID: 11400000, guid: bdedd9e2b1f79234caef0912a3a9d648, type: 2}
   - position: 46.4
-    otherPosition: 21.5
-    other: {fileID: 0}
+    otherPosition: -21.5
+    other: {fileID: 11400000, guid: 2b22fbc024a41f14381a7dcb50cf32e4, type: 2}
   objects:
   - myPrefab: {fileID: 6600507536059268089, guid: 05088053dd9607443bc98e0638b76414,
       type: 3}
