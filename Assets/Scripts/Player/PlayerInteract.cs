@@ -5,31 +5,40 @@ using UnityEngine;
 namespace Player
 {
     using Customer;
+    using Collectables;
 
     [RequireComponent(typeof(Collider))]
 
-    public class Deliver : MonoBehaviour
+    public class PlayerInteract : MonoBehaviour
     {
         private GameManager gameManager;
-        private Collider deliverCollider;
+        private Collider interactCollider;
 
         public void Construct(GameManager gameManager)
         {
             this.gameManager = gameManager;
-            deliverCollider = gameObject.GetComponent<Collider>();
+            interactCollider = gameObject.GetComponent<Collider>();
         }
 
         private void OnTriggerEnter(Collider other)
         {
             Customer thisCustomer = other.gameObject.GetComponent<Customer>();
 
-            if(thisCustomer != null)
+            Coin thisCoin = other.gameObject.GetComponent<Coin>();
+
+            if (thisCustomer != null)
             {
                 thisCustomer.OnTryReceive.Invoke();
             }
+
+            if (thisCoin != null)
+            {
+                print("collect");
+                thisCoin.OnCollect.Invoke();
+            }
         }
 
-        public void ReceivePay(int pay)
+        public void GainPoints(int pay)
         {
             gameManager.AddScore(pay);
         }
