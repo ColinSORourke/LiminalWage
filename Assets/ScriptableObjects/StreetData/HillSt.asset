@@ -15,17 +15,183 @@ MonoBehaviour:
   Length: 20
   Width: 2
   Color: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  intersections: []
+  intersections:
+  - position: -52.3
+    otherPosition: 11
+    other: {fileID: 0}
+  - position: 46.4
+    otherPosition: 21.5
+    other: {fileID: 0}
   objects:
-  - myPrefab: {fileID: 919132149155446097, guid: 95c3835c39920ad47a986e3d8d0d34cd,
+  - myPrefab: {fileID: 6600507536059268089, guid: 05088053dd9607443bc98e0638b76414,
       type: 3}
-    streetPos: {x: 19.32, y: 1.59, z: -7.61}
-    rotation: {x: -0.33267242, y: 0.58971477, z: 0.42331156, w: 0.6019741}
+    streetPos: {x: -27.8, y: 8.6, z: 6.1}
+    rotation: {x: -0.571651, y: 0.28628948, z: 0.3182055, w: 0.69999915}
+  - myPrefab: {fileID: 6600507536059268089, guid: 05088053dd9607443bc98e0638b76414,
+      type: 3}
+    streetPos: {x: -4.54, y: -0.73, z: 3.22}
+    rotation: {x: -0.18788084, y: 0.8086687, z: 0.5573144, w: 0.012507526}
+  - myPrefab: {fileID: 6600507536059268089, guid: 05088053dd9607443bc98e0638b76414,
+      type: 3}
+    streetPos: {x: 20.46, y: -8.72, z: 4.17}
+    rotation: {x: -0.5612212, y: 0.5384674, z: 0.04978987, w: 0.6265817}
+  - myPrefab: {fileID: 6600507536059268089, guid: 05088053dd9607443bc98e0638b76414,
+      type: 3}
+    streetPos: {x: 14.47, y: 1.05, z: 8.53}
+    rotation: {x: -0.5, y: 0.50000006, z: 0.50000006, w: 0.5}
+  - myPrefab: {fileID: 6600507536059268089, guid: 05088053dd9607443bc98e0638b76414,
+      type: 3}
+    streetPos: {x: 43.11, y: -20.53, z: 4.92}
+    rotation: {x: -0.44735986, y: 0.57147235, z: 0.6362788, w: 0.2616063}
+  - myPrefab: {fileID: 6600507536059268089, guid: 05088053dd9607443bc98e0638b76414,
+      type: 3}
+    streetPos: {x: 93.2, y: -39.8, z: 6.4}
+    rotation: {x: -0.5595343, y: 0.41918695, z: 0.51456225, w: 0.49641654}
+  - myPrefab: {fileID: 6600507536059268089, guid: 05088053dd9607443bc98e0638b76414,
+      type: 3}
+    streetPos: {x: -93.899994, y: 37.8, z: 6.5}
+    rotation: {x: -0.46403015, y: 0.56390315, z: 0.48173022, w: 0.48438138}
+  - myPrefab: {fileID: 6600507536059268089, guid: 05088053dd9607443bc98e0638b76414,
+      type: 3}
+    streetPos: {x: 60.15, y: -28.4, z: 3.52}
+    rotation: {x: -0.5378911, y: 0.35361966, z: 0.14695455, w: 0.7510197}
+  - myPrefab: {fileID: 6600507536059268089, guid: 05088053dd9607443bc98e0638b76414,
+      type: 3}
+    streetPos: {x: -73.1, y: 27.4, z: 2.8}
+    rotation: {x: -0.43599427, y: 0.49052715, z: 0.43176588, w: 0.6187652}
+  - myPrefab: {fileID: 5028903101148996133, guid: 2082d3161cb3da54abf7874e175534e5,
+      type: 3}
+    streetPos: {x: 14.585663, y: 2.62, z: 9.87}
+    rotation: {x: -0, y: -0, z: -0, w: 1}
+  - myPrefab: {fileID: 6600507536059268089, guid: 05088053dd9607443bc98e0638b76414,
+      type: 3}
+    streetPos: {x: -24.5, y: 9.5, z: -3.2}
+    rotation: {x: -0.26743805, y: 0.75095606, z: 0.53751624, w: 0.2749878}
+  - myPrefab: {fileID: 6600507536059268089, guid: 05088053dd9607443bc98e0638b76414,
+      type: 3}
+    streetPos: {x: -8.86, y: 1.39, z: -6.04}
+    rotation: {x: -0.24897616, y: 0.8513399, z: 0.40727827, w: 0.21761364}
+  - myPrefab: {fileID: 6600507536059268089, guid: 05088053dd9607443bc98e0638b76414,
+      type: 3}
+    streetPos: {x: 21.37, y: -8.49, z: -4.17}
+    rotation: {x: -0.6854159, y: 0.27274722, z: 0.41470438, w: 0.5327609}
+  - myPrefab: {fileID: 6600507536059268089, guid: 05088053dd9607443bc98e0638b76414,
+      type: 3}
+    streetPos: {x: 40.49, y: -21.84, z: -1.4}
+    rotation: {x: -0.4127879, y: 0.519989, z: 0.48799193, w: 0.56664056}
+  - myPrefab: {fileID: 6600507536059268089, guid: 05088053dd9607443bc98e0638b76414,
+      type: 3}
+    streetPos: {x: 86.05, y: -39.75, z: -5.65}
+    rotation: {x: -0.12535162, y: 0.7196134, z: 0.67298216, w: 0.116355844}
+  - myPrefab: {fileID: 6600507536059268089, guid: 05088053dd9607443bc98e0638b76414,
+      type: 3}
+    streetPos: {x: -89.7, y: 35.4, z: -3}
+    rotation: {x: -0.07040186, y: 0.64343274, z: 0.6635072, w: 0.3752281}
+  - myPrefab: {fileID: 6600507536059268089, guid: 05088053dd9607443bc98e0638b76414,
+      type: 3}
+    streetPos: {x: 63.86, y: -27.99, z: -1.47}
+    rotation: {x: -0.54515064, y: 0.6103181, z: 0.48221317, w: 0.31271896}
+  - myPrefab: {fileID: 6600507536059268089, guid: 05088053dd9607443bc98e0638b76414,
+      type: 3}
+    streetPos: {x: -73.59999, y: 27, z: -6.5}
+    rotation: {x: -0.53421026, y: 0.16535899, z: 0.38479334, w: 0.73430914}
+  - myPrefab: {fileID: 5028903101148996133, guid: 2082d3161cb3da54abf7874e175534e5,
+      type: 3}
+    streetPos: {x: 75.9, y: 31.01, z: -9.95}
+    rotation: {x: -0, y: 1, z: -0, w: 0}
+  - myPrefab: {fileID: 6600507536059268089, guid: 05088053dd9607443bc98e0638b76414,
+      type: 3}
+    streetPos: {x: 75.927414, y: 29.42, z: -8.66}
+    rotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
   - myPrefab: {fileID: 5348443376292123014, guid: 4ba4a4f507776c747a7af0be55d7e776,
       type: 3}
-    streetPos: {x: 11.75, y: 8.74, z: -7.7}
-    rotation: {x: -0.20420791, y: 0.19092827, z: 0.676978, w: 0.68084246}
-  - myPrefab: {fileID: 919132149155446097, guid: 95c3835c39920ad47a986e3d8d0d34cd,
+    streetPos: {x: -17.5, y: 16.2, z: -3.7}
+    rotation: {x: -0.077453166, y: 0.22637369, z: 0.36938047, w: 0.89794993}
+  - myPrefab: {fileID: 5348443376292123014, guid: 4ba4a4f507776c747a7af0be55d7e776,
       type: 3}
-    streetPos: {x: 9.03, y: 6.43, z: -6.9}
-    rotation: {x: -0.4394128, y: 0.5229299, z: 0.36233345, w: 0.6341729}
+    streetPos: {x: 3.7, y: 11.9, z: 5.1}
+    rotation: {x: 0.438855, y: 0.87479717, z: -0.15219079, w: 0.13774714}
+  - myPrefab: {fileID: 5348443376292123014, guid: 4ba4a4f507776c747a7af0be55d7e776,
+      type: 3}
+    streetPos: {x: 30.2, y: 3.3, z: -3.7}
+    rotation: {x: -0.5838095, y: 0.24769703, z: 0.6623037, w: 0.39895675}
+  - myPrefab: {fileID: 5348443376292123014, guid: 4ba4a4f507776c747a7af0be55d7e776,
+      type: 3}
+    streetPos: {x: 83, y: -14.58, z: 4.47}
+    rotation: {x: 0.32739407, y: 0.817214, z: 0.44029567, w: -0.17639221}
+  - myPrefab: {fileID: 5348443376292123014, guid: 4ba4a4f507776c747a7af0be55d7e776,
+      type: 3}
+    streetPos: {x: -82.1, y: 40.35, z: -5.17}
+    rotation: {x: -0.17879353, y: 0.32117337, z: 0.812566, w: 0.45234615}
+  - myPrefab: {fileID: 1142998265574188668, guid: 73b7c6614be51cc47b20363d88e67e86,
+      type: 3}
+    streetPos: {x: 73, y: -33.7, z: -3.8}
+    rotation: {x: -0.08098852, y: -0.88905686, z: -0.32633165, w: 0.310687}
+  - myPrefab: {fileID: 1142998265574188668, guid: 73b7c6614be51cc47b20363d88e67e86,
+      type: 3}
+    streetPos: {x: 7.43, y: -0.01, z: 0.06}
+    rotation: {x: 0.43475348, y: 0.76049054, z: -0.22783048, w: 0.42513174}
+  - myPrefab: {fileID: 5976989850051156464, guid: dafbe4928a2c34c0a811d823bcf2f6b9,
+      type: 3}
+    streetPos: {x: -93.1, y: 38.52, z: 6.44}
+    rotation: {x: -0, y: -0, z: -0, w: 1}
+  - myPrefab: {fileID: 5976989850051156464, guid: dafbe4928a2c34c0a811d823bcf2f6b9,
+      type: 3}
+    streetPos: {x: -89.54, y: 36.18, z: -3.08}
+    rotation: {x: -0, y: -0, z: -0, w: 1}
+  - myPrefab: {fileID: 5976989850051156464, guid: dafbe4928a2c34c0a811d823bcf2f6b9,
+      type: 3}
+    streetPos: {x: -71.91, y: 27.98, z: 2.56}
+    rotation: {x: -0, y: -0, z: -0, w: 1}
+  - myPrefab: {fileID: 5976989850051156464, guid: dafbe4928a2c34c0a811d823bcf2f6b9,
+      type: 3}
+    streetPos: {x: -73.56, y: 27.6, z: -6.56}
+    rotation: {x: -0, y: -0, z: -0, w: 1}
+  - myPrefab: {fileID: 5976989850051156464, guid: dafbe4928a2c34c0a811d823bcf2f6b9,
+      type: 3}
+    streetPos: {x: -24.43, y: 10.13, z: -3.49}
+    rotation: {x: -0, y: -0, z: -0, w: 1}
+  - myPrefab: {fileID: 5976989850051156464, guid: dafbe4928a2c34c0a811d823bcf2f6b9,
+      type: 3}
+    streetPos: {x: -27.43, y: 9.16, z: 6.18}
+    rotation: {x: -0, y: -0, z: -0, w: 1}
+  - myPrefab: {fileID: 5976989850051156464, guid: dafbe4928a2c34c0a811d823bcf2f6b9,
+      type: 3}
+    streetPos: {x: -8.484, y: 1.946, z: -6.429}
+    rotation: {x: -0, y: -0, z: -0, w: 1}
+  - myPrefab: {fileID: 5976989850051156464, guid: dafbe4928a2c34c0a811d823bcf2f6b9,
+      type: 3}
+    streetPos: {x: -4.63, y: 0.16, z: 3.62}
+    rotation: {x: -0, y: -0, z: -0, w: 1}
+  - myPrefab: {fileID: 5976989850051156464, guid: dafbe4928a2c34c0a811d823bcf2f6b9,
+      type: 3}
+    streetPos: {x: 20.58, y: -7.99, z: 4.29}
+    rotation: {x: -0, y: -0, z: -0, w: 1}
+  - myPrefab: {fileID: 5976989850051156464, guid: dafbe4928a2c34c0a811d823bcf2f6b9,
+      type: 3}
+    streetPos: {x: 22.1, y: -7.58, z: -3.92}
+    rotation: {x: -0, y: -0, z: -0, w: 1}
+  - myPrefab: {fileID: 5976989850051156464, guid: dafbe4928a2c34c0a811d823bcf2f6b9,
+      type: 3}
+    streetPos: {x: 41.2, y: -21.06, z: -1.49}
+    rotation: {x: -0, y: -0, z: -0, w: 1}
+  - myPrefab: {fileID: 5976989850051156464, guid: dafbe4928a2c34c0a811d823bcf2f6b9,
+      type: 3}
+    streetPos: {x: 43.52, y: -19.88, z: 4.9}
+    rotation: {x: -0, y: -0, z: -0, w: 1}
+  - myPrefab: {fileID: 5976989850051156464, guid: dafbe4928a2c34c0a811d823bcf2f6b9,
+      type: 3}
+    streetPos: {x: 61.01, y: -27.99, z: 3.81}
+    rotation: {x: -0, y: -0, z: -0, w: 1}
+  - myPrefab: {fileID: 5976989850051156464, guid: dafbe4928a2c34c0a811d823bcf2f6b9,
+      type: 3}
+    streetPos: {x: 64.22, y: -27.32, z: -1.46}
+    rotation: {x: -0, y: -0, z: -0, w: 1}
+  - myPrefab: {fileID: 5976989850051156464, guid: dafbe4928a2c34c0a811d823bcf2f6b9,
+      type: 3}
+    streetPos: {x: 86.36, y: -39.11, z: -5.57}
+    rotation: {x: -0, y: -0, z: -0, w: 1}
+  - myPrefab: {fileID: 5976989850051156464, guid: dafbe4928a2c34c0a811d823bcf2f6b9,
+      type: 3}
+    streetPos: {x: 93.41, y: -39.11, z: 6.5}
+    rotation: {x: -0, y: -0, z: -0, w: 1}
