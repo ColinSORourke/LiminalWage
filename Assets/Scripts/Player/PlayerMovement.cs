@@ -28,6 +28,8 @@ namespace Player
         [SerializeField] private float lowJumpGravityMult;
         [Tooltip("Height reached in Unity units after a full jump")]
         [SerializeField] private float jumpHeight;
+        [Tooltip("Initial horizontal slowdown of gliding")]
+        [SerializeField] private float glideInitialSlowdown;
         [Tooltip("Maximum vertical speed")]
         [SerializeField] private float terminalVelocity;
         [Tooltip("Time After leaving a platform that jumping is still allowed")]
@@ -224,6 +226,11 @@ namespace Player
                 else
                 {
                     isGliding = !isGliding;
+                    if (isGliding)
+                    {
+                        horizontalVelocity *= glideInitialSlowdown;
+                        verticalVelocity *= glideInitialSlowdown;
+                    }
                 }
             }
         }
@@ -273,13 +280,16 @@ namespace Player
             if (groundCheck.GetIsGrounded() && !isGroundPlayerCooldown)
             {
                 isGliding = false;
-                verticalVelocity = -playerTransform.up * 0;
+                verticalVelocity = Vector3.zero;
             }
         }
 
         private void ApplyVerticalVelocity()
         {
-            verticalVelocity += currentGravity * Time.deltaTime;
+            if(!groundCheck.GetIsGrounded())
+            {
+                verticalVelocity += currentGravity * Time.deltaTime;
+            }
 
             if (verticalVelocity.magnitude > terminalVelocity)
             {

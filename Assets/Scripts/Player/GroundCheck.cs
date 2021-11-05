@@ -50,15 +50,15 @@ namespace Player
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other != null
-                && ((1 << other.gameObject.layer) & groundLayerMask) != 0
-                && !touchGroundList.Contains(other))
-            {
-                touchGroundList.Add(other);
-            }
+            TryAddGroundCollider(other);
         }
 
         private void OnTriggerStay(Collider other)
+        {
+            TryAddGroundCollider(other);
+        }
+
+        private void TryAddGroundCollider(Collider other)
         {
             if (other != null
                 && ((1 << other.gameObject.layer) & groundLayerMask) != 0
