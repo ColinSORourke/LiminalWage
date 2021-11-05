@@ -767,6 +767,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2406528444801469056, guid: 6bf85c82054ad4c73a23b3aee803dd28,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3094504418999719545, guid: 6bf85c82054ad4c73a23b3aee803dd28,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4107199252280372573, guid: 6bf85c82054ad4c73a23b3aee803dd28,
         type: 3}
       propertyPath: m_Pivot.x

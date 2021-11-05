@@ -69,12 +69,14 @@ namespace Player
 
         private void ToggleCursorLock()
         {
-            if(Cursor.lockState != CursorLockMode.Locked)
+            if (Cursor.lockState != CursorLockMode.Locked)
             {
+                Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
             }
             else
             {
+                Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.Confined;
             }
         }

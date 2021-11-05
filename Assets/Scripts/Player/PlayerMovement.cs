@@ -134,7 +134,6 @@ namespace Player
             ApplyVerticalVelocity();
 
             updateCoyoteTime();
-
         }
 
         private void Move()
