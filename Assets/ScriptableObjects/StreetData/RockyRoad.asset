@@ -18,5 +18,5 @@ MonoBehaviour:
   intersections:
   - position: -31
     otherPosition: 48
-    other: {fileID: 0}
+    other: {fileID: 11400000, guid: 2b22fbc024a41f14381a7dcb50cf32e4, type: 2}
   objects: []
