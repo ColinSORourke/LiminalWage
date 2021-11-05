@@ -11,8 +11,6 @@ public class ScoreUI : MonoBehaviour
     private int addingScore;
     private int displayScore;
 
-    private IEnumerator currentAdding = null;
-
     private bool showingAddingScore;
 
     public void Construct(GameManager gameManager)
@@ -25,13 +23,7 @@ public class ScoreUI : MonoBehaviour
 
     public void TryAddScore(int toAdd)
     {
-        if(currentAdding != null)
-        {
-            StopCoroutine(currentAdding);
-            
-        }
-        currentAdding = AddToScore(toAdd);
-        StartCoroutine(currentAdding);
+        StartCoroutine(AddToScore(toAdd));
     }
 
     private void UpdateValue()

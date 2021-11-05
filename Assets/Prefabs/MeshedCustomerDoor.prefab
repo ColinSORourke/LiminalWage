@@ -10,12 +10,7 @@ PrefabInstance:
     - target: {fileID: 4221194876194436521, guid: be2362439694c4d6c9123aa0d95f5bb4,
         type: 3}
       propertyPath: m_Name
-      value: MeshedCustomerDoor
-      objectReference: {fileID: 0}
-    - target: {fileID: 4221194876194436523, guid: be2362439694c4d6c9123aa0d95f5bb4,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
+      value: CustomerDoor
       objectReference: {fileID: 0}
     - target: {fileID: 4221194876194436525, guid: be2362439694c4d6c9123aa0d95f5bb4,
         type: 3}

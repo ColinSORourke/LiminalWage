@@ -35,14 +35,14 @@ public class pauseMenuScript : MonoBehaviour
         if (!isActive)
         {
             Time.timeScale = 1;
-            //Cursor.lockState = CursorLockMode.Locked;
-            //Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
         else
         {
             Time.timeScale = 0;
-            //Cursor.lockState = CursorLockMode.None;
-            //Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
 
         }
 

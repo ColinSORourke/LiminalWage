@@ -10,7 +10,7 @@ namespace Customer
 
     public class Customer : MonoBehaviour
     {
-        private PlayerInteract playerInteract;
+        private Deliver deliver;
         private NameText nameText;
         private PayText payText;
         private MeshRenderer customerMesh;
@@ -23,7 +23,7 @@ namespace Customer
 
         private IEnumerator CurrentPayDecrease;
 
-        public void Construct(PlayerInteract deliver)
+        public void Construct(Deliver deliver)
         {
             if (deliver == null)
             {
@@ -35,7 +35,7 @@ namespace Customer
             }
             data.ResetData();
 
-            this.playerInteract = deliver;
+            this.deliver = deliver;
 
             customerMesh = gameObject.GetComponent<MeshRenderer>();
 
@@ -87,7 +87,7 @@ namespace Customer
             if(isActive)
             {
                 ToggleIsActive(false);
-                playerInteract.GainPoints(ReceivePizza());
+                deliver.ReceivePay(ReceivePizza());
 
                 StartCoroutine(ResetToActiveCooldown());
             }
