@@ -39,6 +39,7 @@ namespace Player
             playerTransform = gameObject.GetComponent<Transform>();
 
             groundCheck = gameObject.GetComponentInChildren<GroundCheck>();
+            groundCheck.Construct(playerTransform);
 
             playerInput = gameObject.GetComponent<PlayerInput>();
 

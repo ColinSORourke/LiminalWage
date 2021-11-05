@@ -300,13 +300,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 617702194}
-  m_LocalRotation: {x: 0.2588191, y: -0, z: -0, w: 0.9659258}
+  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 4.49, z: -9.32}
   m_LocalScale: {x: 10, y: 1, z: 20}
   m_Children: []
   m_Father: {fileID: 1296584207}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
 --- !u!1 &1100986621
 GameObject:
   m_ObjectHideFlags: 0
@@ -888,6 +888,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5596209579982939531, guid: 4be59ed1629d74d16ba62d65978af511,
         type: 3}
+      propertyPath: myStreet
+      value: 
+      objectReference: {fileID: 11400000, guid: 052ea19d0a04f45f28b7193114027014,
+        type: 2}
+    - target: {fileID: 5596209579982939531, guid: 4be59ed1629d74d16ba62d65978af511,
+        type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
@@ -963,6 +969,10 @@ PrefabInstance:
     - target: {fileID: 1061227118, guid: 5aac63b8a6013487b9ce5ea558e8055b, type: 3}
       propertyPath: cayoteTime
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1061227118, guid: 5aac63b8a6013487b9ce5ea558e8055b, type: 3}
+      propertyPath: slopeCheckRayLength
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3857979982329768477, guid: 5aac63b8a6013487b9ce5ea558e8055b,
         type: 3}

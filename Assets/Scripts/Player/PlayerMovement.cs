@@ -163,6 +163,10 @@ namespace Player
             // Horizontal input and grounded
             else if (groundCheck.GetIsGrounded())
             {
+                // Change direction of movement base on ground slope
+                float groundAngle = groundCheck.GetGroundAngle();
+                newMovement = Quaternion.AngleAxis(groundAngle, Vector3.right) * newMovement;
+
                 NewHorizontalMove(newMovement, thisAccel, thisMaxSpeed);
             }
             // Horizontal input and not grounded
