@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb8af7ddfd24043ae958076da498f6f1, type: 3}
   m_Name: MainStreet
   m_EditorClassIdentifier: 
-  Length: 0
-  Width: 0
-  Color: {fileID: 0}
+  Length: 27
+  Width: 3
+  Color: {fileID: -876546973899608171, guid: 30cbc597581ff4b52b282a550fb4db61, type: 3}
   intersections:
   - position: 11
     otherPosition: -52.3
