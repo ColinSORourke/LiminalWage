@@ -350,6 +350,7 @@ MonoBehaviour:
   fallGravityMult: 2
   lowJumpGravityMult: 3
   jumpHeight: 5
+  glideInitialSlowdown: 0.3
   terminalVelocity: 50
   coyoteTime: 1
   walkAccel: 1
