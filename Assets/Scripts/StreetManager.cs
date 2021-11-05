@@ -152,9 +152,9 @@ public class RenderedStreet
                     }
                     var otherStreet = inter.other;
                     int index = this.getOtherIntersectionId(otherStreet);
-                    var interWidth = 25.0f;
+                    var interWidth = 25.0f * otherStreet.Width;
                     if (this.ignoreIndex != -1){
-                        interWidth = 8.0f;
+                        interWidth = 8.0f * otherStreet.Width;
                     }
 
                     if (j != i || offset != 0){
