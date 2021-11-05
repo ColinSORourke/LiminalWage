@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb8af7ddfd24043ae958076da498f6f1, type: 3}
-  m_Name: CentralSquare
+  m_Name: MainStreet
   m_EditorClassIdentifier: 
-  Length: 18
-  Width: 12
+  Length: 27
+  Width: 3
   Color: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   intersections:
-  - position: -15
-    otherPosition: 75
-    other: {fileID: 11400000, guid: 85557298c4ba8497bb70234992d57347, type: 2}
+  - position: 75
+    otherPosition: -15
+    other: {fileID: 11400000, guid: 052ea19d0a04f45f28b7193114027014, type: 2}
   objects:
-  - myPrefab: {fileID: 5784782820604601895, guid: a674dc6075d31419e9b3708dfa13ffe1,
+  - myPrefab: {fileID: 1312404664621020399, guid: 6cf49fbb1f8944e6787fab3a2d09cff9,
       type: 3}
     streetPos: {x: 0, y: 0, z: 0}
     rotation: {x: -0, y: -0, z: -0, w: 1}
