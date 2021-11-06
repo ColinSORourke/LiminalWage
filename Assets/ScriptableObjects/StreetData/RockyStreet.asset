@@ -10,13 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb8af7ddfd24043ae958076da498f6f1, type: 3}
-  m_Name: RockyRoad
+  m_Name: RockyStreet
   m_EditorClassIdentifier: 
   Length: 18
   Width: 2
-  Color: {fileID: 2100000, guid: f2bbe855f1e9d402b991988eb64e2e8a, type: 2}
+  Color: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   intersections:
-  - position: -31
+  - position: -55
     otherPosition: 48
     other: {fileID: 11400000, guid: 2b22fbc024a41f14381a7dcb50cf32e4, type: 2}
-  objects: []
+  - position: 20
+    otherPosition: -30
+    other: {fileID: 11400000, guid: 052ea19d0a04f45f28b7193114027014, type: 2}
+  objects:
+  - myPrefab: {fileID: 3514803716599121776, guid: 97dcf077a490a42a484b74db0143772d,
+      type: 3}
+    streetPos: {x: 0, y: 0, z: 0}
+    rotation: {x: -0, y: -0, z: -0, w: 1}

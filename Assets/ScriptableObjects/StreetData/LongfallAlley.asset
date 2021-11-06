@@ -20,11 +20,11 @@ MonoBehaviour:
     otherPosition: 46.4
     other: {fileID: 11400000, guid: 91329fdb0fb7ebe4c8757d24ff9c5102, type: 2}
   - position: 15
-    otherPosition: -95
+    otherPosition: 95
     other: {fileID: 11400000, guid: 85557298c4ba8497bb70234992d57347, type: 2}
   - position: 48
-    otherPosition: -31
-    other: {fileID: 11400000, guid: 220aa74cbc660594698247344c08c01a, type: 2}
+    otherPosition: -55
+    other: {fileID: 11400000, guid: b9d7d9575977a4684afe0c40c5b2e620, type: 2}
   objects:
   - myPrefab: {fileID: 5028903101148996133, guid: 2082d3161cb3da54abf7874e175534e5,
       type: 3}

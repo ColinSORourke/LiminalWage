@@ -33,7 +33,6 @@ namespace Player
 
             if (thisCoin != null)
             {
-                print("collect");
                 thisCoin.OnCollect.Invoke();
             }
         }
