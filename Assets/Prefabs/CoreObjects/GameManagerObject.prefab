@@ -95,3 +95,8 @@ MonoBehaviour:
     wallsParent: {fileID: 0}
     myObjects: []
   renderDistance: 200
+  wrapConfig:
+    renderWrappingInstances: 1
+    wrapDistanceVertical: 100
+    wrapCountVertical: 5
+    wrapCountHorizontal: 2

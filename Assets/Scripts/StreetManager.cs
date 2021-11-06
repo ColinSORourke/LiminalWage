@@ -3,6 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[System.Serializable]
+public struct VisualWrapConfig
+{
+    public bool renderWrappingInstances;
+    public float wrapDistanceVertical;
+    public int wrapCountVertical;
+    public int wrapCountHorizontal;
+}
+
 // This is the big boy. It is doing a whole lot of work to create 'seamless' wraparound.
 // This script is attached to the player, but is entirely separate from the player controls.
 // It takes no input, and does no modifying to the player body. It simply reads the players position to determine how to render the world around them.
@@ -15,10 +25,7 @@ public class StreetManager : MonoBehaviour
     public RenderedStreet onStreet;
     public float renderDistance = 200;
 
-    public bool renderWrappingInstances = true;
-    public float visualWrapDistanceVertical = 100;
-    public int visualWrapCountVertical = 5;
-    public int visualWrapCountHorizontal = 2;
+    public VisualWrapConfig wrapConfig;
 
     private Transform playerTrans;
 
@@ -36,7 +43,7 @@ public class StreetManager : MonoBehaviour
     void Start()
     {
         // We start by instantiating a renderedStreet from a Script Object attached to the player.
-        onStreet = new RenderedStreet(this, myStreet, new Vector3(0, 0, 0), true);
+        onStreet = new RenderedStreet(wrapConfig, myStreet, new Vector3(0, 0, 0), true);
     }
 
     // Update is called once per frame
@@ -59,7 +66,7 @@ public class StreetManager : MonoBehaviour
             var edge = maybeTurned.edge;
             var orient = maybeTurned.xOriented;
             onStreet.destroyStreet();
-            onStreet = new RenderedStreet(this, myStreet, pos, orient, middle, edge);
+            onStreet = new RenderedStreet(wrapConfig, myStreet, pos, orient, middle, edge);
         }
         onStreet.VisualWrap.RenderFrame();
 
@@ -78,7 +85,7 @@ public class RenderedStreet
 
     // kyle addition for wrapping:
     public InstancedIndirectGridReplicator VisualWrap;
-    private StreetManager inheritedStreetManager; // a reference to the street manager that created this object.
+    private VisualWrapConfig wrapConfig;
 
 
     [System.NonSerialized]
@@ -97,9 +104,9 @@ public class RenderedStreet
     // Vector3 Pos, the true-game position of the street-center.
     // bool intersection - is this a full street we want to render, or the small intersection portion.
     // int interIndex - the index of intersection between this and another street. Helps avoid double-rendering some stuff, as well as correctly positioning the street.
-    public RenderedStreet(in StreetManager parentStreeManagerClass, ScriptObjStreet street, Vector3 pos, bool orient, float center = 0.0f, float range = -1.0f, RenderedStreet ignoredInter = null, int interIndex = -1)
+    public RenderedStreet(VisualWrapConfig parentWrapConfig, ScriptObjStreet street, Vector3 pos, bool orient, float center = 0.0f, float range = -1.0f, RenderedStreet ignoredInter = null, int interIndex = -1)
     {
-        inheritedStreetManager = parentStreeManagerClass;
+        wrapConfig = parentWrapConfig;
         streetInfo = street;
         truePos = pos;
         xOriented = orient;
@@ -185,7 +192,7 @@ public class RenderedStreet
 
                     if (j != i || offset != 0)
                     {
-                        var renderedInter = new RenderedStreet(inheritedStreetManager, otherStreet, pos, !xOriented, inter.otherPosition, interWidth, this, index);
+                        var renderedInter = new RenderedStreet(wrapConfig, otherStreet, pos, !xOriented, inter.otherPosition, interWidth, this, index);
                         myIntersections[j + (intersLength * currCopy)] = renderedInter;
                     }
                     else
@@ -285,13 +292,13 @@ public class RenderedStreet
 
         // kyle create wraparound instancing class
 
-        if (inheritedStreetManager.renderWrappingInstances)
+        if (wrapConfig.renderWrappingInstances)
         {
             Vector3Int repetitionCount;
             Vector3 repetitionSpacing;
-            float verticalSpacing = inheritedStreetManager.visualWrapDistanceVertical;
-            int vWrapCount = inheritedStreetManager.visualWrapCountVertical;
-            int hWrapCount = inheritedStreetManager.visualWrapCountHorizontal;
+            float verticalSpacing = wrapConfig.wrapDistanceVertical;
+            int vWrapCount = wrapConfig.wrapCountVertical;
+            int hWrapCount = wrapConfig.wrapCountHorizontal;
             if (xOriented)
             {
                 repetitionCount = new Vector3Int(hWrapCount, vWrapCount, 0);
