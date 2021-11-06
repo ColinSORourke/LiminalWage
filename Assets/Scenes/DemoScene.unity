@@ -231,7 +231,7 @@ PrefabInstance:
     - target: {fileID: 2751556834804593786, guid: 5aac63b8a6013487b9ce5ea558e8055b,
         type: 3}
       propertyPath: maxY
-      value: 100
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2751556834804593786, guid: 5aac63b8a6013487b9ce5ea558e8055b,
         type: 3}
@@ -471,12 +471,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5596209579982939531, guid: 4be59ed1629d74d16ba62d65978af511,
-        type: 3}
-      propertyPath: myStreet
-      value: 
-      objectReference: {fileID: 11400000, guid: 91329fdb0fb7ebe4c8757d24ff9c5102,
-        type: 2}
     - target: {fileID: 5596209579982939531, guid: 4be59ed1629d74d16ba62d65978af511,
         type: 3}
       propertyPath: myStreet
