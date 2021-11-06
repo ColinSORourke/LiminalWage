@@ -63,7 +63,7 @@ public static class SceneToData
 
         var previous = (ScriptObjStreet) AssetDatabase.LoadAssetAtPath<ScriptableObject>(path);
         Debug.Log(previous);
-        if (previous != null){
+        if (previous != null && thisStreet.intersections.Length == previous.intersections.Length){
             Debug.Log("In Here");
             for (int i = 0; i < thisStreet.intersections.Length; i++){
                 thisStreet.intersections[i].other = previous.intersections[i].other;
