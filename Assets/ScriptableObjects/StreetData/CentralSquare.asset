@@ -17,10 +17,10 @@ MonoBehaviour:
   Color: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   intersections:
   - position: -15
-    otherPosition: -90
+    otherPosition: 75
     other: {fileID: 11400000, guid: 85557298c4ba8497bb70234992d57347, type: 2}
   - position: 20
-    otherPosition: -30
+    otherPosition: 30
     other: {fileID: 11400000, guid: b9d7d9575977a4684afe0c40c5b2e620, type: 2}
   objects:
   - myPrefab: {fileID: 5784782820604601895, guid: a674dc6075d31419e9b3708dfa13ffe1,
