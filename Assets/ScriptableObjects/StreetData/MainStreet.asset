@@ -18,13 +18,13 @@ MonoBehaviour:
   intersections:
   - position: -90
     otherPosition: 15
-    other: {fileID: 0}
+    other: {fileID: 11400000, guid: 2b22fbc024a41f14381a7dcb50cf32e4, type: 2}
   - position: -35
     otherPosition: -52.3
-    other: {fileID: 0}
+    other: {fileID: 11400000, guid: 91329fdb0fb7ebe4c8757d24ff9c5102, type: 2}
   - position: 75
     otherPosition: -15
-    other: {fileID: 0}
+    other: {fileID: 11400000, guid: 052ea19d0a04f45f28b7193114027014, type: 2}
   objects:
   - myPrefab: {fileID: 1312404664621020399, guid: 6cf49fbb1f8944e6787fab3a2d09cff9,
       type: 3}
