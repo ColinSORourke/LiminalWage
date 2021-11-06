@@ -70,7 +70,6 @@ public static class SceneToData
             }
         }
 
-        AssetDatabase.DeleteAsset(path);
         AssetDatabase.CreateAsset(thisStreet, path);
         AssetDatabase.SaveAssets();
     }
