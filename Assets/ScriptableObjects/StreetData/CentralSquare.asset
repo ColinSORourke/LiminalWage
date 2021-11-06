@@ -15,7 +15,10 @@ MonoBehaviour:
   Length: 18
   Width: 12
   Color: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  intersections: []
+  intersections:
+  - position: -15
+    otherPosition: 75
+    other: {fileID: 11400000, guid: 85557298c4ba8497bb70234992d57347, type: 2}
   objects:
   - myPrefab: {fileID: 5784782820604601895, guid: a674dc6075d31419e9b3708dfa13ffe1,
       type: 3}

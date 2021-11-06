@@ -21,7 +21,7 @@ MonoBehaviour:
     other: {fileID: 11400000, guid: 91329fdb0fb7ebe4c8757d24ff9c5102, type: 2}
   - position: 15
     otherPosition: -95
-    other: {fileID: 11400000, guid: bdedd9e2b1f79234caef0912a3a9d648, type: 2}
+    other: {fileID: 11400000, guid: 85557298c4ba8497bb70234992d57347, type: 2}
   - position: 48
     otherPosition: -31
     other: {fileID: 11400000, guid: 220aa74cbc660594698247344c08c01a, type: 2}
