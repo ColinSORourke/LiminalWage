@@ -61,6 +61,15 @@ public static class SceneToData
         // Delete the previously saved version of this asset and overwrite it.
         string path = "Assets/ScriptableObjects/StreetData/" + scene.name + ".asset";
 
+        var previous = (ScriptObjStreet) AssetDatabase.LoadAssetAtPath<ScriptableObject>(path);
+        Debug.Log(previous);
+        if (previous != null){
+            Debug.Log("In Here");
+            for (int i = 0; i < thisStreet.intersections.Length; i++){
+                thisStreet.intersections[i].other = previous.intersections[i].other;
+            }
+        }
+
         AssetDatabase.DeleteAsset(path);
         AssetDatabase.CreateAsset(thisStreet, path);
         AssetDatabase.SaveAssets();
