@@ -13,7 +13,7 @@ namespace Customer
         private PlayerInteract playerInteract;
         private NameText nameText;
         private PayText payText;
-        private MeshRenderer customerMesh;
+        [SerializeField] private MeshRenderer customerMesh;
 
         [SerializeField] private CustomerData data;
 
@@ -31,8 +31,6 @@ namespace Customer
             }
 
             this.playerInteract = deliver;
-
-            customerMesh = gameObject.GetComponent<MeshRenderer>();
 
             nameText = gameObject.GetComponentInChildren<NameText>();
             payText = gameObject.GetComponentInChildren<PayText>();
@@ -128,6 +126,8 @@ namespace Customer
 
             nameText.ChangeText(data.name);
             payText.ChangeText(data.currentPay);
+            nameText.ChangeColor(data.nameColor);
+            payText.ChangeColor(data.payColor);
 
             ToggleIsActive(true);
 
