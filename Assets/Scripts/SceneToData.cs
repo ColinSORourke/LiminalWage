@@ -72,6 +72,9 @@ public static class SceneToData
                         bool matching = other.intersections[j].position == thisStreet.intersections[i].otherPosition && other.intersections[j].otherPosition == thisStreet.intersections[i].position;
                         Debug.Log("Checking for Match");
                         Debug.Assert(matching);
+                        if (!matching){
+                            Debug.LogError("Intersection with" + other + "Is not properly matched");
+                        }
                     }
                 }
                 thisStreet.intersections[i].other = other;

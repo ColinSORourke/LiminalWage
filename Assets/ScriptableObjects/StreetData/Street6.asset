@@ -16,7 +16,7 @@ MonoBehaviour:
   Width: 2
   Color: {fileID: 2100000, guid: 5b5e37ebb47e1416baf05bb05c829980, type: 2}
   intersections:
-  - position: 80
+  - position: 40.1
     otherPosition: 20
     other: {fileID: 11400000, guid: 6593a0bfe85d54a34a547d4e13395e27, type: 2}
   objects:
