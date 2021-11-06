@@ -342,9 +342,9 @@ public class RenderedStreet
                 }
                 var temp = intersecting.getOtherIntersectionId(streetInfo);
                 var index = this.getOtherIntersectionId(this.streetInfo.intersections[temp].other);
-                var interWidth = 25.0f;
+                var interWidth = 25.0f * intersecting.Width;
                 if (this.ignoreIndex != -1){
-                    interWidth = 8.0f;
+                    interWidth = 8.0f * intersecting.Width;
                 }
                 if (relativePos <= ((width * 5) + 5)){
                     if (intersecting.edge <= interWidth){
