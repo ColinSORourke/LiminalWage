@@ -350,9 +350,10 @@ public class RenderedStreet
                     if (intersecting.edge <= interWidth){
                         intersecting.edge = intersecting.streetInfo.Length * 5;
                     }
-                    intersecting.edge = this.edge;
-                    intersecting.destroyObjects();
-                    intersecting.render(index);
+                    // intersecting.edge = this.edge;
+                    // intersecting.destroyObjects();
+                    // intersecting.render(index);
+                    intersecting.wraparound(this.edge, playerWorldPos, index);
                 } else {
                     if (intersecting.edge > interWidth){
                         intersecting.edge = interWidth;
