@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // This is the big boy. It is doing a whole lot of work to create 'seamless' wraparound.
-// This script is attached to the player, but is entirely separate from the player controls. 
+// This script is attached to the player, but is entirely separate from the player controls.
 // It takes no input, and does no modifying to the player body. It simply reads the players position to determine how to render the world around them.
 // It's split into two parts. The StreetManager MonoBehaviour, and a 'RenderedStreet' Class.
 
@@ -54,11 +54,12 @@ public class StreetManager : MonoBehaviour
             onStreet.destroyStreet();
             onStreet = new RenderedStreet(myStreet, pos, orient, middle, edge);
         }
+        onStreet.VisualWrap.RenderFrame();
 
     }
 }
 
-[System.Serializable] 
+[System.Serializable]
 public class RenderedStreet
 {
     public ScriptObjStreet streetInfo;
@@ -67,6 +68,10 @@ public class RenderedStreet
     public bool xOriented;
     public float edge;
     public float middle;
+
+    // kyle addition for wrapping:
+    public InstancedIndirectGridReplicator VisualWrap;
+
 
     [System.NonSerialized]
     public RenderedStreet[] myIntersections;
@@ -132,9 +137,9 @@ public class RenderedStreet
             groundTransform.localPosition = new Vector3(0.0f,0.0f,middle);
             groundTransform.localScale = new Vector3(streetInfo.Width, 1, edge/5);
         } */
-        
+
         int copies = 1 + (int) Mathf.Floor(this.edge/ (streetInfo.Length * 5));
-        
+
         int intersLength = streetInfo.intersections.Length;
 
         myIntersections = new RenderedStreet[copies * intersLength];
@@ -185,7 +190,7 @@ public class RenderedStreet
         objectParent.GetComponent<Transform>().localPosition = new Vector3 (0.0f, 0.0f, 0.0f);
 
         for(int j = 0; j < objLength; j++){
-            
+
             var obj = streetInfo.objects[j];
             var objRelPos = obj.streetPos.x - middle;
             for (int currCopy = 0; currCopy < copies; currCopy += 1){
@@ -240,6 +245,22 @@ public class RenderedStreet
         float finalCenter = finalEdge - Mathf.Abs(previousEdge - finalEdge)/2;
         float finalScale = Mathf.Abs(previousEdge - finalEdge)/10;
         this.addWall(finalCenter, finalScale);
+
+        // kyle create wraparound instancing class
+        Vector3Int repetitionCount;
+        Vector3 repetitionSpacing;
+        if (xOriented)
+        {
+            repetitionCount = new Vector3Int(5, 5, 0);
+            repetitionSpacing = new Vector3(streetInfo.Length * 10, 50, 1);
+        }
+        else // must be z-oriented
+        {
+            repetitionCount = new Vector3Int(0, 5, 5);
+            repetitionSpacing = new Vector3(1, 50, streetInfo.Length * 10);
+        }
+        VisualWrap = new InstancedIndirectGridReplicator(repetitionCount, repetitionSpacing);
+        VisualWrap.AddAllChildGameObjects(objectParent);
     }
 
     public void addWall(float center, float scale){
@@ -259,7 +280,7 @@ public class RenderedStreet
             planePosRight = new Vector3(streetInfo.Width*-5, 0, center);
         }
 
-        Vector3 planeScale = new Vector3 (scale, 1, 10);
+        Vector3 planeScale = new Vector3(scale, 1, 300);
 
         var objLeft = GameObject.CreatePrimitive(PrimitiveType.Plane);
         var objRendererL = objLeft.GetComponent<MeshRenderer>();
@@ -285,7 +306,7 @@ public class RenderedStreet
         } else {
             playerStreetPos = playerWorldPos.z - truePos.z;
         }
-        
+
 
         bool offTopEdge = playerStreetPos + distance >= middle + edge ;
         bool offBottomEdge =  playerStreetPos - distance <= middle - edge;
@@ -368,7 +389,7 @@ public class RenderedStreet
                     turnedOnto = intersecting;
                 }
             }
-            
+
         }
         if (turned){
             return turnedOnto;
@@ -386,6 +407,9 @@ public class RenderedStreet
                 inter.destroyStreet();
             }
         }
+        // destroy VisualWrap class
+        VisualWrap.cleanupForDeletion();
+        VisualWrap = null;
     }
 
     public void destroyObjects(){
@@ -397,6 +421,9 @@ public class RenderedStreet
                 inter.destroyStreet();
             }
         }
+        // destroy VisualWrap class
+        VisualWrap.cleanupForDeletion();
+        VisualWrap = null;
     }
 
     // This gets an index of intersection with another street.
