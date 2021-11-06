@@ -29,11 +29,6 @@ namespace Customer
             {
                 throw new ArgumentNullException(nameof(deliver));
             }
-            if (data == null)
-            {
-                Debug.LogError(this + " error: data cannot be null");
-            }
-            data.ResetData();
 
             this.playerInteract = deliver;
 
@@ -41,10 +36,21 @@ namespace Customer
 
             nameText = gameObject.GetComponentInChildren<NameText>();
             payText = gameObject.GetComponentInChildren<PayText>();
+            nameText.Construct(Color.magenta, "");
+            payText.Construct(Color.magenta, 0);
 
             OnTryReceive.AddListener(CallbackOnTryReceive);
 
-            ResetToActive();
+            if (data == null)
+            {
+                ClearText();
+                ToggleIsActive(false);
+            }
+            else
+            {
+                ResetToActive();
+                data.ResetData();
+            }
         }
 
         private IEnumerator PayDecrease(float time, int amount)
@@ -72,6 +78,12 @@ namespace Customer
         {
             isActive = state;
 
+            if(data == null)
+            {
+                customerMesh.material.color = Color.grey;
+                return;
+            }
+
             if(isActive)
             {
                 customerMesh.material.color = data.activeColor;
@@ -96,8 +108,7 @@ namespace Customer
         private int ReceivePizza()
         {
             StopCoroutine(CurrentPayDecrease);
-            payText.ChangeText("");
-            nameText.ChangeText("");
+            ClearText();
 
             int toPay = data.currentPay;
             data.currentPay = 0;
@@ -105,12 +116,18 @@ namespace Customer
             return toPay;
         }
 
+        private void ClearText()
+        {
+            payText.ChangeText("");
+            nameText.ChangeText("");
+        }
+
         private void ResetToActive()
         {
             data.ResetData();
 
-            nameText.Construct(data.nameColor, data.name);
-            payText.Construct(data.payColor, data.currentPay);
+            nameText.ChangeText(data.name);
+            payText.ChangeText(data.currentPay);
 
             ToggleIsActive(true);
 

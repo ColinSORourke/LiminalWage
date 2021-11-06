@@ -14,6 +14,7 @@ namespace Collectables
         private Transform coinTransform;
 
         [SerializeField] private int value;
+        [SerializeField] private bool rotationAnimationOn;
         [SerializeField] private float rotationSpeed;
 
         public UnityEvent OnCollect = new UnityEvent();
@@ -27,7 +28,7 @@ namespace Collectables
 
             OnCollect.AddListener(OnCollectCallback);
 
-            StartFloatingAnimation();
+            if (rotationAnimationOn) StartFloatingAnimation();
         }
 
         private void OnCollectCallback()

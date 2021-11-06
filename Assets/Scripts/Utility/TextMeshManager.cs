@@ -33,7 +33,14 @@ namespace Utility
 
         public void ChangeColor(Color color)
         {
-            textMesh.color = color;
+            if(color == null)
+            {
+                textMesh.color = Color.magenta;
+            }
+            else
+            {
+                textMesh.color = color;
+            }
         }
     }
 }
