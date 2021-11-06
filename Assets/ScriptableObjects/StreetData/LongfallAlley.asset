@@ -20,7 +20,7 @@ MonoBehaviour:
     otherPosition: 46.4
     other: {fileID: 11400000, guid: 91329fdb0fb7ebe4c8757d24ff9c5102, type: 2}
   - position: 15
-    otherPosition: 95
+    otherPosition: -90
     other: {fileID: 11400000, guid: 85557298c4ba8497bb70234992d57347, type: 2}
   - position: 48
     otherPosition: -55
