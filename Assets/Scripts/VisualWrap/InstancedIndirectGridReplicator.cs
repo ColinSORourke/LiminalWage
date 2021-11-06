@@ -59,6 +59,7 @@ public class InstancedIndirectGridReplicator
         ro.transform = thing.transform;
         ro.argsBuffer = GenerateIndirectArgsBuffer(instanceMesh);
         currentMyRenderObjectList.AddLast(ro);
+        thing.GetComponent<Renderer>().enabled = false; // disable the Renderer so it doesn't render in the same spot as the instanced mesh for performance reasons.
     }
 
     public void RenderFrame()
