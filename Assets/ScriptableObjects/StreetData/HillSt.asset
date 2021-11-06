@@ -17,8 +17,8 @@ MonoBehaviour:
   Color: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   intersections:
   - position: -52.3
-    otherPosition: 11
-    other: {fileID: 11400000, guid: bdedd9e2b1f79234caef0912a3a9d648, type: 2}
+    otherPosition: -35
+    other: {fileID: 11400000, guid: 85557298c4ba8497bb70234992d57347, type: 2}
   - position: 46.4
     otherPosition: -21.5
     other: {fileID: 11400000, guid: 2b22fbc024a41f14381a7dcb50cf32e4, type: 2}
