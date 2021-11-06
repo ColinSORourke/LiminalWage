@@ -97,7 +97,7 @@ public class InstancedIndirectGridReplicator
         int repSizeY = repSingleDirectionCountY * 2 + 1;
         int repSizeZ = repSingleDirectionCountZ * 2 + 1;
 
-        instanceCount = repSizeX * repSizeY * repSizeZ; // add -1 if the center spot is ignored
+        instanceCount = repSizeX * repSizeY * repSizeZ; // subtract 1 if the center spot is ignored
 
         // Positions & Colors
         if (positionBuffer != null) positionBuffer.Release();
@@ -110,24 +110,6 @@ public class InstancedIndirectGridReplicator
         int yIndex = 0;
         int zIndex = 0;
 
-        int iOffset = 0; // for ignoring center spot
-        // less than or equal because we need to count the center postion to ignore it
-        // for (int i = 0; i < instanceCount; ++i)
-        // {
-        //     // for a 3d grid:
-        //     xIndex = (i % repSizeX) - repSingleDirectionCountX;
-        //     yIndex = ((i / repSizeX) % repSizeY) - repSingleDirectionCountX;
-        //     zIndex = ((i / (repSizeX * repSizeY)) % repSizeZ) - repSingleDirectionCountX;
-        //     // if skipping skip the center spot uncomment this and ioffset above
-        //     if (xIndex == 0 && yIndex == 0 && zIndex == 0)
-        //     {
-        //         iOffset = 1;
-        //         // continue;
-        //     }
-        //     // positions[i - iOffset] // if using ioffset
-        //     positions[i] = new Vector4(xIndex * repetitionSpacing.x + iOffset, yIndex * repetitionSpacing.y + iOffset, zIndex * repetitionSpacing.z + iOffset, 1);
-
-        // }
         int i = 0;
         for (xIndex = 0; xIndex < repSizeX; ++xIndex)
         {
