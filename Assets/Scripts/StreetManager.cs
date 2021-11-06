@@ -251,13 +251,13 @@ public class RenderedStreet
         Vector3 repetitionSpacing;
         if (xOriented)
         {
-            repetitionCount = new Vector3Int(5, 5, 0);
-            repetitionSpacing = new Vector3(streetInfo.Length * 10, 50, 1);
+            repetitionCount = new Vector3Int(1, 5, 0);
+            repetitionSpacing = new Vector3(streetInfo.Length * 10, 100, 1);
         }
         else // must be z-oriented
         {
-            repetitionCount = new Vector3Int(0, 5, 5);
-            repetitionSpacing = new Vector3(1, 50, streetInfo.Length * 10);
+            repetitionCount = new Vector3Int(0, 5, 1);
+            repetitionSpacing = new Vector3(1, 100, streetInfo.Length * 10);
         }
         VisualWrap = new InstancedIndirectGridReplicator(repetitionCount, repetitionSpacing);
         VisualWrap.AddAllChildGameObjects(objectParent);
