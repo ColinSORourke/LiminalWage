@@ -218,7 +218,7 @@ public class RenderedStreet
 
         wallsParent = new GameObject();
         wallsParent.transform.parent = parent.transform;
-        wallsParent.name = "Objects";
+        wallsParent.name = "Walls";
         wallsParent.GetComponent<Transform>().localPosition = new Vector3 (0.0f, 0.0f, 0.0f);
 
         int totalIntersections = myIntersections.Length;
