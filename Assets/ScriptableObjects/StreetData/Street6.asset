@@ -46,7 +46,7 @@ MonoBehaviour:
     rotation: {x: -0, y: -0, z: -0, w: 1}
   - myPrefab: {fileID: 4442848838886660893, guid: 7fc8fb5d6e5924a73b2c83e92188769f,
       type: 3}
-    streetPos: {x: -20.6, y: 0, z: 0}
+    streetPos: {x: -43.4, y: 0, z: 0}
     rotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
   - myPrefab: {fileID: 4442848838886660893, guid: 7fc8fb5d6e5924a73b2c83e92188769f,
       type: 3}

@@ -66,7 +66,15 @@ public static class SceneToData
         if (previous != null && thisStreet.intersections.Length == previous.intersections.Length){
             Debug.Log("In Here");
             for (int i = 0; i < thisStreet.intersections.Length; i++){
-                thisStreet.intersections[i].other = previous.intersections[i].other;
+                var other = previous.intersections[i].other;
+                for (int j = 0; j < other.intersections.Length; j++){
+                    if (other.intersections[j].other = previous){
+                        bool matching = other.intersections[j].position == thisStreet.intersections[i].otherPosition && other.intersections[j].otherPosition == thisStreet.intersections[i].position;
+                        Debug.Log("Checking for Match");
+                        Debug.Assert(matching);
+                    }
+                }
+                thisStreet.intersections[i].other = other;
             }
         }
 
