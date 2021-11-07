@@ -28,6 +28,7 @@ public class StreetManager : MonoBehaviour
     public VisualWrapConfig wrapConfig;
 
     private Transform playerTrans;
+    public CharacterController playerController;
 
     public void Construct(Transform playerTransform)
     {
@@ -47,16 +48,55 @@ public class StreetManager : MonoBehaviour
     }
 
     // Update is called once per frame
+    void HandlePlayerTeleport()
+    {
+        float playerStreetPos;
+        if (onStreet.xOriented)
+        {
+            playerStreetPos = playerController.transform.position.x - onStreet.truePos.x;
+            bool offTopEdge = playerStreetPos >= onStreet.streetInfo.Length * 5;//5=(10/2)
+            bool offBottomEdge = playerStreetPos <= -onStreet.streetInfo.Length * 5; //5=(10/2)
+            if (offTopEdge || offBottomEdge)
+            {
+                float newX = onStreet.truePos.x + (playerStreetPos + onStreet.streetInfo.Length * 5) % (onStreet.streetInfo.Length * 10) - onStreet.streetInfo.Length * 5;
+                //Debug.Log("Teleport");
+                playerController.enabled = false;
+                playerController.transform.position = new Vector3(newX, playerController.transform.position.y, playerController.transform.position.z);
+                playerTrans = playerController.transform;
+                playerController.enabled = true;
+            }
+        }
+        else
+        {
+            playerStreetPos = playerController.transform.position.y - onStreet.truePos.y;
+            bool offTopEdge = playerStreetPos >= onStreet.streetInfo.Length * 5;//5=(10/2)
+            bool offBottomEdge = playerStreetPos <= -onStreet.streetInfo.Length * 5; //5=(10/2)
+            if (offTopEdge || offBottomEdge)
+            {
+                float newZ = onStreet.truePos.z + (playerStreetPos + onStreet.streetInfo.Length * 5) % (onStreet.streetInfo.Length * 10) - onStreet.streetInfo.Length * 5;
+                //Debug.Log("Teleport");
+                playerController.enabled = false;
+                playerController.transform.position = new Vector3(playerController.transform.position.x, playerController.transform.position.y, newZ);
+                playerTrans = playerController.transform;
+                playerController.enabled = true;
+            }
+        }
+
+    }
+
+    // Update is called once per frame
     void Update()
     {
         // Keeps some object names up to date for easier debugging.
         onStreet.parent.name = "onStreet";
-        // COLIN: !!!!!!! Got an error here^ saying that "GameObject" was destroyed, but you are still trying to access it.
+
+
+        HandlePlayerTeleport();
+        onStreet.wraparound(renderDistance, playerTrans.position);
 
         // Calculate the players LOCAL POSITION. Their position relative to the center of the street they are on.
         var relPos = playerTrans.position - onStreet.truePos;
 
-        onStreet.wraparound(renderDistance, playerTrans.position);
         var maybeTurned = onStreet.onIntersection(renderDistance, playerTrans.position);
         if (maybeTurned != onStreet)
         {
@@ -266,11 +306,11 @@ public class RenderedStreet
 
         int totalIntersections = myIntersections.Length;
         float previousEdge = middle - edge;
-        float intersectWidth = 0; 
+        float intersectWidth = 0;
         for (int j = 0; j < totalIntersections; j++)
         {
             var intersection = myIntersections[j];
-            
+
             if (intersection != null)
             {
                 intersectWidth = intersection.streetInfo.Width * 5;
@@ -464,7 +504,7 @@ public class RenderedStreet
                     // intersecting.edge = this.edge;
                     // intersecting.destroyObjects();
                     // intersecting.render(index);
-                    intersecting.wraparound(this.edge, playerWorldPos, index);
+                    // intersecting.wraparound(this.edge, playerWorldPos, index);
                 }
                 else
                 {
@@ -513,7 +553,7 @@ public class RenderedStreet
             VisualWrap.cleanupForDeletion();
             VisualWrap = null;
         }
-        
+
     }
 
     public void destroyObjects()

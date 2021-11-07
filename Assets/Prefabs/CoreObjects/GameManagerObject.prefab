@@ -92,12 +92,17 @@ MonoBehaviour:
     xOriented: 0
     edge: 0
     middle: 0
+    wrapConfig:
+      renderWrappingInstances: 0
+      wrapDistanceVertical: 0
+      wrapCountVertical: 0
+      wrapCountHorizontal: 0
     objectParent: {fileID: 0}
     wallsParent: {fileID: 0}
     myObjects: []
-  renderDistance: 200
+  renderDistance: 70
   wrapConfig:
     renderWrappingInstances: 1
     wrapDistanceVertical: 100
-    wrapCountVertical: 5
-    wrapCountHorizontal: 2
+    wrapCountVertical: 2
+    wrapCountHorizontal: 0

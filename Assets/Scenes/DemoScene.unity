@@ -17,7 +17,7 @@ RenderSettings:
   m_Fog: 1
   m_FogColor: {r: 0.82745105, g: 0.90196085, b: 0.95294124, a: 1}
   m_FogMode: 2
-  m_FogDensity: 0.01
+  m_FogDensity: 0.015
   m_LinearFogStart: 0
   m_LinearFogEnd: 50
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -213,6 +213,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!143 &338295196 stripped
+CharacterController:
+  m_CorrespondingSourceObject: {fileID: 1631748374280250673, guid: 5aac63b8a6013487b9ce5ea558e8055b,
+    type: 3}
+  m_PrefabInstance: {fileID: 468987105}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &468987105
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -479,28 +485,13 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 5596209579982939531, guid: 4be59ed1629d74d16ba62d65978af511,
         type: 3}
-      propertyPath: renderDistance
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 5596209579982939531, guid: 4be59ed1629d74d16ba62d65978af511,
-        type: 3}
-      propertyPath: wrapConfig.wrapCountVertical
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 338295196}
     - target: {fileID: 5596209579982939531, guid: 4be59ed1629d74d16ba62d65978af511,
         type: 3}
       propertyPath: wrapConfig.wrapCountHorizontal
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5596209579982939531, guid: 4be59ed1629d74d16ba62d65978af511,
-        type: 3}
-      propertyPath: wrapConfig.wrapDistanceVertical
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 5596209579982939531, guid: 4be59ed1629d74d16ba62d65978af511,
-        type: 3}
-      propertyPath: wrapConfig.renderWrappingInstances
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5596209581171777954, guid: 4be59ed1629d74d16ba62d65978af511,
         type: 3}
