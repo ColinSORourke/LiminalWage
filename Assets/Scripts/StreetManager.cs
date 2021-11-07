@@ -471,7 +471,7 @@ public class RenderedStreet
                     if (intersecting.edge > interWidth)
                     {
                         intersecting.edge = interWidth;
-                        var selfId = intersecting.getOtherIntersectionId(this.streetInfo);
+                        var selfId = this.getOtherIntersectionId(intersecting.streetInfo);
                         var inter = intersecting.streetInfo.intersections[selfId];
                         intersecting.destroyObjects();
                         intersecting.render(index);
