@@ -150,6 +150,7 @@ public class InstancedIndirectGridReplicator
         foreach (MyRenderObject ro in currentMyRenderObjectList)
         {
             if (ro.argsBuffer != null) ro.argsBuffer.Release();
+            if (ro.material != null) Object.Destroy(ro.material); // handle material deletion, since GC doesn't do it.
         }
     }
 
