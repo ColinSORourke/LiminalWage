@@ -261,7 +261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customerMesh: {fileID: 511310151664255660}
-  data: {fileID: 11400000, guid: 0573719b333f14b189cf6e28d8f800b5, type: 2}
+  data: {fileID: 0}
   OnTryReceive:
     m_PersistentCalls:
       m_Calls: []

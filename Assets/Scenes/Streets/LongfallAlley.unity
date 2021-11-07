@@ -710,7 +710,7 @@ PrefabInstance:
     - target: {fileID: 5028903101148996133, guid: 2082d3161cb3da54abf7874e175534e5,
         type: 3}
       propertyPath: m_Name
-      value: MeshedCustomerDoor
+      value: Sarenrae
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2082d3161cb3da54abf7874e175534e5, type: 3}
@@ -877,6 +877,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1144253380}
     m_Modifications:
+    - target: {fileID: 3353974795475864044, guid: 2082d3161cb3da54abf7874e175534e5,
+        type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: 317919b40338043ada8de40236a7e6ea,
+        type: 2}
     - target: {fileID: 5028903101148996129, guid: 2082d3161cb3da54abf7874e175534e5,
         type: 3}
       propertyPath: m_RootOrder
@@ -935,7 +941,7 @@ PrefabInstance:
     - target: {fileID: 5028903101148996133, guid: 2082d3161cb3da54abf7874e175534e5,
         type: 3}
       propertyPath: m_Name
-      value: MeshedCustomerDoor (1)
+      value: Goremaw
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2082d3161cb3da54abf7874e175534e5, type: 3}

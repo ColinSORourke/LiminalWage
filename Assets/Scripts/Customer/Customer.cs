@@ -98,6 +98,7 @@ namespace Customer
             {
                 ToggleIsActive(false);
                 playerInteract.GainPoints(ReceivePizza());
+                playerInteract.GainMorale(data.moraleValue);
 
                 StartCoroutine(ResetToActiveCooldown());
             }

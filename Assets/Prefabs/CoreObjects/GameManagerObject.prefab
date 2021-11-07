@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c92e7ed8e36784c7384053c9123d69b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameOverScreen: {fileID: 0}
 --- !u!114 &1061844028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,7 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f53d7faf51204a8e9db8b5a56c2d6a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myStreet: {fileID: 11400000, guid: 2663bcec8f49e447484fb3bf88de2bb1, type: 2}
+  myStreet: {fileID: 11400000, guid: 052ea19d0a04f45f28b7193114027014, type: 2}
   onStreet:
     streetInfo: {fileID: 0}
     truePos: {x: 0, y: 0, z: 0}

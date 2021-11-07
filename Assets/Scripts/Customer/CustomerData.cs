@@ -21,6 +21,10 @@ namespace Customer
         [Tooltip("Pay text text color")]
         public Color payColor;
 
+        [Header("Morale variables")]
+        [Tooltip("Morale gained by player upon pay")]
+        public int moraleValue;
+
         [Header("Pay variables")]
         [Tooltip("Starting pay, when reset currentPay = initialPay")]
         public int initialPay;

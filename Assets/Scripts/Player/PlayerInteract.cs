@@ -11,11 +11,13 @@ namespace Player
 
     public class PlayerInteract : MonoBehaviour
     {
+        private PlayerManager playerManager;
         private GameManager gameManager;
         private Collider interactCollider;
 
-        public void Construct(GameManager gameManager)
+        public void Construct(GameManager gameManager, PlayerManager playerManager)
         {
+            this.playerManager = playerManager;
             this.gameManager = gameManager;
             interactCollider = gameObject.GetComponent<Collider>();
         }
@@ -40,6 +42,11 @@ namespace Player
         public void GainPoints(int pay)
         {
             gameManager.AddScore(pay);
+        }
+
+        public void GainMorale(int value)
+        {
+            playerManager.ChangeMorale(value);
         }
     }
 }

@@ -2477,6 +2477,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 393304916}
     m_Modifications:
+    - target: {fileID: 3353974795475864044, guid: 2082d3161cb3da54abf7874e175534e5,
+        type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: ff9e3c03cadee40479e9feee097410bf,
+        type: 2}
     - target: {fileID: 5028903101148996129, guid: 2082d3161cb3da54abf7874e175534e5,
         type: 3}
       propertyPath: m_RootOrder
@@ -2535,7 +2541,7 @@ PrefabInstance:
     - target: {fileID: 5028903101148996133, guid: 2082d3161cb3da54abf7874e175534e5,
         type: 3}
       propertyPath: m_Name
-      value: MeshedCustomerDoor
+      value: Vryul
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2082d3161cb3da54abf7874e175534e5, type: 3}
@@ -4100,6 +4106,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 393304916}
     m_Modifications:
+    - target: {fileID: 3353974795475864044, guid: 2082d3161cb3da54abf7874e175534e5,
+        type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: e77c521a1f0934fc4b5234bf8c0c308b,
+        type: 2}
     - target: {fileID: 5028903101148996129, guid: 2082d3161cb3da54abf7874e175534e5,
         type: 3}
       propertyPath: m_RootOrder
@@ -4158,7 +4170,7 @@ PrefabInstance:
     - target: {fileID: 5028903101148996133, guid: 2082d3161cb3da54abf7874e175534e5,
         type: 3}
       propertyPath: m_Name
-      value: CustomerDoor
+      value: Glax
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2082d3161cb3da54abf7874e175534e5, type: 3}

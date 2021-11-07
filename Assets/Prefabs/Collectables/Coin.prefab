@@ -59,7 +59,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0ac51afea340486d8bf4cff21da3704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 5
+  scoreValue: 5
+  moraleValue: 5
   rotationAnimationOn: 1
   rotationSpeed: 1
   OnCollect:
@@ -212,6 +213,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Model
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a864a32808367f84a83ddeb5e16386ad,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a864a32808367f84a83ddeb5e16386ad, type: 3}

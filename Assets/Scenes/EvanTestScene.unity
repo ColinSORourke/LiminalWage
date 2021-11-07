@@ -121,6 +121,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &86716496 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6754255226418932947, guid: 6bf85c82054ad4c73a23b3aee803dd28,
+    type: 3}
+  m_PrefabInstance: {fileID: 4475359311862553558}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &455451248
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -729,7 +735,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1628445353
 GameObject:
@@ -1136,6 +1142,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5896694704714538592, guid: be2362439694c4d6c9123aa0d95f5bb4,
+        type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: 49f3402d6055541509b7171f8a7b5897,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be2362439694c4d6c9123aa0d95f5bb4, type: 3}
 --- !u!1001 &4475359311862553558
@@ -1149,16 +1161,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 2406528444801469056, guid: 6bf85c82054ad4c73a23b3aee803dd28,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3094504418999719545, guid: 6bf85c82054ad4c73a23b3aee803dd28,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4107199252280372573, guid: 6bf85c82054ad4c73a23b3aee803dd28,
         type: 3}
@@ -1265,11 +1267,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5635238975717861656, guid: 6bf85c82054ad4c73a23b3aee803dd28,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 450
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6bf85c82054ad4c73a23b3aee803dd28, type: 3}
 --- !u!1001 &5596209579982939529
@@ -1279,12 +1276,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5596209579982939531, guid: 4be59ed1629d74d16ba62d65978af511,
-        type: 3}
-      propertyPath: myStreet
-      value: 
-      objectReference: {fileID: 11400000, guid: 052ea19d0a04f45f28b7193114027014,
-        type: 2}
     - target: {fileID: 5596209579982939531, guid: 4be59ed1629d74d16ba62d65978af511,
         type: 3}
       propertyPath: m_Enabled
@@ -1350,6 +1341,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5596209581171777957, guid: 4be59ed1629d74d16ba62d65978af511,
+        type: 3}
+      propertyPath: gameOverScreen
+      value: 
+      objectReference: {fileID: 86716496}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4be59ed1629d74d16ba62d65978af511, type: 3}
 --- !u!1001 &5976989849137579186
@@ -1433,20 +1429,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 5148467591717589887, guid: 5aac63b8a6013487b9ce5ea558e8055b,
-        type: 3}
-      propertyPath: m_Depth
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5148467591717589887, guid: 5aac63b8a6013487b9ce5ea558e8055b,
-        type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 4294967295
-      objectReference: {fileID: 0}
     - target: {fileID: 5785947151888474139, guid: 5aac63b8a6013487b9ce5ea558e8055b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5785947151888474139, guid: 5aac63b8a6013487b9ce5ea558e8055b,
         type: 3}

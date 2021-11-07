@@ -13,7 +13,8 @@ namespace Collectables
         private PlayerInteract playerInteract;
         private Transform coinTransform;
 
-        [SerializeField] private int value;
+        [SerializeField] private int scoreValue;
+        [SerializeField] private int moraleValue;
         [SerializeField] private bool rotationAnimationOn;
         [SerializeField] private float rotationSpeed;
 
@@ -33,7 +34,8 @@ namespace Collectables
 
         private void OnCollectCallback()
         {
-            playerInteract.GainPoints(value);
+            playerInteract.GainPoints(scoreValue);
+            playerInteract.GainMorale(moraleValue);
 
             rotationTween.Kill();
 
@@ -55,7 +57,7 @@ namespace Collectables
 
         public int GetValue()
         {
-            return value;
+            return scoreValue;
         }
     }
 }
