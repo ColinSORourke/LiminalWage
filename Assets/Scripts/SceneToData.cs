@@ -1,3 +1,4 @@
+#if (UNITY_EDITOR)
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,14 +26,14 @@ public static class SceneToData
         var groundTrans = ground.GetComponent<Transform>();
         thisStreet.Length = groundTrans.localScale.x ;
         thisStreet.Width = groundTrans.localScale.z;
-    
+
         var groundMesh = ground.GetComponent<MeshRenderer>();
         thisStreet.Color = groundMesh.sharedMaterial;
 
         // After loading the ground, we search for a game object named "ObjectParent". All actual game objects should be prefabs that are children of this parent.
         GameObject objPar = GameObject.Find("ObjectParent");
         thisStreet.objects = new streetObj[objPar.transform.childCount];
-       
+
         // Iterate over each child
         for (int i = 0; i < objPar.transform.childCount; i++){
             streetObj obj = new streetObj();
@@ -85,3 +86,4 @@ public static class SceneToData
         AssetDatabase.SaveAssets();
     }
 }
+#endif
