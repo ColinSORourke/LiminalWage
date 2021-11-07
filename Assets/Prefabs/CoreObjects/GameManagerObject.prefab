@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f53d7faf51204a8e9db8b5a56c2d6a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myStreet: {fileID: 11400000, guid: 052ea19d0a04f45f28b7193114027014, type: 2}
+  myStreet: {fileID: 11400000, guid: 85557298c4ba8497bb70234992d57347, type: 2}
   onStreet:
     streetInfo: {fileID: 0}
     truePos: {x: 0, y: 0, z: 0}
@@ -92,12 +92,17 @@ MonoBehaviour:
     xOriented: 0
     edge: 0
     middle: 0
+    wrapConfig:
+      renderWrappingInstances: 0
+      wrapDistanceVertical: 0
+      wrapCountVertical: 0
+      wrapCountHorizontal: 0
     objectParent: {fileID: 0}
     wallsParent: {fileID: 0}
     myObjects: []
-  renderDistance: 200
+  renderDistance: 50
   wrapConfig:
     renderWrappingInstances: 1
     wrapDistanceVertical: 100
-    wrapCountVertical: 5
-    wrapCountHorizontal: 2
+    wrapCountVertical: 3
+    wrapCountHorizontal: 1
