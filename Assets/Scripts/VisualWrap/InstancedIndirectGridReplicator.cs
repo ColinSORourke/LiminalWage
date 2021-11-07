@@ -49,7 +49,7 @@ public class InstancedIndirectGridReplicator
         if (instanceMaterial.shader.name != "Instanced/InstancedIndirectSurfaceShader")
         {
             //Debug.LogWarning("GameObject " + thing.name + " found with Material " + instanceMaterial.name + "  which doesn't' use InstancedIndirectSurfaceShader!!!");
-            //return;
+            return;
         }
         instanceMaterial.SetBuffer("positionBuffer", positionBuffer);
 
@@ -83,7 +83,7 @@ public class InstancedIndirectGridReplicator
                 instanceMaterial.SetMatrix("_mylocalToWorldMatrix", instanceTransform.localToWorldMatrix);
                 Graphics.DrawMeshInstancedIndirect(instanceMesh, 0, instanceMaterial, bound, ro.argsBuffer);
             }
-            
+
         }
     }
 
