@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed30963112d5b4edbabe061212b85dac, type: 3}
-  m_Name: Lanna
+  m_Name: Glax
   m_EditorClassIdentifier: 
   activeColor: {r: 0, g: 1, b: 0, a: 1}
   inactiveColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
-  nameColor: {r: 0.68427336, g: 0.681, b: 0.9647059, a: 1}
+  nameColor: {r: 0.11031505, g: 0.6320754, b: 0.1884065, a: 1}
   payColor: {r: 1, g: 1, b: 0, a: 1}
-  moraleValue: 20
-  initialPay: 150
-  minimumPay: 50
-  currentPay: 150
+  moraleValue: 30
+  initialPay: 100
+  minimumPay: 20
+  currentPay: 100
   payDecreaseTime: 5
   payDecreaseAmount: 10
-  activeCooldown: 180
+  activeCooldown: 360

@@ -16,6 +16,7 @@ MonoBehaviour:
   inactiveColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   nameColor: {r: 0.62205577, g: 0.23064259, b: 0.6886792, a: 1}
   payColor: {r: 1, g: 1, b: 0, a: 1}
+  moraleValue: 10
   initialPay: 300
   minimumPay: 10
   currentPay: 300
