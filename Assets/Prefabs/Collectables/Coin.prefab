@@ -61,7 +61,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreValue: 5
   moraleValue: 5
-  rotationAnimationOn: 1
+  rotationAnimationOn: 0
   rotationSpeed: 1
   OnCollect:
     m_PersistentCalls:
