@@ -68,8 +68,17 @@ public class StreetManager : MonoBehaviour
             onStreet.destroyStreet();
             onStreet = new RenderedStreet(wrapConfig, myStreet, pos, orient, middle, edge);
         }
-        onStreet.VisualWrap.RenderFrame();
-
+        if (onStreet.VisualWrap != null){
+            onStreet.VisualWrap.RenderFrame();
+        }
+        for(int i = 0; i < onStreet.myIntersections.Length; i++){
+            var otherStreet = onStreet.myIntersections[i];
+            if (otherStreet != null){
+                if (otherStreet.VisualWrap != null){
+                    otherStreet.VisualWrap.RenderFrame();
+                }
+            }
+        }
     }
 }
 
@@ -85,7 +94,7 @@ public class RenderedStreet
 
     // kyle addition for wrapping:
     public InstancedIndirectGridReplicator VisualWrap;
-    private VisualWrapConfig wrapConfig;
+    public VisualWrapConfig wrapConfig;
 
 
     [System.NonSerialized]
@@ -128,11 +137,7 @@ public class RenderedStreet
         ignoreStreet = ignoredInter;
         ignoreIndex = -1;
 
-
-        Debug.Log(center);
-        Debug.Log(street.Length);
         this.middle = center % (street.Length * 10);
-        Debug.Log(this.middle);
 
         parent.layer = 8;
 
@@ -243,7 +248,7 @@ public class RenderedStreet
                     else
                     {
                         objTransform.localPosition = new Vector3(obj.streetPos.z, obj.streetPos.y, obj.streetPos.x) + new Vector3(0.0f, 0.0f, streetInfo.Length * offset * 10);
-                        objTransform.localRotation = Quaternion.Euler(obj.rotation.eulerAngles + new Vector3(0, 90, 0));
+                        objTransform.localRotation = Quaternion.Euler(obj.rotation.eulerAngles - new Vector3(0, 90, 0));
                     }
                 }
                 else
@@ -261,22 +266,25 @@ public class RenderedStreet
 
         int totalIntersections = myIntersections.Length;
         float previousEdge = middle - edge;
+        float intersectWidth = 0; 
         for (int j = 0; j < totalIntersections; j++)
         {
             var intersection = myIntersections[j];
+            
             if (intersection != null)
             {
+                intersectWidth = intersection.streetInfo.Width * 5;
                 float interEdge;
                 float newEdge;
                 if (xOriented)
                 {
-                    interEdge = (intersection.truePos.x - this.truePos.x) - intersection.streetInfo.Width * 5;
-                    newEdge = (intersection.truePos.x - this.truePos.x) + intersection.streetInfo.Width * 5;
+                    interEdge = (intersection.truePos.x - this.truePos.x) - intersectWidth;
+                    newEdge = (intersection.truePos.x - this.truePos.x) + intersectWidth;
                 }
                 else
                 {
-                    interEdge = (intersection.truePos.z - this.truePos.z) - intersection.streetInfo.Width * 5;
-                    newEdge = (intersection.truePos.z - this.truePos.z) + intersection.streetInfo.Width * 5;
+                    interEdge = (intersection.truePos.z - this.truePos.z) - intersectWidth;
+                    newEdge = (intersection.truePos.z - this.truePos.z) + intersectWidth;
                 }
                 float center = interEdge - Mathf.Abs(previousEdge - interEdge) / 2;
                 float scale = Mathf.Abs(previousEdge - interEdge) / 10;
@@ -284,7 +292,7 @@ public class RenderedStreet
                 previousEdge = newEdge;
             }
         }
-        float finalEdge = middle + edge;
+        float finalEdge = middle + edge + intersectWidth;
         float finalCenter = finalEdge - Mathf.Abs(previousEdge - finalEdge) / 2;
         float finalScale = Mathf.Abs(previousEdge - finalEdge) / 10;
         this.addWall(finalCenter, finalScale);
@@ -372,8 +380,9 @@ public class RenderedStreet
 
         if (offTopEdge && offBottomEdge)
         {
-            edge += 40;
+            edge = distance + 10;
             this.destroyObjects();
+            //Debug.Log(this.edge);
             this.render(index);
         }
         else if (offTopEdge)
@@ -448,10 +457,10 @@ public class RenderedStreet
                 }
                 if (relativePos <= ((width * 5) + 5))
                 {
-                    if (intersecting.edge <= interWidth)
+                    /* if (intersecting.edge <= interWidth)
                     {
                         intersecting.edge = intersecting.streetInfo.Length * 5;
-                    }
+                    } */
                     // intersecting.edge = this.edge;
                     // intersecting.destroyObjects();
                     // intersecting.render(index);
@@ -500,8 +509,11 @@ public class RenderedStreet
             }
         }
         // destroy VisualWrap class
-        VisualWrap.cleanupForDeletion();
-        VisualWrap = null;
+        if (VisualWrap != null){
+            VisualWrap.cleanupForDeletion();
+            VisualWrap = null;
+        }
+        
     }
 
     public void destroyObjects()
@@ -517,8 +529,10 @@ public class RenderedStreet
             }
         }
         // destroy VisualWrap class
-        VisualWrap.cleanupForDeletion();
-        VisualWrap = null;
+        if (VisualWrap != null){
+            VisualWrap.cleanupForDeletion();
+            VisualWrap = null;
+        }
     }
 
     // This gets an index of intersection with another street.

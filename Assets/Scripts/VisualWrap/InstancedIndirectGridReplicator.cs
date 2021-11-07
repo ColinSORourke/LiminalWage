@@ -48,43 +48,55 @@ public class InstancedIndirectGridReplicator
 
         if (instanceMaterial.shader.name != "Instanced/InstancedIndirectSurfaceShader")
         {
-            Debug.LogWarning("GameObject " + thing.name + " found with Material " + instanceMaterial.name + "  which doesn't' use InstancedIndirectSurfaceShader!!!");
-            return;
+            //Debug.LogWarning("GameObject " + thing.name + " found with Material " + instanceMaterial.name + "  which doesn't' use InstancedIndirectSurfaceShader!!!");
+            //return;
         }
         instanceMaterial.SetBuffer("positionBuffer", positionBuffer);
 
-        MyRenderObject ro = new MyRenderObject();
-        ro.mesh = instanceMesh;
-        ro.material = instanceMaterial;
-        ro.transform = thing.transform;
-        ro.argsBuffer = GenerateIndirectArgsBuffer(instanceMesh);
-        currentMyRenderObjectList.AddLast(ro);
-        thing.GetComponent<Renderer>().enabled = false; // disable the Renderer so it doesn't render in the same spot as the instanced mesh for performance reasons.
+        if (thing.transform != null){
+            MyRenderObject ro = new MyRenderObject();
+            ro.mesh = instanceMesh;
+            ro.material = instanceMaterial;
+            ro.transform = thing.transform;
+
+            //setup indirect args
+            ro.argsBuffer = new ComputeBuffer(1, args.Length * sizeof(uint), ComputeBufferType.IndirectArguments);
+            uint numIndices = (instanceMesh != null) ? (uint)instanceMesh.GetIndexCount(0) : 0; // < assumes no submeshes
+            args[0] = numIndices;
+            args[1] = (uint)instanceCount;
+            ro.argsBuffer.SetData(args);
+            //ro.argsBuffer = GenerateIndirectArgsBuffer(instanceMesh);
+            currentMyRenderObjectList.AddLast(ro);
+        }
+        thing.GetComponent<Renderer>().enabled = false; // disable the Renderer so it doesn't render in the same spot agcvs the instanced mesh for performance reasons.
     }
 
     public void RenderFrame()
     {
         foreach (MyRenderObject ro in currentMyRenderObjectList)
         {
-            Mesh instanceMesh = ro.mesh;  // the current mesh we are rendering
-            Material instanceMaterial = ro.material;  // the material to go on the current mesh we are rendering
-            Transform instanceTransform = ro.transform;
-            instanceMaterial.SetMatrix("_myworldToLocalMatrix", instanceTransform.worldToLocalMatrix);
-            instanceMaterial.SetMatrix("_mylocalToWorldMatrix", instanceTransform.localToWorldMatrix);
-            Graphics.DrawMeshInstancedIndirect(instanceMesh, 0, instanceMaterial, bound, ro.argsBuffer);
+            if (ro.transform != null){
+                Mesh instanceMesh = ro.mesh;  // the current mesh we are rendering
+                Material instanceMaterial = ro.material;  // the material to go on the current mesh we are rendering
+                Transform instanceTransform = ro.transform;
+                instanceMaterial.SetMatrix("_myworldToLocalMatrix", instanceTransform.worldToLocalMatrix);
+                instanceMaterial.SetMatrix("_mylocalToWorldMatrix", instanceTransform.localToWorldMatrix);
+                Graphics.DrawMeshInstancedIndirect(instanceMesh, 0, instanceMaterial, bound, ro.argsBuffer);
+            }
+            
         }
     }
 
-    ComputeBuffer GenerateIndirectArgsBuffer(Mesh instanceMesh)
+    /* ref ComputeBuffer GenerateIndirectArgsBuffer(Mesh instanceMesh)
     {
-        //setup indirect args
-        ComputeBuffer argsBuffer = new ComputeBuffer(1, args.Length * sizeof(uint), ComputeBufferType.IndirectArguments);
-        uint numIndices = (instanceMesh != null) ? (uint)instanceMesh.GetIndexCount(0) : 0; // < assumes no submeshes
-        args[0] = numIndices;
-        args[1] = (uint)instanceCount;
-        argsBuffer.SetData(args);
-        return argsBuffer;
-    }
+         //setup indirect args
+            ro.argsBuffer = new ComputeBuffer(1, args.Length * sizeof(uint), ComputeBufferType.IndirectArguments);
+            uint numIndices = (instanceMesh != null) ? (uint)instanceMesh.GetIndexCount(0) : 0; // < assumes no submeshes
+            args[0] = numIndices;
+            args[1] = (uint)instanceCount;
+            ro.argsBuffer.SetData(args);
+        return ref argsBuffer;
+    } */
 
     void SetupPostionBuffer()
     {

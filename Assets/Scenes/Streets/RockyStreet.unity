@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4482482, g: 0.49827522, b: 0.5755824, a: 1}
+  m_IndirectSpecularColor: {r: 0.44824868, g: 0.49827552, b: 0.5755827, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7003,7 +7003,7 @@ PrefabInstance:
     - target: {fileID: 5784782820604601892, guid: a674dc6075d31419e9b3708dfa13ffe1,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 5784782820604601892, guid: a674dc6075d31419e9b3708dfa13ffe1,
         type: 3}
@@ -7018,7 +7018,7 @@ PrefabInstance:
     - target: {fileID: 5784782820604601892, guid: a674dc6075d31419e9b3708dfa13ffe1,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5784782820604601892, guid: a674dc6075d31419e9b3708dfa13ffe1,
         type: 3}
@@ -7028,7 +7028,7 @@ PrefabInstance:
     - target: {fileID: 5784782820604601892, guid: a674dc6075d31419e9b3708dfa13ffe1,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
+      value: 270
       objectReference: {fileID: 0}
     - target: {fileID: 5784782820604601892, guid: a674dc6075d31419e9b3708dfa13ffe1,
         type: 3}
@@ -16521,7 +16521,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519206386}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 30, y: 0, z: 20}
+  m_LocalPosition: {x: 30, y: 0, z: -20}
   m_LocalScale: {x: 18, y: 1, z: 12}
   m_Children: []
   m_Father: {fileID: 601220745}
@@ -35475,7 +35475,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1876543626}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -55, y: 0, z: 50}
+  m_LocalPosition: {x: -55, y: 0, z: -50}
   m_LocalScale: {x: 12, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 601220745}
