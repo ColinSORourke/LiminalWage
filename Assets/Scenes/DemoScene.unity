@@ -480,7 +480,7 @@ PrefabInstance:
     - target: {fileID: 5596209579982939531, guid: 4be59ed1629d74d16ba62d65978af511,
         type: 3}
       propertyPath: renderDistance
-      value: 80
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5596209579982939531, guid: 4be59ed1629d74d16ba62d65978af511,
         type: 3}
