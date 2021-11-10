@@ -12,6 +12,8 @@ public class InstancedIndirectGridReplicator
 
     public Vector3Int repetitionCount;
     public Vector3 repetitionSpacing;
+    public bool xOriented;
+
     private int instanceCount; // count of how many instances of the current mesh,material combo / GameObject we will draw
     private Bounds bound = new Bounds(Vector3.zero, new Vector3(1000, 1000, 1000));
 
@@ -26,10 +28,11 @@ public class InstancedIndirectGridReplicator
     private LinkedList<MyRenderObject> currentMyRenderObjectList = new LinkedList<MyRenderObject>();
 
     // Class Constructor
-    public InstancedIndirectGridReplicator(Vector3Int repetitionCount, Vector3 repetitionSpacing)
+    public InstancedIndirectGridReplicator(Vector3Int repetitionCount, Vector3 repetitionSpacing, bool orient)
     {
         this.repetitionCount = repetitionCount;
         this.repetitionSpacing = repetitionSpacing;
+        this.xOriented = orient;
         SetupPostionBuffer();
     }
 
@@ -109,8 +112,8 @@ public class InstancedIndirectGridReplicator
         int repSizeY = repSingleDirectionCountY * 2 + 1;
         int repSizeZ = repSingleDirectionCountZ * 2 + 1;
 
-        instanceCount = repSizeX * repSizeY * repSizeZ; // subtract 1 if the center spot is ignored
-
+        // instanceCount = repSizeX * repSizeY * repSizeZ; // subtract 1 if the center spot is ignored
+        instanceCount = (repSizeX * repSizeY) + (repSizeZ * repSizeY) - repSizeY;
         // Positions & Colors
         if (positionBuffer != null) positionBuffer.Release();
 
@@ -122,8 +125,43 @@ public class InstancedIndirectGridReplicator
         int yIndex = 0;
         int zIndex = 0;
 
+        zIndex = repSingleDirectionCountZ;
         int i = 0;
-        for (xIndex = 0; xIndex < repSizeX; ++xIndex)
+        for (xIndex = 0; xIndex < repSizeX; ++xIndex){
+            if (xOriented && xIndex == repSingleDirectionCountX){
+                // Don't do a copy
+            } else {
+                for (yIndex = 0; yIndex < repSizeY; ++yIndex){
+                    float xPos = (xIndex - repSingleDirectionCountX) * repetitionSpacing.x;
+                    float yPos = (yIndex - repSingleDirectionCountY) * repetitionSpacing.y;
+                    float zPos = (zIndex - repSingleDirectionCountZ) * repetitionSpacing.z;
+                        
+                    positions[i] = new Vector4(xPos, yPos, zPos, 1);
+                    ++i;
+                }
+            }
+            
+        }
+
+        xIndex = repSingleDirectionCountX;
+        for (zIndex = 0; zIndex < repSizeZ; ++zIndex){
+            if (!xOriented && zIndex == repSingleDirectionCountZ){
+                // Don't do a copy
+            } else {
+                for (yIndex = 0; yIndex < repSizeY; ++yIndex){
+                    float xPos = (xIndex - repSingleDirectionCountX) * repetitionSpacing.x;
+                    float yPos = (yIndex - repSingleDirectionCountY) * repetitionSpacing.y;
+                    float zPos = (zIndex - repSingleDirectionCountZ) * repetitionSpacing.z;
+                        
+                    positions[i] = new Vector4(xPos, yPos, zPos, 1);
+                    ++i;
+                }
+            }
+            
+        }
+
+
+        /* for (xIndex = 0; xIndex < repSizeX; ++xIndex)
         {
             for (yIndex = 0; yIndex < repSizeY; ++yIndex)
             {
@@ -132,11 +170,12 @@ public class InstancedIndirectGridReplicator
                     float xPos = (xIndex - repSingleDirectionCountX) * repetitionSpacing.x;
                     float yPos = (yIndex - repSingleDirectionCountY) * repetitionSpacing.y;
                     float zPos = (zIndex - repSingleDirectionCountZ) * repetitionSpacing.z;
+                    
                     positions[i] = new Vector4(xPos, yPos, zPos, 1);
                     ++i;
                 }
             }
-        }
+        } */
 
         positionBuffer.SetData(positions);
     }

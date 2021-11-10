@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb8af7ddfd24043ae958076da498f6f1, type: 3}
-  m_Name: CentralSquare
+  m_Name: RockyStreet 2
   m_EditorClassIdentifier: 
   Length: 18
-  Width: 12
+  Width: 2
   Color: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   intersections:
-  - position: -15
-    otherPosition: 75
-    other: {fileID: 11400000, guid: 85557298c4ba8497bb70234992d57347, type: 2}
-    oppositeIndex: 2
-  - position: 20
-    otherPosition: 30
-    other: {fileID: 11400000, guid: b9d7d9575977a4684afe0c40c5b2e620, type: 2}
-    oppositeIndex: 1
+  - position: -55
+    otherPosition: 50
+    other: {fileID: 11400000, guid: 2b22fbc024a41f14381a7dcb50cf32e4, type: 2}
+    oppositeIndex: 0
+  - position: 30
+    otherPosition: 20
+    other: {fileID: 11400000, guid: 052ea19d0a04f45f28b7193114027014, type: 2}
+    oppositeIndex: 0
   objects:
-  - myPrefab: {fileID: 5784782820604601895, guid: a674dc6075d31419e9b3708dfa13ffe1,
+  - myPrefab: {fileID: 3514803716599121776, guid: 97dcf077a490a42a484b74db0143772d,
       type: 3}
     streetPos: {x: 0, y: 0, z: 0}
     rotation: {x: -0, y: -0, z: -0, w: 1}

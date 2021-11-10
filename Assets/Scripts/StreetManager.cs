@@ -11,6 +11,19 @@ public struct VisualWrapConfig
     public float wrapDistanceVertical;
     public int wrapCountVertical;
     public int wrapCountHorizontal;
+    public int wrapCountParallel;
+    public float wrapDistanceParallel;
+}
+
+[System.Serializable]
+public struct derivedConfig
+{
+    public int level;
+    public int ignore;
+    [System.NonSerialized]
+    public RenderedStreet ignoredStreet;
+    public float middle;
+    public float range;
 }
 
 // This is the big boy. It is doing a whole lot of work to create 'seamless' wraparound.
@@ -42,8 +55,14 @@ public class StreetManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        derivedConfig notDerived;
+        notDerived.level = 0;
+        notDerived.ignore = -1;
+        notDerived.ignoredStreet = null;
+        notDerived.middle = 0;
+        notDerived.range = myStreet.Length * 5;
         // We start by instantiating a renderedStreet from a Script Object attached to the player.
-        onStreet = new RenderedStreet(wrapConfig, myStreet, new Vector3(0, 0, 0), true);
+        onStreet = new RenderedStreet(wrapConfig, myStreet, new Vector3(0, 0, 0), true, notDerived);
     }
 
     // Update is called once per frame
@@ -56,28 +75,36 @@ public class StreetManager : MonoBehaviour
         // Calculate the players LOCAL POSITION. Their position relative to the center of the street they are on.
         var relPos = playerTrans.position - onStreet.truePos;
 
-        onStreet.wraparound(renderDistance, playerTrans.position);
+        var teleWrap = onStreet.wraparound(playerTrans);
+        if (teleWrap != new Vector3(0,0,0)){
+            Debug.Log("Trying to wrap");
+            var realPlayer = GameObject.Find("Player").GetComponent<CharacterController>();
+            realPlayer.enabled = false;
+            realPlayer.transform.position = realPlayer.transform.position + teleWrap;
+            realPlayer.enabled = true;
+        }
         var maybeTurned = onStreet.onIntersection(renderDistance, playerTrans.position);
         if (maybeTurned != onStreet)
         {
             myStreet = maybeTurned.streetInfo;
             var pos = maybeTurned.truePos;
-            var middle = maybeTurned.middle;
-            var edge = maybeTurned.edge;
+            
             var orient = maybeTurned.xOriented;
             onStreet.destroyStreet();
-            onStreet = new RenderedStreet(wrapConfig, myStreet, pos, orient, middle, edge);
-        }
+
+            derivedConfig notDerived;
+            notDerived.level = 0;
+            notDerived.ignore = -1;
+            notDerived.ignoredStreet = null;
+            notDerived.middle = 0;
+            notDerived.range = myStreet.Length * 5;
+
+            onStreet = new RenderedStreet(wrapConfig, myStreet, pos, orient, notDerived);
+        } 
+
         if (onStreet.VisualWrap != null){
             onStreet.VisualWrap.RenderFrame();
-        }
-        for(int i = 0; i < onStreet.myIntersections.Length; i++){
-            var otherStreet = onStreet.myIntersections[i];
-            if (otherStreet != null){
-                if (otherStreet.VisualWrap != null){
-                    otherStreet.VisualWrap.RenderFrame();
-                }
-            }
+            onStreet.mirrorChildren();
         }
     }
 }
@@ -89,13 +116,10 @@ public class RenderedStreet
     public Vector3 truePos;
     public GameObject parent;
     public bool xOriented;
-    public float edge;
-    public float middle;
 
     // kyle addition for wrapping:
     public InstancedIndirectGridReplicator VisualWrap;
     public VisualWrapConfig wrapConfig;
-
 
     [System.NonSerialized]
     public RenderedStreet[] myIntersections;
@@ -105,39 +129,28 @@ public class RenderedStreet
     public GameObject[] myObjects;
 
     GameObject ground;
-    int ignoreIndex;
-    RenderedStreet ignoreStreet;
+
+    public derivedConfig derived;
 
     // The constructer takes:
     // ScriptObjStreet, the scriptable object storing juicy information
     // Vector3 Pos, the true-game position of the street-center.
     // bool intersection - is this a full street we want to render, or the small intersection portion.
     // int interIndex - the index of intersection between this and another street. Helps avoid double-rendering some stuff, as well as correctly positioning the street.
-    public RenderedStreet(VisualWrapConfig parentWrapConfig, ScriptObjStreet street, Vector3 pos, bool orient, float center = 0.0f, float range = -1.0f, RenderedStreet ignoredInter = null, int interIndex = -1)
+    public RenderedStreet(VisualWrapConfig wrapConfig, ScriptObjStreet street, Vector3 pos, bool orient, derivedConfig derivedInfo)
     {
-        wrapConfig = parentWrapConfig;
+        this.wrapConfig = wrapConfig;
         streetInfo = street;
         truePos = pos;
         xOriented = orient;
+
+        derived = derivedInfo;
+
         // Create a Parent Game object at the street's true-game position. All other game objects will be childed to this parent, and thus their coordinates will be local to that position.
         parent = new GameObject();
-        parent.name = "Street";
+        parent.name = "Street" + derived.level;
         var parentTrans = parent.GetComponent<Transform>();
         parentTrans.position = pos;
-
-        if (range == -1.0f)
-        {
-            edge = street.Length * 5;
-        }
-        else
-        {
-            edge = range;
-        }
-
-        ignoreStreet = ignoredInter;
-        ignoreIndex = -1;
-
-        this.middle = center % (street.Length * 10);
 
         parent.layer = 8;
 
@@ -149,74 +162,21 @@ public class RenderedStreet
         var groundRenderer = ground.GetComponent<MeshRenderer>();
         groundRenderer.material = street.Color; */
 
-        this.render(interIndex);
+        if (derived.level < 2){
+            this.render();
+        }
+        else {
+            this.partialRender();
+        }
+        
     }
 
-    public void render(int i)
-    {
-        /* var groundTransform = ground.GetComponent<Transform>();
+    public void partialRender(){
+        myIntersections = new RenderedStreet[1];
+        myIntersections[0] = derived.ignoredStreet;
+        derived.ignore = 0;
 
-        if (xOriented){
-            groundTransform.localPosition = new Vector3(middle,0.0f,0.0f);
-            groundTransform.localScale = new Vector3(edge/5, 1, streetInfo.Width);
-        } else {
-            groundTransform.localPosition = new Vector3(0.0f,0.0f,middle);
-            groundTransform.localScale = new Vector3(streetInfo.Width, 1, edge/5);
-        } */
-
-        int copies = 1 + (int)Mathf.Floor(this.edge / (streetInfo.Length * 5));
-
-        int intersLength = streetInfo.intersections.Length;
-
-        myIntersections = new RenderedStreet[copies * intersLength];
-        for (int j = 0; j < intersLength; j++)
-        {
-            var inter = streetInfo.intersections[j];
-            var interRelPos = inter.position - this.middle;
-            for (int currCopy = 0; currCopy < copies; currCopy += 1)
-            {
-                var offset = currCopy - Mathf.Floor(copies / 2);
-                if (Mathf.Abs(interRelPos + (streetInfo.Length * offset * 10)) < this.edge)
-                {
-                    Vector3 pos;
-                    if (xOriented)
-                    {
-                        pos = truePos + new Vector3(inter.position + streetInfo.Length * offset * 10, 0.0f, 0.0f) - new Vector3(0.0f, 0.0f, inter.otherPosition);
-                    }
-                    else
-                    {
-                        pos = truePos + new Vector3(0.0f, 0.0f, inter.position + streetInfo.Length * offset * 10) - new Vector3(inter.otherPosition, 0.0f, 0.0f);
-                    }
-                    var otherStreet = inter.other;
-                    int index = this.getOtherIntersectionId(otherStreet);
-                    var interWidth = 25.0f * otherStreet.Width;
-                    if (this.ignoreIndex != -1)
-                    {
-                        interWidth = 8.0f * otherStreet.Width;
-                    }
-
-                    if (j != i || offset != 0)
-                    {
-                        var renderedInter = new RenderedStreet(wrapConfig, otherStreet, pos, !xOriented, inter.otherPosition, interWidth, this, index);
-                        myIntersections[j + (intersLength * currCopy)] = renderedInter;
-                    }
-                    else
-                    {
-                        // Don't! Render a small intersection that we are already standing on.
-                        ignoreIndex = j + (intersLength * currCopy);
-                        myIntersections[j + (intersLength * currCopy)] = ignoreStreet;
-                    }
-                }
-                else
-                {
-                    // Don't! Render an intersection that is outside of our current range.
-                    myIntersections[j + (intersLength * currCopy)] = null;
-                }
-            }
-        }
-
-        int objLength = streetInfo.objects.Length;
-        myObjects = new GameObject[copies * objLength];
+        myObjects = new GameObject[streetInfo.objects.Length];
 
         var newAngle = Quaternion.Euler(new Vector3(0, 90, 0));
 
@@ -225,47 +185,32 @@ public class RenderedStreet
         objectParent.name = "Objects";
         objectParent.GetComponent<Transform>().localPosition = new Vector3(0.0f, 0.0f, 0.0f);
 
-        for (int j = 0; j < objLength; j++)
+        for (int j = 0; j < myObjects.Length; j++)
         {
-
             var obj = streetInfo.objects[j];
-            var objRelPos = obj.streetPos.x - middle;
-            for (int currCopy = 0; currCopy < copies; currCopy += 1)
-            {
-                var offset = currCopy - Mathf.Floor(copies / 2);
-                if (Mathf.Abs(objRelPos + streetInfo.Length * offset * 10) < this.edge)
+            if (obj.streetPos.x > derived.middle - derived.range && obj.streetPos.x < derived.middle + derived.range){
+                myObjects[j] = GameObject.Instantiate(obj.myPrefab);
+                myObjects[j].transform.parent = objectParent.transform;
+
+                var objTransform = myObjects[j].GetComponent<Transform>();
+                if (xOriented)
                 {
-                    myObjects[j + (objLength * currCopy)] = GameObject.Instantiate(obj.myPrefab);
-                    myObjects[j + (objLength * currCopy)].transform.parent = objectParent.transform;
+                    objTransform.localPosition = obj.streetPos;
+                    objTransform.localRotation = obj.rotation;
 
-                    var objTransform = myObjects[j + (objLength * currCopy)].GetComponent<Transform>();
-                    if (xOriented)
-                    {
-                        objTransform.localPosition = obj.streetPos + new Vector3(streetInfo.Length * offset * 10, 0.0f, 0.0f);
-                        objTransform.localRotation = obj.rotation;
-
-                    }
-                    else
-                    {
-                        objTransform.localPosition = new Vector3(obj.streetPos.z, obj.streetPos.y, obj.streetPos.x) + new Vector3(0.0f, 0.0f, streetInfo.Length * offset * 10);
-                        objTransform.localRotation = Quaternion.Euler(obj.rotation.eulerAngles - new Vector3(0, 90, 0));
-                    }
                 }
                 else
                 {
-                    // Don't! Render Extra objects
-                    myObjects[j + (objLength * currCopy)] = null;
+                    objTransform.localPosition = new Vector3(obj.streetPos.z, obj.streetPos.y, obj.streetPos.x);
+                    objTransform.localRotation = Quaternion.Euler(obj.rotation.eulerAngles - new Vector3(0, 90, 0));
                 }
+            } else {
+                myObjects[j] = null;
             }
-        }
-
-        wallsParent = new GameObject();
-        wallsParent.transform.parent = parent.transform;
-        wallsParent.name = "Walls";
-        wallsParent.GetComponent<Transform>().localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+        }        
 
         int totalIntersections = myIntersections.Length;
-        float previousEdge = middle - edge;
+        float previousEdge = derived.middle - derived.range;
         float intersectWidth = 0; 
         for (int j = 0; j < totalIntersections; j++)
         {
@@ -292,7 +237,150 @@ public class RenderedStreet
                 previousEdge = newEdge;
             }
         }
-        float finalEdge = middle + edge + intersectWidth;
+        float finalEdge = derived.middle + derived.range + intersectWidth;
+        float finalCenter = finalEdge - Mathf.Abs(previousEdge - finalEdge) / 2;
+        float finalScale = Mathf.Abs(previousEdge - finalEdge) / 10;
+        this.addWall(finalCenter, finalScale);
+
+        if (wrapConfig.renderWrappingInstances)
+        {
+            Vector3Int repetitionCount;
+            Vector3 repetitionSpacing;
+            float verticalSpacing = wrapConfig.wrapDistanceVertical;
+            int vWrapCount = wrapConfig.wrapCountVertical;
+            int hWrapCount = wrapConfig.wrapCountHorizontal;
+            int pWrapCount = wrapConfig.wrapCountParallel;
+            float pSpacing = wrapConfig.wrapDistanceParallel;
+            if (xOriented)
+            {
+                repetitionCount = new Vector3Int(hWrapCount, vWrapCount, pWrapCount);
+                repetitionSpacing = new Vector3(streetInfo.Length * 10, verticalSpacing, pSpacing);
+            }
+            else // must be z-oriented
+            {
+                repetitionCount = new Vector3Int(pWrapCount, vWrapCount, hWrapCount);
+                repetitionSpacing = new Vector3(pSpacing, verticalSpacing, streetInfo.Length * 10);
+            }
+            VisualWrap = new InstancedIndirectGridReplicator(repetitionCount, repetitionSpacing, this.xOriented);
+            VisualWrap.AddAllChildGameObjects(objectParent);
+        }
+    }
+
+    public void render()
+    {
+        /* var groundTransform = ground.GetComponent<Transform>();
+
+        if (xOriented){
+            groundTransform.localPosition = new Vector3(middle,0.0f,0.0f);
+            groundTransform.localScale = new Vector3(edge/5, 1, streetInfo.Width);
+        } else {
+            groundTransform.localPosition = new Vector3(0.0f,0.0f,middle);
+            groundTransform.localScale = new Vector3(streetInfo.Width, 1, edge/5);
+        } */
+
+        myIntersections = new RenderedStreet[streetInfo.intersections.Length];
+        for (int j = 0; j < myIntersections.Length; j++)
+        {
+            var inter = streetInfo.intersections[j];
+            Vector3 pos;
+            if (xOriented)
+            {
+                pos = truePos + new Vector3(inter.position, 0.0f, 0.0f) - new Vector3(0.0f, 0.0f, inter.otherPosition);
+            }
+            else
+            {
+                pos = truePos + new Vector3(0.0f, 0.0f, inter.position) - new Vector3(inter.otherPosition, 0.0f, 0.0f);
+            }
+            var otherStreet = inter.other;
+
+            derivedConfig derivedInter;
+            VisualWrapConfig newWrap = this.wrapConfig;
+
+            derivedInter.level = this.derived.level + 1;
+            derivedInter.ignore = inter.oppositeIndex;
+            derivedInter.ignoredStreet = this;
+            if (this.derived.level == 0){
+                derivedInter.middle = 0;
+                derivedInter.range = otherStreet.Length;
+                newWrap.wrapCountParallel = this.wrapConfig.wrapCountHorizontal;
+                newWrap.wrapDistanceParallel = this.streetInfo.Length * 10;
+            } else {
+                derivedInter.middle = inter.otherPosition;
+                derivedInter.range = streetInfo.Width + 5.0f * otherStreet.Width;
+                newWrap.wrapCountParallel = 0;
+                newWrap.wrapCountHorizontal = 0;
+            }
+
+            if (j != derived.ignore)
+            {
+                var renderedInter = new RenderedStreet(newWrap, otherStreet, pos, !xOriented, derivedInter);
+                myIntersections[j] = renderedInter;
+            }
+            else
+            {
+                // Don't! Render a small intersection that we are already standing on.
+                myIntersections[j] = derived.ignoredStreet;
+            }
+        }
+
+        myObjects = new GameObject[streetInfo.objects.Length];
+
+        var newAngle = Quaternion.Euler(new Vector3(0, 90, 0));
+
+        objectParent = new GameObject();
+        objectParent.transform.parent = parent.transform;
+        objectParent.name = "Objects";
+        objectParent.GetComponent<Transform>().localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+
+        for (int j = 0; j < myObjects.Length; j++)
+        {
+            var obj = streetInfo.objects[j];
+            myObjects[j] = GameObject.Instantiate(obj.myPrefab);
+            myObjects[j].transform.parent = objectParent.transform;
+
+            var objTransform = myObjects[j].GetComponent<Transform>();
+            if (xOriented)
+            {
+                objTransform.localPosition = obj.streetPos;
+                objTransform.localRotation = obj.rotation;
+
+            }
+            else
+            {
+                objTransform.localPosition = new Vector3(obj.streetPos.z, obj.streetPos.y, obj.streetPos.x);
+                objTransform.localRotation = Quaternion.Euler(obj.rotation.eulerAngles - new Vector3(0, 90, 0));
+            }
+        }
+
+        int totalIntersections = myIntersections.Length;
+        float previousEdge = streetInfo.Length * -5;
+        float intersectWidth = 0; 
+        for (int j = 0; j < totalIntersections; j++)
+        {
+            var intersection = myIntersections[j];
+            
+            if (intersection != null)
+            {
+                intersectWidth = intersection.streetInfo.Width * 5;
+                float interEdge;
+                float newEdge;
+                if (xOriented)
+                {
+                    interEdge = (intersection.truePos.x - this.truePos.x) - intersectWidth;
+                    newEdge = (intersection.truePos.x - this.truePos.x) + intersectWidth;
+                }
+                else
+                {
+                    interEdge = (intersection.truePos.z - this.truePos.z) - intersectWidth;
+                    newEdge = (intersection.truePos.z - this.truePos.z) + intersectWidth;
+                }
+                float center = interEdge - Mathf.Abs(previousEdge - interEdge) / 2;
+                float scale = Mathf.Abs(previousEdge - interEdge) / 10;
+                this.addWall(center, scale);
+                previousEdge = newEdge;
+            }
+        }
+        float finalEdge = (streetInfo.Length * 5) + intersectWidth;
         float finalCenter = finalEdge - Mathf.Abs(previousEdge - finalEdge) / 2;
         float finalScale = Mathf.Abs(previousEdge - finalEdge) / 10;
         this.addWall(finalCenter, finalScale);
@@ -307,18 +395,32 @@ public class RenderedStreet
             float verticalSpacing = wrapConfig.wrapDistanceVertical;
             int vWrapCount = wrapConfig.wrapCountVertical;
             int hWrapCount = wrapConfig.wrapCountHorizontal;
+            int pWrapCount = wrapConfig.wrapCountParallel;
+            float pSpacing = wrapConfig.wrapDistanceParallel;
             if (xOriented)
             {
-                repetitionCount = new Vector3Int(hWrapCount, vWrapCount, 0);
-                repetitionSpacing = new Vector3(streetInfo.Length * 10, verticalSpacing, 1);
+                repetitionCount = new Vector3Int(hWrapCount, vWrapCount, pWrapCount);
+                repetitionSpacing = new Vector3(streetInfo.Length * 10, verticalSpacing, pSpacing);
             }
             else // must be z-oriented
             {
-                repetitionCount = new Vector3Int(0, vWrapCount, hWrapCount);
-                repetitionSpacing = new Vector3(1, verticalSpacing, streetInfo.Length * 10);
+                repetitionCount = new Vector3Int(pWrapCount, vWrapCount, hWrapCount);
+                repetitionSpacing = new Vector3(pSpacing, verticalSpacing, streetInfo.Length * 10);
             }
-            VisualWrap = new InstancedIndirectGridReplicator(repetitionCount, repetitionSpacing);
+            VisualWrap = new InstancedIndirectGridReplicator(repetitionCount, repetitionSpacing, this.xOriented);
             VisualWrap.AddAllChildGameObjects(objectParent);
+        }
+    }
+
+    public void mirrorChildren(){
+        for(int i = 0; i < myIntersections.Length; i++){
+            var otherStreet = myIntersections[i];
+            if (otherStreet != null && i != derived.ignore){
+                if (otherStreet.VisualWrap != null){
+                    otherStreet.VisualWrap.RenderFrame();
+                    otherStreet.mirrorChildren();
+                }
+            }
         }
     }
 
@@ -343,12 +445,13 @@ public class RenderedStreet
             planePosRight = new Vector3(streetInfo.Width * -5, 0, center);
         }
 
-        Vector3 planeScale = new Vector3(scale, 1, 300);
+        Vector3 planeScale = new Vector3(scale, 1, 10);
 
         var objLeft = GameObject.CreatePrimitive(PrimitiveType.Plane);
         var objRendererL = objLeft.GetComponent<MeshRenderer>();
         objRendererL.material = streetInfo.Color;
-        objLeft.transform.parent = wallsParent.transform;
+        objRendererL.material.shader = Shader.Find("Instanced/InstancedIndirectSurfaceShader");
+        objLeft.transform.parent = objectParent.transform;
         objLeft.GetComponent<Transform>().localPosition = planePosLeft;
         objLeft.GetComponent<Transform>().rotation = planeAngleLeft;
         objLeft.GetComponent<Transform>().localScale = planeScale;
@@ -356,73 +459,33 @@ public class RenderedStreet
         var objRight = GameObject.CreatePrimitive(PrimitiveType.Plane);
         var objRendererR = objRight.GetComponent<MeshRenderer>();
         objRendererR.material = streetInfo.Color;
-        objRight.transform.parent = wallsParent.transform;
+        objRendererR.material.shader = Shader.Find("Instanced/InstancedIndirectSurfaceShader");
+        objRight.transform.parent = objectParent.transform;
         objRight.GetComponent<Transform>().localPosition = planePosRight;
         objRight.GetComponent<Transform>().rotation = planeAngleRight;
         objRight.GetComponent<Transform>().localScale = planeScale;
     }
 
-    public void wraparound(float distance, Vector3 playerWorldPos, int index = -1)
+    public Vector3 wraparound(Transform playerTransform)
     {
         float playerStreetPos;
-        if (xOriented)
-        {
-            playerStreetPos = playerWorldPos.x - truePos.x;
-        }
-        else
-        {
-            playerStreetPos = playerWorldPos.z - truePos.z;
+        Vector3 adjust;
+        if (xOriented){
+            playerStreetPos = playerTransform.position.x - truePos.x;
+            adjust = new Vector3(streetInfo.Length * 10, 0, 0);
+        } else {
+            playerStreetPos = playerTransform.position.z - truePos.z;
+            adjust = new Vector3(0, 0, streetInfo.Length * 10);
         }
 
-
-        bool offTopEdge = playerStreetPos + distance >= middle + edge;
-        bool offBottomEdge = playerStreetPos - distance <= middle - edge;
-
-        if (offTopEdge && offBottomEdge)
-        {
-            edge = distance + 10;
-            this.destroyObjects();
-            //Debug.Log(this.edge);
-            this.render(index);
+        if (playerStreetPos > streetInfo.Length*5){
+            return adjust * -1;
+        } else if (playerStreetPos < streetInfo.Length * -5){
+            return adjust;
+        } else {
+            return new Vector3(0,0,0);
         }
-        else if (offTopEdge)
-        {
-            if (Mathf.Abs(playerStreetPos) > (streetInfo.Length * 5))
-            {
-                if (xOriented)
-                {
-                    this.truePos = this.truePos + new Vector3(streetInfo.Length * 10, 0, 0);
-                }
-                else
-                {
-                    this.truePos = this.truePos + new Vector3(0, 0, (streetInfo.Length * 10));
-                }
-                this.parent.GetComponent<Transform>().position = this.truePos;
-                middle *= -1;
-            }
-            middle = playerStreetPos % (streetInfo.Length * 10);
-            this.destroyObjects();
-            this.render(index);
-        }
-        else if (offBottomEdge)
-        {
-            if (Mathf.Abs(playerStreetPos) > (streetInfo.Length * 5))
-            {
-                if (xOriented)
-                {
-                    this.truePos = this.truePos - new Vector3(streetInfo.Length * 10, 0, 0);
-                }
-                else
-                {
-                    this.truePos = this.truePos - new Vector3(0, 0, (streetInfo.Length * 10));
-                }
-                this.parent.GetComponent<Transform>().position = this.truePos;
-                middle *= -1;
-            }
-            middle = playerStreetPos % (streetInfo.Length * 10);
-            this.destroyObjects();
-            this.render(index);
-        }
+        
     }
 
     public RenderedStreet onIntersection(float distance, Vector3 playerWorldPos)
@@ -448,43 +511,12 @@ public class RenderedStreet
                     relativePos = Mathf.Abs(playerWorldPos.z - intersecting.truePos.z);
                     offEdge = Mathf.Abs(playerWorldPos.x - this.truePos.x) > this.streetInfo.Width * 5;
                 }
-                var temp = intersecting.getOtherIntersectionId(streetInfo);
-                var index = this.getOtherIntersectionId(this.streetInfo.intersections[temp].other);
-                var interWidth = 25.0f * intersecting.streetInfo.Width;
-                if (this.ignoreIndex != -1)
-                {
-                    interWidth = 8.0f * intersecting.streetInfo.Width;
-                }
-                if (relativePos <= ((width * 5) + 5))
-                {
-                    /* if (intersecting.edge <= interWidth)
-                    {
-                        intersecting.edge = intersecting.streetInfo.Length * 5;
-                    } */
-                    // intersecting.edge = this.edge;
-                    // intersecting.destroyObjects();
-                    // intersecting.render(index);
-                    intersecting.wraparound(this.edge, playerWorldPos, index);
-                }
-                else
-                {
-                    if (intersecting.edge > interWidth)
-                    {
-                        intersecting.edge = interWidth;
-                        var selfId = this.getOtherIntersectionId(intersecting.streetInfo);
-                        var inter = intersecting.streetInfo.intersections[selfId];
-                        intersecting.destroyObjects();
-                        intersecting.render(index);
-                    }
-                }
-
                 if (relativePos <= width * 5 && offEdge)
                 {
                     turned = true;
                     turnedOnto = intersecting;
                 }
             }
-
         }
         if (turned)
         {
@@ -503,7 +535,7 @@ public class RenderedStreet
         for (int i = 0; i < myIntersections.Length; i++)
         {
             var inter = myIntersections[i];
-            if (inter != null && i != ignoreIndex)
+            if (inter != null && i != derived.ignore)
             {
                 inter.destroyStreet();
             }
@@ -523,7 +555,7 @@ public class RenderedStreet
         for (int i = 0; i < myIntersections.Length; i++)
         {
             var inter = myIntersections[i];
-            if (inter != null && i != ignoreIndex)
+            if (inter != null && i != derived.ignore)
             {
                 inter.destroyStreet();
             }
@@ -533,21 +565,5 @@ public class RenderedStreet
             VisualWrap.cleanupForDeletion();
             VisualWrap = null;
         }
-    }
-
-    // This gets an index of intersection with another street.
-    public int getOtherIntersectionId(ScriptObjStreet otherStreet)
-    {
-        int index = -1;
-        for (int i = 0; i < otherStreet.intersections.Length; i++)
-        {
-            var maybeThis = otherStreet.intersections[i].other;
-            if (maybeThis == streetInfo)
-            {
-                index = i;
-                break;
-            }
-        }
-        return index;
     }
 }

@@ -9,7 +9,7 @@ public class TestInstancingHandler : MonoBehaviour
 
     void OnEnable()
     {
-        VisualWrap = new InstancedIndirectGridReplicator(new Vector3Int(1, 1, 1), new Vector3(5, 5, 5));
+        VisualWrap = new InstancedIndirectGridReplicator(new Vector3Int(1, 1, 1), new Vector3(5, 5, 5), true);
         foreach (var go in gameObjects)
         {
             VisualWrap.AddGameObject(go);

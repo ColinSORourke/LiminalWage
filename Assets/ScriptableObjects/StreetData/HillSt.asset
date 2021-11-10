@@ -19,9 +19,11 @@ MonoBehaviour:
   - position: -50
     otherPosition: -35
     other: {fileID: 11400000, guid: 85557298c4ba8497bb70234992d57347, type: 2}
+    oppositeIndex: 1
   - position: 46
     otherPosition: -20
     other: {fileID: 11400000, guid: 2b22fbc024a41f14381a7dcb50cf32e4, type: 2}
+    oppositeIndex: 0
   objects:
   - myPrefab: {fileID: 6600507536059268089, guid: 05088053dd9607443bc98e0638b76414,
       type: 3}

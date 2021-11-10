@@ -26,6 +26,7 @@ public class Intersection
     public float position;
     public float otherPosition;
     public ScriptObjStreet other;
+    public int oppositeIndex;
 }
 
 class IntersectionComparer : IComparer

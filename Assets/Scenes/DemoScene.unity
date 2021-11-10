@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731704, g: 0.13414726, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.22380282, g: 0.24376714, b: 0.26534927, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -479,7 +479,27 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 5596209579982939531, guid: 4be59ed1629d74d16ba62d65978af511,
         type: 3}
+      propertyPath: wrapConfig.wrapCountParallel
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5596209579982939531, guid: 4be59ed1629d74d16ba62d65978af511,
+        type: 3}
+      propertyPath: wrapConfig.wrapCountVertical
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5596209579982939531, guid: 4be59ed1629d74d16ba62d65978af511,
+        type: 3}
       propertyPath: wrapConfig.wrapCountHorizontal
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5596209579982939531, guid: 4be59ed1629d74d16ba62d65978af511,
+        type: 3}
+      propertyPath: wrapConfig.wrapDistanceParallel
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5596209579982939531, guid: 4be59ed1629d74d16ba62d65978af511,
+        type: 3}
+      propertyPath: wrapConfig.renderWrappingInstances
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5596209581171777954, guid: 4be59ed1629d74d16ba62d65978af511,

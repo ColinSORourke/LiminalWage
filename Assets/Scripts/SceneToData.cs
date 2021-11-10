@@ -69,13 +69,14 @@ public static class SceneToData
             for (int i = 0; i < thisStreet.intersections.Length; i++){
                 var other = previous.intersections[i].other;
                 for (int j = 0; j < other.intersections.Length; j++){
-                    if (other.intersections[j].other = previous){
+                    if (other.intersections[j].other == previous){
                         bool matching = other.intersections[j].position == thisStreet.intersections[i].otherPosition && other.intersections[j].otherPosition == thisStreet.intersections[i].position;
                         Debug.Log("Checking for Match");
                         Debug.Assert(matching);
                         if (!matching){
                             Debug.LogError("Intersection with" + other + "Is not properly matched");
                         }
+                        thisStreet.intersections[i].oppositeIndex = j;
                     }
                 }
                 thisStreet.intersections[i].other = other;

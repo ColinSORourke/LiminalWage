@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb8af7ddfd24043ae958076da498f6f1, type: 3}
-  m_Name: LongfallAlley
+  m_Name: LongfallAlley 2
   m_EditorClassIdentifier: 
   Length: 12
   Width: 1
@@ -19,7 +19,7 @@ MonoBehaviour:
   - position: -20
     otherPosition: 46
     other: {fileID: 11400000, guid: 91329fdb0fb7ebe4c8757d24ff9c5102, type: 2}
-    oppositeIndex: 1
+    oppositeIndex: 0
   - position: 15
     otherPosition: -90
     other: {fileID: 11400000, guid: 85557298c4ba8497bb70234992d57347, type: 2}
