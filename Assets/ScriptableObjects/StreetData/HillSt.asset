@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Length: 20
   Width: 2
-  Color: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  Color: {fileID: 2100000, guid: 99c5cb8fd56344aa389630f297cb76d5, type: 2}
   intersections:
   - position: -50
     otherPosition: -35

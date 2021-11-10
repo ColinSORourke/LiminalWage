@@ -209,38 +209,26 @@ public class RenderedStreet
             }
         }        
 
-        int totalIntersections = myIntersections.Length;
-        float previousEdge = derived.middle - derived.range;
-        float intersectWidth = 0; 
-        for (int j = 0; j < totalIntersections; j++)
+        
+        var intersection = myIntersections[0];
+        float intersectWidth = intersection.streetInfo.Width * 5; 
+        float leftEdge;
+        float rightEdge;
+        if (xOriented)
         {
-            var intersection = myIntersections[j];
-            
-            if (intersection != null)
-            {
-                intersectWidth = intersection.streetInfo.Width * 5;
-                float interEdge;
-                float newEdge;
-                if (xOriented)
-                {
-                    interEdge = (intersection.truePos.x - this.truePos.x) - intersectWidth;
-                    newEdge = (intersection.truePos.x - this.truePos.x) + intersectWidth;
-                }
-                else
-                {
-                    interEdge = (intersection.truePos.z - this.truePos.z) - intersectWidth;
-                    newEdge = (intersection.truePos.z - this.truePos.z) + intersectWidth;
-                }
-                float center = interEdge - Mathf.Abs(previousEdge - interEdge) / 2;
-                float scale = Mathf.Abs(previousEdge - interEdge) / 10;
-                this.addWall(center, scale);
-                previousEdge = newEdge;
-            }
+            leftEdge = (intersection.truePos.x - this.truePos.x) - intersectWidth;
+            rightEdge = (intersection.truePos.x - this.truePos.x) + intersectWidth;
         }
-        float finalEdge = derived.middle + derived.range + intersectWidth;
-        float finalCenter = finalEdge - Mathf.Abs(previousEdge - finalEdge) / 2;
-        float finalScale = Mathf.Abs(previousEdge - finalEdge) / 10;
-        this.addWall(finalCenter, finalScale);
+        else
+        {
+            leftEdge = (intersection.truePos.z - this.truePos.z) - intersectWidth;
+            rightEdge = (intersection.truePos.z - this.truePos.z) + intersectWidth;
+        }
+        float centerA = leftEdge - (5.0f);
+        float centerB = rightEdge + (5.0f);
+        float scale = 1.0f;
+        this.addWall(centerA, scale);
+        this.addWall(centerB, scale);
 
         if (wrapConfig.renderWrappingInstances)
         {
@@ -306,8 +294,9 @@ public class RenderedStreet
                 newWrap.wrapDistanceParallel = this.streetInfo.Length * 10;
             } else {
                 derivedInter.middle = inter.otherPosition;
-                derivedInter.range = streetInfo.Width + 5.0f * otherStreet.Width;
-                newWrap.wrapCountParallel = 0;
+                derivedInter.range = streetInfo.Width + 10.0f;
+                newWrap.wrapCountParallel = this.wrapConfig.wrapCountHorizontal;
+                newWrap.wrapDistanceParallel = this.streetInfo.Length * 10;
                 newWrap.wrapCountHorizontal = 0;
             }
 
@@ -380,10 +369,13 @@ public class RenderedStreet
                 previousEdge = newEdge;
             }
         }
-        float finalEdge = (streetInfo.Length * 5) + intersectWidth;
-        float finalCenter = finalEdge - Mathf.Abs(previousEdge - finalEdge) / 2;
-        float finalScale = Mathf.Abs(previousEdge - finalEdge) / 10;
-        this.addWall(finalCenter, finalScale);
+        if (previousEdge < streetInfo.Length * 5){
+            float finalEdge = (streetInfo.Length * 5) + intersectWidth;
+            float finalCenter = finalEdge - Mathf.Abs(previousEdge - finalEdge) / 2;
+            float finalScale = Mathf.Abs(previousEdge - finalEdge) / 10;
+            this.addWall(finalCenter, finalScale);
+        }
+        
 
 
         // kyle create wraparound instancing class
@@ -401,12 +393,15 @@ public class RenderedStreet
             {
                 repetitionCount = new Vector3Int(hWrapCount, vWrapCount, pWrapCount);
                 repetitionSpacing = new Vector3(streetInfo.Length * 10, verticalSpacing, pSpacing);
+                
             }
             else // must be z-oriented
             {
                 repetitionCount = new Vector3Int(pWrapCount, vWrapCount, hWrapCount);
                 repetitionSpacing = new Vector3(pSpacing, verticalSpacing, streetInfo.Length * 10);
             }
+            Debug.Log(streetInfo);
+            Debug.Log(repetitionSpacing);
             VisualWrap = new InstancedIndirectGridReplicator(repetitionCount, repetitionSpacing, this.xOriented);
             VisualWrap.AddAllChildGameObjects(objectParent);
         }
@@ -449,8 +444,9 @@ public class RenderedStreet
 
         var objLeft = GameObject.CreatePrimitive(PrimitiveType.Plane);
         var objRendererL = objLeft.GetComponent<MeshRenderer>();
-        objRendererL.material = streetInfo.Color;
+        
         objRendererL.material.shader = Shader.Find("Instanced/InstancedIndirectSurfaceShader");
+        objRendererL.material = streetInfo.Color;
         objLeft.transform.parent = objectParent.transform;
         objLeft.GetComponent<Transform>().localPosition = planePosLeft;
         objLeft.GetComponent<Transform>().rotation = planeAngleLeft;
@@ -458,8 +454,9 @@ public class RenderedStreet
 
         var objRight = GameObject.CreatePrimitive(PrimitiveType.Plane);
         var objRendererR = objRight.GetComponent<MeshRenderer>();
-        objRendererR.material = streetInfo.Color;
+        
         objRendererR.material.shader = Shader.Find("Instanced/InstancedIndirectSurfaceShader");
+        objRendererR.material = streetInfo.Color;
         objRight.transform.parent = objectParent.transform;
         objRight.GetComponent<Transform>().localPosition = planePosRight;
         objRight.GetComponent<Transform>().rotation = planeAngleRight;
