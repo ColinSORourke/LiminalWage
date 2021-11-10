@@ -246,7 +246,7 @@ PrefabInstance:
     - target: {fileID: 4017064740599788311, guid: 5aac63b8a6013487b9ce5ea558e8055b,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5785947151888474139, guid: 5aac63b8a6013487b9ce5ea558e8055b,
         type: 3}
@@ -495,7 +495,7 @@ PrefabInstance:
     - target: {fileID: 5596209579982939531, guid: 4be59ed1629d74d16ba62d65978af511,
         type: 3}
       propertyPath: wrapConfig.wrapCountHorizontal
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5596209579982939531, guid: 4be59ed1629d74d16ba62d65978af511,
         type: 3}
